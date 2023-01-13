@@ -1,0 +1,106 @@
+#!/bin/sh
+# 
+#
+### BEGIN INIT INFO
+#
+# chkconfig: 2345 64 36
+#
+# Description:         Prime Analytics BI Platform Server
+### END INIT INFO
+
+CFG=/etc/sysconfig/primeanalytics/primea
+if [ -e $CFG ]
+  then
+      source /etc/sysconfig//primeanalytics/primea
+  else
+      echo "Can't execute request because required file $CFG doesn't exist"
+      exit 1
+fi
+
+source $PA_HOME/bin/pa_env.sh
+export JAVA_HOME=$PA_HOME/thirdparty/jdk1.6.0_37
+export PATH=$JAVA_HOME/bin:$PATH
+PID_FILE=$PA_HOME/biplatform/server/biserver-ee/pid.txt
+
+status(){
+    if [ -e $PID_FILE ]
+      then
+          PID=`cat $PID_FILE`
+          ps -p $PID | grep $PID &> /dev/null
+          RC=$?
+          if [ $RC = 1 ]; then
+              echo "Warning found PID file but process not running"
+              rm $PID_FILE
+          fi
+          return $RC
+      else
+          return 1
+    fi
+}
+start() {
+   status
+   if [ $? = 0 ]
+   then
+          echo "biplatform (pid $PID) is already running..."
+          exit 0
+   else
+          echo -n  "Starting biplatform service:  "
+         
+          su - bipuser -c "$PA_HOME/biplatform/ctlscript.sh start baserver &> /dev/null"
+          if [ -e $PID_FILE ]
+          then
+              echo "[ OK ]"
+              exit 0
+           else
+               echo "[ FAILED ]"
+               exit 0
+          fi
+
+          exit 0
+  fi
+}
+
+stop(){
+   status
+   if [ $? = 0 ]
+   then
+      echo -n  "Stopping biplatform service:  "
+      
+      su - bipuser -c "$PA_HOME/biplatform/ctlscript.sh stop baserver &> /dev/null"
+# if this file exists then need to fix bug in stop-prime.sh      rm $PID_FILE
+      echo "[ OK ]"
+   else
+     echo "biplatform is not running..."
+  fi
+}
+
+
+state=$1
+case $state in
+    'start')
+        start
+        ;;
+    'stop')
+        stop
+        ;;
+    'restart')
+        stop
+        start
+        ;;
+    'status')
+        status
+        RETVAL=$?
+        if [ $RETVAL = 0 ]
+          then
+              echo "biplatform (pid $PID) is running..."
+          else
+              echo "biplatform is stopped"
+        fi
+	exit $RETVAL
+        ;;
+
+    *)
+        echo "Usage: $0 { start | stop | status | restart }"
+        exit 1
+        ;;
+esac

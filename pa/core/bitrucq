@@ -1,0 +1,288 @@
+#!/bin/sh
+#
+# TruCQ - TruCQ Continuous Query Database Engine
+#
+#	07/01/2013 based on trucq version
+#
+# chkconfig: 345 64 36
+# description: Starts and stops the TruCQ backend daemon that handles \
+#	       all database requests.
+
+### BEGIN INIT INFO
+# Provides: TruCQ
+# Required-Start: $network $local_fs 
+# Required-Stop: $network $local_fs
+# Should-Start:  $syslog $remote_fs
+# Should-Stop:  $syslog $remote_fs
+# Short-Description: start and stop TruCQ continous query engine
+# Description:  TruCQ is a data stream engine based on PostgreSQL
+#		which provides stream and normal database functionality 
+### END INIT INFO
+
+
+#BEN debug
+LOG=/tmp/bitrucq.log
+#END
+
+# Source function library.
+INITD=/etc/rc.d/init.d
+. $INITD/functions
+
+# Get function listing for cross-distribution logic.
+TYPESET=`typeset -f|grep "declare"`
+
+# Get config.
+. /etc/sysconfig/network
+
+
+# For SELinux we need to use 'runuser' not 'su'
+if [ -x /sbin/runuser ]
+then
+    SU=runuser
+else
+    SU=su
+fi
+
+CONFIG_FILE=/etc/sysconfig/primeanalytics/primea
+SERVICE_NAME=bitrucq
+source $CONFIG_FILE
+
+# Set all the parameters based on the file in /etc/sysconfig/trucq
+if [ -f ${CONFIG_FILE} ]
+then
+   . ${CONFIG_FILE}
+else
+    echo "$CONFIG_FILE is missing."
+    echo "Create this file with the server parameters."
+    echo_failure
+    echo
+    exit 1
+fi
+
+# Confirm all the required parameters are there
+if [ -z "$CQENGINE" ] || [ -z "$BIDBPORT" ] || [ -z "$BIDBCQLOG" ] || [ -z "$CQUSER" ] || [ -z "$CQGROUP" ] || [ -z "$BIDBPGDATA" ] 
+then
+    echo "$CONFIG_FILE does not contain all the required server parameters."
+    echo "CQENGINE BIDBPORT BIDBPGDATA BIDBCQLOG CQUSER CQGROUP should be defined in $CONFIG_FILE"
+    echo_failure
+    echo
+    exit 1
+    
+fi
+
+PID_FILE=/var/run/cqengine.${BIDBPORT}.pid
+LOCK_FILE=/var/lock/subsys/${SERVICE_NAME}
+
+export BIDBPGDATA
+export BIDBPORT
+
+# Check that networking is up.
+# Pretty much need it for postmaster.
+[ "${NETWORKING}" = "no" ] && exit 0
+
+[ -f "$CQENGINE/postmaster" ] || exit 1
+
+# Look for the monit service manager
+MONIT=`which monit 2>/dev/null`
+if [ ! -x "${MONIT}" ] ; then
+  # If not in the PATH, assume this location (will check before calling)
+  MONIT="/usr/bin/monit"
+fi
+
+script_result=0
+
+checklog(){
+	# Make sure startup-time log file is valid
+	BIDBCQLOGDIR=`dirname "$BIDBCQLOG"`
+	if [ ! -d "$BIDBCQLOGDIR" -a ! -h "$BIDBCQLOGDIR" ]
+	then
+		mkdir -p "$BIDBCQLOGDIR" || exit 1
+		chown $CQUSER:$CQGROUP "$BIDBCQLOGDIR"
+		chmod go-rwx "$BIDBCQLOGDIR"
+		# TruCQ doesn't fully support SELinux, but we try to label objects
+		# using the postgresql contexts
+		[ -x /usr/bin/chcon ] && /usr/bin/chcon -u system_u -r object_r -t postgresql_log_t "$BIDBCQLOGDIR" 2>/dev/null
+	fi
+		
+	if [ ! -e "$BIDBCQLOG" -a ! -h "$BIDBCQLOG" ]
+	then
+		touch "$BIDBCQLOG" || exit 1
+		chown $CQUSER:$CQGROUP "$CQLOG"
+		chmod go-rwx "$BIDBCQLOG"
+		# TruCQ doesn't fully support SELinux, but we try to label objects
+		# using the postgresql contexts
+		[ -x /usr/bin/chcon ] && /usr/bin/chcon -u system_u -r object_r -t postgresql_log_t "$BIDBCQLOG" 2>/dev/null
+	fi
+}
+
+start(){
+	CQ_START=$"Starting Prime Analtyics ${SERVICE_NAME} service: "
+
+echo "at start() $CQ_START " >> $LOG
+U=`id`
+echo "user is: $U " >> $LOG
+
+#Extract services directory
+DIR=$(echo "$BIDBPGDATA" | sed -e "s/\/[^\/]*$//")
+
+echo "list services directory .. biprimea" >> $LOG
+ls -l $DIR >> $LOG
+echo "==================================="
+
+
+checklog
+
+echo "list services directory .. biprimea" >> $LOG
+ls -l $DIR  >> $LOG
+
+
+
+	# Check for the BIDBPGDATA structure
+	if [ ! -d "$BIDBPGDATA/base" ]
+	then
+	# No existing BIDBPGDATA! Warn the user to initdb it.
+echo "at start()  No BIDBPGDATA, val=$BIDBPGDATA " >> $LOG
+		echo
+		echo "$BIDBPGDATA is missing. Use \"service bitrucq initdb\" to initialize the cluster first."
+		echo_failure
+		echo
+		exit 1
+ 	fi
+
+	echo -n "$CQ_START"
+	$SU -l $CQUSER -c "$CQENGINE/postmaster -p '$BIDBPORT' -D '$BIDBPGDATA' ${CQOPTS} &" >> "$BIDBCQLOG" 2>&1 < /dev/null
+echo "at start() call sleep " >> $LOG
+	sleep 2
+echo "at start() return from sleep " >> $LOG
+	pid=`pidof -s "$CQENGINE/postmaster"`
+	if [ $pid ] && [ -f "$BIDBPGDATA/postmaster.pid" ]
+	then
+		success "$CQ_START"
+		touch ${LOCK_FILE} 
+		head -n 1 "$BIDBPGDATA/postmaster.pid" > ${PID_FILE}
+		echo
+		if [ -x "${MONIT}" ]; then
+			${MONIT} start ${SERVICE_NAME}
+		fi
+	else
+		failure "$CQ_START"
+		echo
+		script_result=1
+	fi
+}
+
+stop(){
+	echo -n $"Stopping Prime Analytics ${SERVICE_NAME} service: "
+	$SU -l $CQUSER -c "$CQENGINE/pg_ctl stop -D '$BIDBPGDATA' -s -m fast" > /dev/null 2>&1 < /dev/null
+	ret=$? 
+	if [ $ret -eq 0 ]
+	then
+		echo_success
+	else
+	    #try immediate. this should certainly stop the engine
+	    $SU -l $CQUSER -c "$CQENGINE/pg_ctl stop -D '$BIDBPGDATA' -s -m immediate" > /dev/null 2>&1 < /dev/null
+	    ret=$? 
+	    if [ $ret -eq 0 ]
+	    then
+		echo_success
+	    else
+		echo_failure
+		script_result=1
+	    fi
+	fi
+	echo
+	if [ $ret -eq 0 ]
+	then
+	    rm -f ${LOCK_FILE}
+	    rm -f ${PID_FILE}
+	    if [ -x "${MONIT}" ]; then
+		${MONIT} stop ${SERVICE_NAME}
+	    fi
+	fi
+}
+
+restart(){
+    stop
+    start
+}
+
+initdb(){
+    if [ -d "$BIDBPGDATA/base" ]
+    then
+	echo "Data directory is not empty!"
+	echo_failure
+    else
+	echo -n $"Initializing database: "
+	if [ ! -e "$BIDBPGDATA" -a ! -h "$BIDBPGDATA" ]
+	then
+	    mkdir -p "$BIDBPGDATA" || exit 1
+	    chown $CQUSER.$CQGROUP "$BIDBPGDATA"
+	    chmod go-rwx "$BIDBPGDATA"
+	fi
+			# Clean up SELinux tagging for BIDBPGDATA
+	[ -x /sbin/restorecon ] && /sbin/restorecon "$BIDBPGDATA"
+	
+	checklog
+	
+			# Initialize the database
+	$SU -l $CQUSER -c "$CQENGINE/initdb --pgdata='$BIDBPGDATA' --auth='trust'" >> "$BIDBCQLOG" 2>&1 < /dev/null
+	
+	[ -d "$BIDBPGDATA/base" ] && echo_success
+	[ ! -d "$BIDBPGDATA/base" ] && echo_failure
+	echo
+    fi
+}
+condrestart(){
+    [ -e ${LOCK_FILE} ] && restart
+}
+
+condstop(){
+    [ -e ${LOCK_FILE} ] && stop
+}
+
+reload(){
+    $SU -l $CQUSER -c "$CQENGINE/pg_ctl reload -D '$BIDBPGDATA' -s" > /dev/null 2>&1 < /dev/null
+}
+
+# This script is slightly unusual in that the name of the daemon (postmaster)
+# is not the same as the name of the subsystem (trucq)
+
+echo "===> Enter bitrucq" >> $LOG
+# See how we were called.
+case "$1" in
+  start)
+        echo "Enter start" >> $LOG
+	start
+        echo "return start, $script_result" >> $LOG
+	;;
+  stop)
+        echo "Enter stop" >> $LOG
+	stop
+	;;
+  status)
+        echo "Enter status" >> $LOG
+	status -p ${PID_FILE} -l ${LOCK_FILE} bitrucq
+	script_result=$?
+	;;
+  restart)
+	restart
+	;;
+  initdb)
+	initdb
+	;;
+  condrestart)
+	condrestart
+	;;
+  condstop)
+	condstop
+	;;
+  reload|force-reload)
+	reload
+	;;
+  *)
+	echo $"Usage: $0 {start|stop|status|restart|condrestart|condstop|reload|force-reload|initdb}"
+	exit 1
+esac
+
+echo "return $script_result" >> $LOG
+exit $script_result
