@@ -1,0 +1,121 @@
+1, Given a file, replace all occurrence of word “ABC” with “DEF” from 5th line till end in only those lines that contains word “MNO”
+sed –n '5,$p' file1 | sed '/MNO/s/ABC/DEF/'
+sed -n '5,$p' logging.properties | sed '/java/s/logging/LOGGING/'
+
+2, How will you find the 99th line of a file using only tail and head command?
+tail -n +99 file1 | head -1
+
+3, Print the 10th line without using tail and head command.
+sed –n '10p' file1
+
+4, In my bash shell I want my prompt to be of format ‘$”Present working directory”:”hostname”> and load a file containing a list of user-defined functions as soon as I log in, how will you automate this?
+In bash shell, we can create “.profile” file which automatically gets invoked as soon as I log in and write the following syntax into it.
+
+export PS1='$ `pwd`:`hostname`>' .File1
+
+Here File1 is the file containing the user-defined functions and “.” invokes this file in current shell.
+
+5, I want to create a directory such that anyone in the group can create a file and access any person’s file in it but none should be able to delete a file other than the one created by himself.
+We can create the directory giving read and execute access to everyone in the group and setting its sticky bit “t” on as follows:
+
+mkdir direc1
+chmod g+wx direc1
+chmod +t direc1
+
+6, What is the difference between $* and $@?
+$@ treats each quoted arguments as separate arguments but $* will consider the entire set of positional parameters as a single string.
+
+7, What is the difference between $$ and $!?
+$$ gives the process id of the currently executing process whereas $! Shows the process id of the process that recently went into the background.
+
+8, I want to monitor a continuously updating log file, what command can be used to most efficiently achieve this?
+We can use tail –f filename. This will cause only the default last 10 lines to be displayed on std o/p which continuously shows the updating part of the file.
+
+9, I want to connect to a remote server and execute some commands, how can I achieve this?
+We can use ssh to do this:
+ssh username@serverIP -p sshport
+Example
+ssh root@122.52.251.171 -p 22
+Once above command is executed, you will be asked to enter the password
+
+10, I have 2 files and I want to print the records which are common to both.
+We can use “comm” command as follows:
+comm -12 file1 file2
+… 12 will suppress the content which are unique to 1st and 2nd file respectively.
+
+11, What are the 3 standard streams in Linux?
+0 – Standard Input
+1 – Standard Output
+2 – Standard Error
+ls /usr/share/doc > out.txt 2>&1
+ls /usr/share/doc &> out.txt
+
+12, How will you emulate wc –l using awk?
+awk 'END {print NR} fileName'
+
+13, Given a file find the count of lines containing the word “ABC”.
+grep –c “ABC” file1
+
+14, How will you find the total disk space used by a specific user?
+du -sh /home/user1
+
+15, How do we delete all blank lines in a file?
+sed '/^$/d' data1.properties | wc -l
+208
+grep "^$" data1.properties
+53
+wc -l data1.properties
+261
+
+16, Write a command sequence to find all the files modified in less than 2 days and print the record count of each.
+find . –mtime -2 -exec wc –l {} \;
+
+17, What are the four fundamental components of every file system on Linux?
+Bootblock, super block, inode block and Datablock are found fundamental components of every file system on Linux.
+Bootblock contains a small program called “Master Boot record”(MBR) which loads the kernel during system boot up.
+Super block contains all the information about the file system like the size of file system, block size used by its number of free data blocks and list of free inodes and data blocks.
+inode block contains the inode for every file of the file system along with all the file attributes except its name.
+
+18, output the reverse number of the input nuber;(12345-->54321)
+n=$1
+
+while [ $n -gt 0 ]
+do
+
+    sd=`expr $n % 10`
+    rev=$(( rev * 10 + sd))
+    n=`expr $n / 10`
+
+done
+echo $rev
+
+19, 给定一个包含电话号码列表（一行一个电话号码）的文本文件 file.txt，写一个单行 bash 脚本输出所有有效的电话号码。
+你可以假设一个有效的电话号码必须满足以下两种格式： (xxx) xxx-xxxx 或 xxx-xxx-xxxx。（x 表示一个数字）
+你也可以假设每行前后没有多余的空格字符。
+grep -P '^([0-9]{3}-|\([0-9]{3}\) )[0-9]{3}-[0-9]{4}$' file.txt
+grep -P '([0-9]{1,3}\.){3}[0-9]{1,3}' ip.txt
+ifconfig | grep -P '([0-9]{1,3}\.){3}[0-9]{1,3}'
+
+20, 文件内容为2行3列，每行列数相同，字段由 ' '  分隔，需要将第一列转为第一行，第二列转为第二行。
+name age
+alice 21
+ryan 30
+
+# Read from the file file.txt and print its transposed content to stdout.
+columns=$(cat file.txt | head -n 1 | wc -w)
+for i in $(seq 1 $columns)
+do
+    awk '{print $'''$i'''}' file.txt | xargs
+done
+
+21, 写一个 bash 脚本以统计一个文本文件 words.txt 中每个单词出现的频率。
+# Read from the file words.txt and output the word frequency list to stdout.
+cat words.txt | xargs -n 1 | sort | uniq -c | sort -nr | awk '{print $2" "$1}'
+
+22, difference between soft ln and hardlink;
+ln original.txt hardlink.txt
+ln -s original.txt symbolic.txt
+
+# delete hardlink will not delete the original file
+# delete original file, the hardlink file still exist
+# delete original file, the symbolic file will become invalid
