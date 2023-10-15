@@ -21,18 +21,18 @@ if [ $# -eq 1 ]; then
    APP_DIR=$1
 else
   while true; do
-      read -p "Enter application root directory:" ans
-      if [ "$ans" = "" ]
-      then
-          break
-      fi
-      if [ -e "$ans" ]
-      then
-          APP_DIR=$ans;
-          break
-      else
-          echo "$ans doesn't exist"
-      fi
+    read -p "Enter application root directory:" ans
+    if [ "$ans" = "" ]
+    then
+        break
+    fi
+    if [ -e "$ans" ]
+    then
+        APP_DIR=$ans;
+        break
+    else
+        echo "$ans doesn't exist"
+    fi
   done
 fi
 

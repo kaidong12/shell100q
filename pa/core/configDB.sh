@@ -8,27 +8,29 @@ source ./common.sh
 source ./common_env.sh
 
 NoPerr_exit() {
-    echo $1 | $TO
-    echo "Please contact support for further assistance." | $TO
-    echo "Exiting..." | $TO
-    echo "Install log is located at $LOG_FILE" 
-    exit 1;
+  echo $1 | $TO
+  echo "Please contact support for further assistance." | $TO
+  echo "Exiting..." | $TO
+  echo "Install log is located at $LOG_FILE"
+  exit 1;
 } 
 
 valid_ip()
 {
-    local  ip=$1
-    ip_stat=1
+  local  ip=$1
+  ip_stat=1
 
-    if [[ $ip =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]; then
-        OIFS=$IFS
-        IFS='.'
-        ip=($ip)
-        IFS=$OIFS 
-        [[ ${ip[0]} -le 255 && ${ip[1]} -le 255 \
-            && ${ip[2]} -le 255 && ${ip[3]} -le 255 ]]
-        ip_stat=$?
-    fi
+  if [[ $ip =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]; then
+    # Old Internal Field Separator
+    OIFS=$IFS
+    # Internal Field Separator
+    IFS='.'
+    ip=($ip)
+    IFS=$OIFS
+    [[ ${ip[0]} -le 255 && ${ip[1]} -le 255 \
+        && ${ip[2]} -le 255 && ${ip[3]} -le 255 ]]
+    ip_stat=$?
+  fi
 }
 
 

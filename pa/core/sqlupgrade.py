@@ -12,7 +12,7 @@ patterns = [[r"(?is)(<\s*(?:slices|visible|landmark|session|same|per)\s+(?:(?!\b
 
 def file_replace(fname, fname_out, pat, replace):
 	# perform replace operation according to the pattern.
-	text = open(fname).read();
+	text = open(fname).read()
 	out = open(fname_out, "w")
 	out.write(re.sub(pat, replace, text))
 	out.close()

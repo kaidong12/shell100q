@@ -38,16 +38,16 @@ do
    echo "Press N to exit. Press Y to continue"
    read STOP_UPGRADE
   case $STOP_UPGRADE in
-     y|Y|yes|Yes|YES)
+   y|Y|yes|Yes|YES)
      break;
      ;;
-     n|N|no|No|NO)
-      echo "Exiting the upgrade process."
-      exit 1
-      ;;
-       *)
-     echo "You entered an invalid option. Please enter (Y/N)."
-      ;;
-    esac
+   n|N|no|No|NO)
+    echo "Exiting the upgrade process."
+    exit 1
+    ;;
+   *)
+    echo "You entered an invalid option. Please enter (Y/N)."
+    ;;
+  esac
 done 
 

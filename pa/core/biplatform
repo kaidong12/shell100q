@@ -33,7 +33,7 @@ status(){
               rm $PID_FILE
           fi
           return $RC
-      else
+    else
           return 1
     fi
 }
