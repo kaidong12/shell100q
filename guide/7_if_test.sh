@@ -35,6 +35,13 @@ else
         echo "your didn't input a word!"
 fi
 
+
+nsname=$(ip netns list | grep ns1)
+if [ -z "$nsname" ]; then
+  log "namespace ns1 does not exist"
+  sudo ip netns add ns1
+fi
+
 :<<EOF
 # 3，数值测试
 ###########################

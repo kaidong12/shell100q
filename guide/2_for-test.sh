@@ -20,3 +20,14 @@ do
     echo $word
   fi
 done
+
+
+for i in {0..100}  
+do  
+    if [ $((i % 3)) -eq 0 ]  
+    then  
+        echo $i  
+    fi  
+done
+
+

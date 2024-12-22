@@ -1,0 +1,21 @@
+#!/bin/bash  
+  
+# 创建一个文件来存储用户名和密码  
+touch passwords.txt  
+  
+# 循环创建账户并设置密码  
+for i in {1..10}; do  
+    username="test$(printf '%02d' $i)"  # 生成用户名如test01, test02等  
+    password=$(tr -dc 'a-zA-Z0-9' < /dev/urandom | head -c8)  # 生成8位随机密码  
+  
+    # 创建用户并设置密码（使用echo和chpasswd命令）  
+    # useradd "$username"  
+    # echo "$username:$password" | chpasswd
+  
+    # 将用户名和密码存储到文件中（可选，但请确保文件权限设置为只有root可读）
+    echo "$username:$password" >> passwords.txt
+    chmod 600 passwords.txt
+done
+
+echo "用户和密码已创建并存储在passwords.txt文件中(请确保该文件安全)"
+

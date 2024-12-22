@@ -17,7 +17,7 @@ y|Y)
     ;;
 *)
     echo "you enter is not a number 1-3;"
-    echo "`basename $0`: This is wrong" >&2
+    echo "$(basename $0): This is wrong" >&2
     exit;
     ;;
 esac
