@@ -1,7 +1,7 @@
 #!/bin/bash
 #findit
 #function demo
-findit()
+function findit()
 {
   if [ $# -lt 1 ];then
     echo "usage :findit file. "

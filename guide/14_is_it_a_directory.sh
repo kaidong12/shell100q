@@ -1,5 +1,5 @@
 #!/bin/bash
-is_it_a_directory()
+function is_it_a_directory()
 {
   #is_it_a_directory
   #check if the specific object is a directory

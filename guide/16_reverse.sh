@@ -1,7 +1,7 @@
 #! /bin/bash
 
 
-reverse()
+function reverse()
 {
   number=$1
   length=${#number}

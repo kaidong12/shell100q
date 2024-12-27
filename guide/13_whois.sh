@@ -1,4 +1,4 @@
-whois()
+function whois()
 #whois
 #get the user name of a specific ID
 {

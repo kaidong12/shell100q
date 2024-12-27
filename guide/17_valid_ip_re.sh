@@ -5,7 +5,7 @@ The special characters (meta-characters) used for defining regular expressions a
 * . ^ $ + ? ( ) [ ] | \ ' "
 EOF
 
-valid_ip()
+function valid_ip()
 
 {
   local  ip=$1
