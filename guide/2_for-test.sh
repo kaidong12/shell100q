@@ -4,7 +4,7 @@
 set -x
 for loop in what is you selections?
 do
-  cho $loop
+  echo $loop
 done
 
 set +x
