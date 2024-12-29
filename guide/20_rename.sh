@@ -12,3 +12,5 @@ do
     fi
 done
 
+# Rename all files with a `.txt` suffix in the current directory and its subdirectories to have a `.md` suffix:
+# find . -type f -name "*.bak" -exec sh -c 'mv -i "$0" "${0%.bak}.mdd"' {} \;
