@@ -11,12 +11,19 @@ done
 
 
 i=1
-
 while [ $i -lt 100 ]
 do
   sleep 1
+  ((i++))
   echo $i
-  i=$(($i+1))
-
+  # i=$(($i+1))
 done
 
+i=0
+while [ $i -lt 10 ]
+do 
+  ((i++))
+  if (( i % 3 == 0));then
+      echo $i
+  fi
+done

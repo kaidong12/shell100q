@@ -8,9 +8,9 @@ function findit()
     return 1
   fi
 
-  for loop in "$@"
+  for loop in $@
   do
-    find /home/lance/ -name $loop -print;
+    find /home/lance/ -name $loop
   done
 
 }

@@ -6,7 +6,6 @@ The special characters (meta-characters) used for defining regular expressions a
 EOF
 
 function valid_ip()
-
 {
   local  ip=$1
   ip_stat=1
@@ -22,7 +21,8 @@ function valid_ip()
     [[ ${ip[0]} -le 255 && ${ip[1]} -le 255 && ${ip[2]} -le 255 && ${ip[3]} -le 255 ]]
     ip_stat=$?
   fi
-    echo $ip_stat
+  
+  echo $ip_stat
 }
 
 valid_ip $1

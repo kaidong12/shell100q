@@ -8,15 +8,25 @@ if [ $(($# % 2)) -eq 0 ]; then
 
 fi
 
-
 DIRECTORY=$1
-
 echo $DIRECTORY
-
+#if [ "`ls -A $DIRECTORY`" = " " ]; then
 if [ -z "`ls -A $DIRECTORY`" ]; then
-  echo "$DIRECTORY is empty"
+    echo "$DIRECTORY is empty"
 else
-  echo "$(ls -l $DIRECTORY)"
+    echo "what do you want from me?"
+fi
+
+if [ ! -z "`ls -A $DIRECTORY`" ]; then
+    echo "$DIRECTORY is not empty"
+else
+    echo "$DIRECTORY is empty"
+fi
+
+if [ -n "`ls -A $DIRECTORY`" ]; then
+    echo "$DIRECTORY is not empty"
+else
+    echo "$DIRECTORY is empty"
 fi
 
 # Define a variable  

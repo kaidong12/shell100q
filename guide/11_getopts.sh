@@ -3,7 +3,11 @@
 # The colons after p and d indicate that they require an argument.
 # In this example, the options -p and -d take arguments and -h does not.
 
-while getopts ":hp:d:" opt
+while getopts ":hp:d:" opt 
+# -h : no argument
+# -p: : requires an argument
+# -d: : requires an argument
+do
 do
   case $opt in
     h )

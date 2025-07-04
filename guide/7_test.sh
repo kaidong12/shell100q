@@ -31,11 +31,10 @@ EOF
 echo -n "pleas enter you name:"
 read NAME
 if [ "$NAME" != "" ]; then
-        echo "your name is: $NAME"
+  echo "your name is: $NAME"
 else
-        echo "your didn't input a word!"
+  echo "your didn't input a word!"
 fi
-
 
 nsname=$(ip netns list | grep ns1)
 if [ -z "$nsname" ]; then
