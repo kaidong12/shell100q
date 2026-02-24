@@ -1,0 +1,23 @@
+vlan_binding:
+  99:
+    - GigabitEthernet0
+  15:
+    - GigabitEthernet0/0/4
+  17:
+    - GigabitEthernet0/0/7
+  19:
+    - GigabitEthernet0/0/5
+  20:
+    - TenGigabitEthernet0/0/8
+  24:
+    - GigabitEthernet0/0/2
+    - l2_vlan
+  56:
+    - GigabitEthernet0/0/3
+    - l2_vlan
+  57:
+    - TenGigabitEthernet0/0/9
+  100:
+    - GigabitEthernet0/0/6
+  chassis_num: C8225-G2-FVH2948X00M
+  serial_num: "0464470295844228610F"

@@ -1,0 +1,7 @@
+#!/bin/bash
+export HTTPS_PROXY=proxy.esl.cisco.com:80
+export HTTP_PROXY=proxy.esl.cisco.com:80
+# /home/tester/.pre-commit/bin/python3.8 -m pip install webexteamssdk
+
+/home/tester/.pre-commit/bin/python3.8 /home/tester/kaidyan/scripts/2601_notification_manager.py $1 $2
+

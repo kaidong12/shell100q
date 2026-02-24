@@ -1,0 +1,110 @@
+{
+    "sourceFile": "guide/25_replace_str.sh",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 23,
+            "patches": [
+                {
+                    "date": 1767183234502,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1767183288724,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,7 @@\n #!/bin/bash\n+# Interface name changed after upgrade, replace old interface names with new ones in configuration files.\n \n \n \n \n+\n"
+                },
+                {
+                    "date": 1767183315125,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,16 @@\n #!/bin/bash\n # Interface name changed after upgrade, replace old interface names with new ones in configuration files.\n \n+src=(enp94s0f1 enp94s0f2)\n+dst=(ens2f1 ens2f2)\n \n+for i in \"${!src[@]}\"; do\n+    find . -type f \\( -name \"*.yml\" -o -name \"*.yaml\" \\) \\\n+        -exec sed -i \"s/${src[$i]}/${dst[$i]}/g\" {} +\n+done\n \n \n \n+\n+\n+\n"
+                },
+                {
+                    "date": 1767183329149,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,8 @@\n #!/bin/bash\n # Interface name changed after upgrade, replace old interface names with new ones in configuration files.\n \n+# Define source and destination interface name arrays\n src=(enp94s0f1 enp94s0f2)\n dst=(ens2f1 ens2f2)\n \n for i in \"${!src[@]}\"; do\n"
+                },
+                {
+                    "date": 1767183372339,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n #!/bin/bash\n # Interface name changed after upgrade, replace old interface names with new ones in configuration files.\n \n # Define source and destination interface name arrays\n-src=(enp94s0f1 enp94s0f2)\n+src=(enp94s0f1 enp94s0f2 enp94s0f3 enp96s0f1 enp96s0f0 enp96s0f2 enp96s0f3 enp25s0f0 enp94s0f0)\n dst=(ens2f1 ens2f2)\n \n for i in \"${!src[@]}\"; do\n     find . -type f \\( -name \"*.yml\" -o -name \"*.yaml\" \\) \\\n"
+                },
+                {
+                    "date": 1767183405320,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,9 +2,9 @@\n # Interface name changed after upgrade, replace old interface names with new ones in configuration files.\n \n # Define source and destination interface name arrays\n src=(enp94s0f1 enp94s0f2 enp94s0f3 enp96s0f1 enp96s0f0 enp96s0f2 enp96s0f3 enp25s0f0 enp94s0f0)\n-dst=(ens2f1 ens2f2)\n+dst=(ens2f1 ens2f2 ens2f3 ens3f1 ens3f0 ens3f2 ens3f3 ens1f0 ens2f0)\n \n for i in \"${!src[@]}\"; do\n     find . -type f \\( -name \"*.yml\" -o -name \"*.yaml\" \\) \\\n         -exec sed -i \"s/${src[$i]}/${dst[$i]}/g\" {} +\n"
+                },
+                {
+                    "date": 1767183417466,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,10 +5,9 @@\n src=(enp94s0f1 enp94s0f2 enp94s0f3 enp96s0f1 enp96s0f0 enp96s0f2 enp96s0f3 enp25s0f0 enp94s0f0)\n dst=(ens2f1 ens2f2 ens2f3 ens3f1 ens3f0 ens3f2 ens3f3 ens1f0 ens2f0)\n \n for i in \"${!src[@]}\"; do\n-    find . -type f \\( -name \"*.yml\" -o -name \"*.yaml\" \\) \\\n-        -exec sed -i \"s/${src[$i]}/${dst[$i]}/g\" {} +\n+    find . -type f \\( -name \"*.yml\" -o -name \"*.yaml\" \\) -exec sed -i \"s/${src[$i]}/${dst[$i]}/g\" {} +\n done\n \n \n \n"
+                },
+                {
+                    "date": 1767183441697,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,9 +5,10 @@\n src=(enp94s0f1 enp94s0f2 enp94s0f3 enp96s0f1 enp96s0f0 enp96s0f2 enp96s0f3 enp25s0f0 enp94s0f0)\n dst=(ens2f1 ens2f2 ens2f3 ens3f1 ens3f0 ens3f2 ens3f3 ens1f0 ens2f0)\n \n for i in \"${!src[@]}\"; do\n-    find . -type f \\( -name \"*.yml\" -o -name \"*.yaml\" \\) -exec sed -i \"s/${src[$i]}/${dst[$i]}/g\" {} +\n+    # find . -type f \\( -name \"*.yml\" -o -name \"*.yaml\" \\) -exec sed -i \"s/${src[$i]}/${dst[$i]}/g\" {} +\n+    echo \"Replacing ${src[$i]} with ${dst[$i]}\"\n done\n \n \n \n"
+                },
+                {
+                    "date": 1767183452563,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,8 +7,9 @@\n \n for i in \"${!src[@]}\"; do\n     # find . -type f \\( -name \"*.yml\" -o -name \"*.yaml\" \\) -exec sed -i \"s/${src[$i]}/${dst[$i]}/g\" {} +\n     echo \"Replacing ${src[$i]} with ${dst[$i]}\"\n+    sed -i \"s/${src[$i]}/${dst[$i]}/g\" *.yml *.yaml\n done\n \n \n \n"
+                },
+                {
+                    "date": 1767183464527,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,9 +7,9 @@\n \n for i in \"${!src[@]}\"; do\n     # find . -type f \\( -name \"*.yml\" -o -name \"*.yaml\" \\) -exec sed -i \"s/${src[$i]}/${dst[$i]}/g\" {} +\n     echo \"Replacing ${src[$i]} with ${dst[$i]}\"\n-    sed -i \"s/${src[$i]}/${dst[$i]}/g\" *.yml *.yaml\n+    # sed -i \"s/${src[$i]}/${dst[$i]}/g\" *.yml *.yaml\n done\n \n \n \n"
+                },
+                {
+                    "date": 1767183502196,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,9 +10,12 @@\n     echo \"Replacing ${src[$i]} with ${dst[$i]}\"\n     # sed -i \"s/${src[$i]}/${dst[$i]}/g\" *.yml *.yaml\n done\n \n+# Dry run (verify before replacing)\n+for s in enp94s0f1 enp94s0f2; do\n+    grep -rn --include=\"*.yml\" --include=\"*.yaml\" \"$s\" .\n+done\n \n \n \n \n-\n"
+                },
+                {
+                    "date": 1767183509892,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,7 +15,7 @@\n for s in enp94s0f1 enp94s0f2; do\n     grep -rn --include=\"*.yml\" --include=\"*.yaml\" \"$s\" .\n done\n \n+#  One-liner version\n \n \n-\n"
+                },
+                {
+                    "date": 1767183519977,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,7 +15,8 @@\n for s in enp94s0f1 enp94s0f2; do\n     grep -rn --include=\"*.yml\" --include=\"*.yaml\" \"$s\" .\n done\n \n-#  One-liner version\n+# One-liner version\n+# for i in \"${!src[@]}\"; do find . -type f \\( -name \"*.yml\" -o -name \"*.yaml\" \\) -exec sed -i \"s/${src[$i]}/${dst[$i]}/g\" {} +; done\n \n \n"
+                },
+                {
+                    "date": 1767183526089,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,6 +17,9 @@\n done\n \n # One-liner version\n # for i in \"${!src[@]}\"; do find . -type f \\( -name \"*.yml\" -o -name \"*.yaml\" \\) -exec sed -i \"s/${src[$i]}/${dst[$i]}/g\" {} +; done\n+for a b in enp94s0f1 ens2f1 enp94s0f2 ens2f2; do\n+    find . -type f \\( -name \"*.yml\" -o -name \"*.yaml\" \\) -exec sed -i \"s/$a/$b/g\" {} +\n+done\n \n \n"
+                },
+                {
+                    "date": 1767183547276,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,9 +16,8 @@\n     grep -rn --include=\"*.yml\" --include=\"*.yaml\" \"$s\" .\n done\n \n # One-liner version\n-# for i in \"${!src[@]}\"; do find . -type f \\( -name \"*.yml\" -o -name \"*.yaml\" \\) -exec sed -i \"s/${src[$i]}/${dst[$i]}/g\" {} +; done\n for a b in enp94s0f1 ens2f1 enp94s0f2 ens2f2; do\n     find . -type f \\( -name \"*.yml\" -o -name \"*.yaml\" \\) -exec sed -i \"s/$a/$b/g\" {} +\n done\n \n"
+                },
+                {
+                    "date": 1767183565256,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,8 +17,9 @@\n done\n \n # One-liner version\n for a b in enp94s0f1 ens2f1 enp94s0f2 ens2f2; do\n-    find . -type f \\( -name \"*.yml\" -o -name \"*.yaml\" \\) -exec sed -i \"s/$a/$b/g\" {} +\n+    # find . -type f \\( -name \"*.yml\" -o -name \"*.yaml\" \\) -exec sed -i \"s/$a/$b/g\" {} +\n+    echo \"Replacing $a with $b\"\n done\n \n \n"
+                },
+                {
+                    "date": 1767183960811,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,11 +15,7 @@\n for s in enp94s0f1 enp94s0f2; do\n     grep -rn --include=\"*.yml\" --include=\"*.yaml\" \"$s\" .\n done\n \n-# One-liner version\n-for a b in enp94s0f1 ens2f1 enp94s0f2 ens2f2; do\n-    # find . -type f \\( -name \"*.yml\" -o -name \"*.yaml\" \\) -exec sed -i \"s/$a/$b/g\" {} +\n-    echo \"Replacing $a with $b\"\n-done\n \n \n+\n"
+                },
+                {
+                    "date": 1767183966127,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,6 +16,4 @@\n     grep -rn --include=\"*.yml\" --include=\"*.yaml\" \"$s\" .\n done\n \n \n-\n-\n"
+                },
+                {
+                    "date": 1767183972310,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,5 +15,4 @@\n for s in enp94s0f1 enp94s0f2; do\n     grep -rn --include=\"*.yml\" --include=\"*.yaml\" \"$s\" .\n done\n \n-\n"
+                },
+                {
+                    "date": 1767185041996,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,9 +7,9 @@\n \n for i in \"${!src[@]}\"; do\n     # find . -type f \\( -name \"*.yml\" -o -name \"*.yaml\" \\) -exec sed -i \"s/${src[$i]}/${dst[$i]}/g\" {} +\n     echo \"Replacing ${src[$i]} with ${dst[$i]}\"\n-    # sed -i \"s/${src[$i]}/${dst[$i]}/g\" *.yml *.yaml\n+    sed -i \"s/${src[$i]}/${dst[$i]}/g\" *.yaml\n done\n \n # Dry run (verify before replacing)\n for s in enp94s0f1 enp94s0f2; do\n"
+                },
+                {
+                    "date": 1767185060013,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,4 +15,5 @@\n for s in enp94s0f1 enp94s0f2; do\n     grep -rn --include=\"*.yml\" --include=\"*.yaml\" \"$s\" .\n done\n \n+echo \"Replacement complete.\"\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1767185068116,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,5 +15,5 @@\n for s in enp94s0f1 enp94s0f2; do\n     grep -rn --include=\"*.yml\" --include=\"*.yaml\" \"$s\" .\n done\n \n-echo \"Replacement complete.\"\n\\ No newline at end of file\n+echo \"Replacement complete.\"\n"
+                },
+                {
+                    "date": 1767185148698,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,4 +16,6 @@\n     grep -rn --include=\"*.yml\" --include=\"*.yaml\" \"$s\" .\n done\n \n echo \"Replacement complete.\"\n+\n+\n"
+                },
+                {
+                    "date": 1767596438283,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,6 +16,4 @@\n     grep -rn --include=\"*.yml\" --include=\"*.yaml\" \"$s\" .\n done\n \n echo \"Replacement complete.\"\n-\n-\n"
+                }
+            ],
+            "date": 1767183234502,
+            "name": "Commit-0",
+            "content": "#!/bin/bash\n\n\n\n\n"
+        }
+    ]
+}

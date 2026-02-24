@@ -1,0 +1,22 @@
+{
+    "sourceFile": "guide/26_rename_vnet.sh",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1767596425324,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1767597482472,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,9 +2,9 @@\n \n echo \"$(date) - Hook called with action: $1, VM name: $2\" >> /var/log/libvirt/hooks.log\n if [ \"$1\" == \"start\" ]; then\n   # Change vnet to vmnet dynamically\n-  #virsh dumpxml \"$2\" > /tmp/\"$2\".xml\n+  virsh dumpxml \"$2\" > /tmp/\"$2\".xml\n   if [ \"$2\" == \"ubuntu-services\" ]; then\n     sed -i \"s/<target dev='vnet/<target dev='ubuntu-vnet/g\" /tmp/\"$2\".xml\n   else\n     sed -i \"s/<target dev='vnet/<target dev='$2-vnet/g\" /tmp/\"$2\".xml\n"
+                }
+            ],
+            "date": 1767596425324,
+            "name": "Commit-0",
+            "content": "#!/bin/bash\n\necho \"$(date) - Hook called with action: $1, VM name: $2\" >> /var/log/libvirt/hooks.log\nif [ \"$1\" == \"start\" ]; then\n  # Change vnet to vmnet dynamically\n  #virsh dumpxml \"$2\" > /tmp/\"$2\".xml\n  if [ \"$2\" == \"ubuntu-services\" ]; then\n    sed -i \"s/<target dev='vnet/<target dev='ubuntu-vnet/g\" /tmp/\"$2\".xml\n  else\n    sed -i \"s/<target dev='vnet/<target dev='$2-vnet/g\" /tmp/\"$2\".xml\n  fi\n\n  echo \"destorying $2\"\n  virsh destroy $2\n  sleep 30\n  \n  echo \"define $2\"\n  virsh define /tmp/\"$2\".xml\n  sleep 5\n\n  echo \"starting $2\"\n  virsh start $2\n\nfi\n"
+        }
+    ]
+}

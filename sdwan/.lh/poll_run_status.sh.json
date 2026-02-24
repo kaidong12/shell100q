@@ -1,0 +1,30 @@
+{
+    "sourceFile": "poll_run_status.sh",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 3,
+            "patches": [
+                {
+                    "date": 1769230124852,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1769230131042,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,9 +2,9 @@\n \n webex_id=`grep webex_id /home/tester/vtest/local.preference.yaml | grep -v '^#' | awk -F: '{print $2}'`\n host_name=`hostname`\n test=`ps -ef | grep vtest | grep -P 'testbed|run' | awk '{print $10}' | head -1`\n-test=\"test\"\n+test=\"testing\"\n # echo $test\n \n if [ -n \"$test\" ]; then\n   /home/tester/bin/notify_bot \"$webex_id\" \"Host Name: $host_name | Suite running: $test\"\n"
+                },
+                {
+                    "date": 1769230136299,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,8 +7,9 @@\n # echo $test\n \n if [ -n \"$test\" ]; then\n   /home/tester/bin/notify_bot \"$webex_id\" \"Host Name: $host_name | Suite running: $test\"\n+  \n   #/home/tester/bin/notify_bot \"kaidyan@cisco.com\" \"Test running: $test\"\n   #/home/tester/bin/notify_bot \"kaidyancisco.com\" \"db_build_id: 4588876 | Test running: xxx | ------------- |   Test results summary:  | test running: enterprise_certs | start to run: enterprise_certs | stop run: ipsec_ikev2          |aaa:1 | bbb:2|ccc|fdfdasfa\"\n   #/home/tester/bin/notify_bot \"kaidyan@cisco.com\" \"db_build_id: 4588876 | Test running: xxx | ------------- |   Test results summary:  | test running: enterprise_certs | start to run: enterprise_certs | stop run: ipsec_ikev2          |aaa:1 | bbb:2|ccc|fdfdasfa\"\n fi\n"
+                },
+                {
+                    "date": 1769232202140,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,14 +2,14 @@\n \n webex_id=`grep webex_id /home/tester/vtest/local.preference.yaml | grep -v '^#' | awk -F: '{print $2}'`\n host_name=`hostname`\n test=`ps -ef | grep vtest | grep -P 'testbed|run' | awk '{print $10}' | head -1`\n-test=\"testing\"\n+# test=\"testing\"\n # echo $test\n \n if [ -n \"$test\" ]; then\n   /home/tester/bin/notify_bot \"$webex_id\" \"Host Name: $host_name | Suite running: $test\"\n-  \n+\n   #/home/tester/bin/notify_bot \"kaidyan@cisco.com\" \"Test running: $test\"\n   #/home/tester/bin/notify_bot \"kaidyancisco.com\" \"db_build_id: 4588876 | Test running: xxx | ------------- |   Test results summary:  | test running: enterprise_certs | start to run: enterprise_certs | stop run: ipsec_ikev2          |aaa:1 | bbb:2|ccc|fdfdasfa\"\n   #/home/tester/bin/notify_bot \"kaidyan@cisco.com\" \"db_build_id: 4588876 | Test running: xxx | ------------- |   Test results summary:  | test running: enterprise_certs | start to run: enterprise_certs | stop run: ipsec_ikev2          |aaa:1 | bbb:2|ccc|fdfdasfa\"\n fi\n"
+                }
+            ],
+            "date": 1769230124852,
+            "name": "Commit-0",
+            "content": "#!/bin/bash\n\nwebex_id=`grep webex_id /home/tester/vtest/local.preference.yaml | grep -v '^#' | awk -F: '{print $2}'`\nhost_name=`hostname`\ntest=`ps -ef | grep vtest | grep -P 'testbed|run' | awk '{print $10}' | head -1`\ntest=\"test\"\n# echo $test\n\nif [ -n \"$test\" ]; then\n  /home/tester/bin/notify_bot \"$webex_id\" \"Host Name: $host_name | Suite running: $test\"\n  #/home/tester/bin/notify_bot \"kaidyan@cisco.com\" \"Test running: $test\"\n  #/home/tester/bin/notify_bot \"kaidyancisco.com\" \"db_build_id: 4588876 | Test running: xxx | ------------- |   Test results summary:  | test running: enterprise_certs | start to run: enterprise_certs | stop run: ipsec_ikev2          |aaa:1 | bbb:2|ccc|fdfdasfa\"\n  #/home/tester/bin/notify_bot \"kaidyan@cisco.com\" \"db_build_id: 4588876 | Test running: xxx | ------------- |   Test results summary:  | test running: enterprise_certs | start to run: enterprise_certs | stop run: ipsec_ikev2          |aaa:1 | bbb:2|ccc|fdfdasfa\"\nfi\n"
+        }
+    ]
+}

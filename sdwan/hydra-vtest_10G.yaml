@@ -1,0 +1,20 @@
+vlan_binding:
+  99:
+    - GigabitEthernet0/1/8
+  15:
+    - TenGigabitEthernet0/0/0
+  17:
+    - GigabitEthernet0/1/4
+    - l2_vlan
+  19:
+    - GigabitEthernet0/1/0
+    - l2_vlan
+  20:
+    - GigabitEthernet0/1/6
+  24:
+    - GigabitEthernet0/1/7
+  100:
+    - GigabitEthernet0/1/1
+    - l2_vlan
+  chassis_num: C8151H-C-G2-WZP29439PE6
+  serial_num: "0390251580879694010B"

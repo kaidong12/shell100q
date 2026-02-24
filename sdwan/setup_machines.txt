@@ -1,0 +1,99 @@
+from concurrent.futures import ThreadPoolExecutor, as_completed
+
+    def setup_machines(
+        self,
+        machine_list,
+        install_certs,
+        smu=None,
+        max_workers=5,
+        max_retries=5,
+    ):
+        serial_id = self.get_max_serial_id()
+
+        pending = set(machine_list)
+        # record retry times
+        attempts = {m: 0 for m in machine_list}
+        exceptions = {}
+
+        def worker(machine, serial_id):
+            self.logger.info(f"Setup machine {machine}".center(80, "="))
+            self.setup_machine(machine, install_certs, serial_id, smu)
+            return machine
+
+        while pending:
+            futures = {}
+
+            self.logger.info(f'setup_machines, pending: {pending}')
+            self.logger.info(f'setup_machines, attempts: {attempts}')
+            self.logger.info(f'setup_machines, exceptions: {exceptions}')
+            with ThreadPoolExecutor(max_workers=max_workers) as executor:
+                for machine in list(pending):
+                    if self.machine_setup_done(machine):
+                        self.logger.info("%s setup was already done", machine)
+                        pending.remove(machine)
+                        continue
+
+                    # retry + 1
+                    attempts[machine] += 1
+                    serial_id += 1
+
+                    if not self.is_cloud_init():
+                        time.sleep(60 if self.is_cedge(machine) else 5)
+
+                    futures[
+                        executor.submit(worker, machine, serial_id)
+                    ] = machine
+
+                for future in as_completed(futures):
+                    machine = futures[future]
+
+                    try:
+                        future.result()
+                    except Exception:
+                        exceptions[machine] = sys.exc_info()
+
+                        # remove machine even if it fails 5 times
+                        # avoid infinite retry loops
+                        if attempts[machine] >= max_retries:
+                            self.logger.error(
+                                "%s failed after %d attempts",
+                                machine,
+                                attempts[machine],
+                            )
+                            pending.remove(machine)
+                        else:
+                            self.logger.warning(
+                                "%s failed (attempt %d/%d), retrying",
+                                machine,
+                                attempts[machine],
+                                max_retries,
+                            )
+                    else:
+                        # success → prune immediately
+                        pending.remove(machine)
+                        exceptions.pop(machine, None)
+
+            # loop continues only for remaining failed machines
+
+        if exceptions:
+            try:
+                for machine, exc_info in exceptions.items():
+                    self.logger.error("%s:", machine)
+                    self.logger.error("=" * 20)
+                    self.logger.error("".join(traceback.format_tb(exc_info[2])))
+                    self.logger.error(exc_info[1])
+                    self.logger.error("=" * 20)
+            finally:
+                msg = [
+                    str(Path(VLogging.path).joinpath(m))
+                    for m in exceptions
+                ]
+                self.logger.error(
+                    "For more details please examine per machine logs under:\n%s",
+                    "\n".join(msg),
+                )
+                raise TestbedBringupError(
+                    "Setup failed for: {}".format(list(exceptions))
+                )
+
+        self.save_config()

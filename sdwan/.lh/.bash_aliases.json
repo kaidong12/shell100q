@@ -1,0 +1,94 @@
+{
+    "sourceFile": ".bash_aliases",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 19,
+            "patches": [
+                {
+                    "date": 1769230196106,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1769232228550,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,5 +18,5 @@\n alias cdl=\"cd /home/tester/vtest/tests/logs/\"\n alias cds=\"cd /home/tester/vtest/tests/scripts\"\n \n alias checkrun=\"ps -ef | grep vtest | grep -P 'testbed|run'\"\n-alias clearrun=\"checkrun | awk '{print $2}' | xargs -r kill -9\"\n\\ No newline at end of file\n+alias clearrun=\"checkrun | awk '{print $2}' | xargs -r kill -9\"\n"
+                },
+                {
+                    "date": 1770012653593,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,8 +4,9 @@\n alias a36=\"source /opt/venv/vtest3.6/bin/activate\"\n alias a38=\"source /home/tester/venv/vtest/bin/activate\"\n alias ap3=\"source ~/.p3/bin/activate\"\n alias dac=\"deactivate\"\n+alias dac=\"deactivate\"\n \n alias cdv=\"cd /home/tester/vtest\"\n alias cdkt=\"cd /home/tester/kaidyan/test\"\n alias cdks=\"cd /home/tester/kaidyan/scripts\"\n"
+                },
+                {
+                    "date": 1770012719874,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,9 +4,9 @@\n alias a36=\"source /opt/venv/vtest3.6/bin/activate\"\n alias a38=\"source /home/tester/venv/vtest/bin/activate\"\n alias ap3=\"source ~/.p3/bin/activate\"\n alias dac=\"deactivate\"\n-alias dac=\"deactivate\"\n+alias sshpm5=\"deactivate\"\n \n alias cdv=\"cd /home/tester/vtest\"\n alias cdkt=\"cd /home/tester/kaidyan/test\"\n alias cdks=\"cd /home/tester/kaidyan/scripts\"\n"
+                },
+                {
+                    "date": 1770012887802,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,9 +4,9 @@\n alias a36=\"source /opt/venv/vtest3.6/bin/activate\"\n alias a38=\"source /home/tester/venv/vtest/bin/activate\"\n alias ap3=\"source ~/.p3/bin/activate\"\n alias dac=\"deactivate\"\n-alias sshpm5=\"deactivate\"\n+alias sshpm5=\"ssh-keygen -f '/home/tester/.ssh/known_hosts' -R '10.0.99.15'; ssh admin@10.0.99.15\"\n \n alias cdv=\"cd /home/tester/vtest\"\n alias cdkt=\"cd /home/tester/kaidyan/test\"\n alias cdks=\"cd /home/tester/kaidyan/scripts\"\n"
+                },
+                {
+                    "date": 1770012893685,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,9 +4,9 @@\n alias a36=\"source /opt/venv/vtest3.6/bin/activate\"\n alias a38=\"source /home/tester/venv/vtest/bin/activate\"\n alias ap3=\"source ~/.p3/bin/activate\"\n alias dac=\"deactivate\"\n-alias sshpm5=\"ssh-keygen -f '/home/tester/.ssh/known_hosts' -R '10.0.99.15'; ssh admin@10.0.99.15\"\n+alias sshpm5=\"ssh-keygen -f '/home/tester/.ssh/known_hosts' -R '10.0.99.15'; ssh admin@10.0.99.15 -y\"\n \n alias cdv=\"cd /home/tester/vtest\"\n alias cdkt=\"cd /home/tester/kaidyan/test\"\n alias cdks=\"cd /home/tester/kaidyan/scripts\"\n"
+                },
+                {
+                    "date": 1770013102362,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,8 +6,10 @@\n alias ap3=\"source ~/.p3/bin/activate\"\n alias dac=\"deactivate\"\n alias sshpm5=\"ssh-keygen -f '/home/tester/.ssh/known_hosts' -R '10.0.99.15'; ssh admin@10.0.99.15 -y\"\n \n+ssh-keygen -R 10.0.99.15 -f ~/.ssh/known_hosts 2>/dev/null; ssh -o StrictHostKeyChecking=accept-new admin@10.0.99.15\n+\n alias cdv=\"cd /home/tester/vtest\"\n alias cdkt=\"cd /home/tester/kaidyan/test\"\n alias cdks=\"cd /home/tester/kaidyan/scripts\"\n \n"
+                },
+                {
+                    "date": 1770013153187,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,12 +4,12 @@\n alias a36=\"source /opt/venv/vtest3.6/bin/activate\"\n alias a38=\"source /home/tester/venv/vtest/bin/activate\"\n alias ap3=\"source ~/.p3/bin/activate\"\n alias dac=\"deactivate\"\n-alias sshpm5=\"ssh-keygen -f '/home/tester/.ssh/known_hosts' -R '10.0.99.15'; ssh admin@10.0.99.15 -y\"\n+alias sshpm5=\"ssh-keygen -R 10.0.99.15 -f ~/.ssh/known_hosts 2>/dev/null; ssh -o StrictHostKeyChecking=accept-new admin@10.0.99.15\"\n \n-ssh-keygen -R 10.0.99.15 -f ~/.ssh/known_hosts 2>/dev/null; ssh -o StrictHostKeyChecking=accept-new admin@10.0.99.15\n \n+\n alias cdv=\"cd /home/tester/vtest\"\n alias cdkt=\"cd /home/tester/kaidyan/test\"\n alias cdks=\"cd /home/tester/kaidyan/scripts\"\n \n"
+                },
+                {
+                    "date": 1770013162581,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,10 +6,8 @@\n alias ap3=\"source ~/.p3/bin/activate\"\n alias dac=\"deactivate\"\n alias sshpm5=\"ssh-keygen -R 10.0.99.15 -f ~/.ssh/known_hosts 2>/dev/null; ssh -o StrictHostKeyChecking=accept-new admin@10.0.99.15\"\n \n-\n-\n alias cdv=\"cd /home/tester/vtest\"\n alias cdkt=\"cd /home/tester/kaidyan/test\"\n alias cdks=\"cd /home/tester/kaidyan/scripts\"\n \n"
+                },
+                {
+                    "date": 1770013642984,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,9 +4,9 @@\n alias a36=\"source /opt/venv/vtest3.6/bin/activate\"\n alias a38=\"source /home/tester/venv/vtest/bin/activate\"\n alias ap3=\"source ~/.p3/bin/activate\"\n alias dac=\"deactivate\"\n-alias sshpm5=\"ssh-keygen -R 10.0.99.15 -f ~/.ssh/known_hosts 2>/dev/null; ssh -o StrictHostKeyChecking=accept-new admin@10.0.99.15\"\n+alias sshpm5=\"ssh-keygen -R 10.0.99.15 -f ~/.ssh/known_hosts 2>/dev/null; ssh -o StrictHostKeyChecking=accept-new -p 'admin' admin@10.0.99.15\"\n \n alias cdv=\"cd /home/tester/vtest\"\n alias cdkt=\"cd /home/tester/kaidyan/test\"\n alias cdks=\"cd /home/tester/kaidyan/scripts\"\n"
+                },
+                {
+                    "date": 1770013710436,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,9 +4,9 @@\n alias a36=\"source /opt/venv/vtest3.6/bin/activate\"\n alias a38=\"source /home/tester/venv/vtest/bin/activate\"\n alias ap3=\"source ~/.p3/bin/activate\"\n alias dac=\"deactivate\"\n-alias sshpm5=\"ssh-keygen -R 10.0.99.15 -f ~/.ssh/known_hosts 2>/dev/null; ssh -o StrictHostKeyChecking=accept-new -p 'admin' admin@10.0.99.15\"\n+alias sshpm5=\"ssh-keygen -R 10.0.99.15 -f ~/.ssh/known_hosts 2>/dev/null; ssh -o StrictHostKeyChecking=accept-new admin@10.0.99.15\"\n \n alias cdv=\"cd /home/tester/vtest\"\n alias cdkt=\"cd /home/tester/kaidyan/test\"\n alias cdks=\"cd /home/tester/kaidyan/scripts\"\n"
+                },
+                {
+                    "date": 1770013735811,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,9 +4,9 @@\n alias a36=\"source /opt/venv/vtest3.6/bin/activate\"\n alias a38=\"source /home/tester/venv/vtest/bin/activate\"\n alias ap3=\"source ~/.p3/bin/activate\"\n alias dac=\"deactivate\"\n-alias sshpm5=\"ssh-keygen -R 10.0.99.15 -f ~/.ssh/known_hosts 2>/dev/null; ssh -o StrictHostKeyChecking=accept-new admin@10.0.99.15\"\n+alias sshpm5=\"ssh-keygen -R 10.0.99.15 -f ~/.ssh/known_hosts 2>/dev/null; sshpass -p 'admin' ssh -o StrictHostKeyChecking=accept-new admin@10.0.99.15\"\n \n alias cdv=\"cd /home/tester/vtest\"\n alias cdkt=\"cd /home/tester/kaidyan/test\"\n alias cdks=\"cd /home/tester/kaidyan/scripts\"\n"
+                },
+                {
+                    "date": 1770014064200,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,8 +5,9 @@\n alias a38=\"source /home/tester/venv/vtest/bin/activate\"\n alias ap3=\"source ~/.p3/bin/activate\"\n alias dac=\"deactivate\"\n alias sshpm5=\"ssh-keygen -R 10.0.99.15 -f ~/.ssh/known_hosts 2>/dev/null; sshpass -p 'admin' ssh -o StrictHostKeyChecking=accept-new admin@10.0.99.15\"\n+alias sshpm5=\"ssh-keygen -R 10.0.99.15 -f ~/.ssh/known_hosts 2>/dev/null; sshpass -p 'admin' ssh -o StrictHostKeyChecking=accept-new admin@10.0.99.15\"\n \n alias cdv=\"cd /home/tester/vtest\"\n alias cdkt=\"cd /home/tester/kaidyan/test\"\n alias cdks=\"cd /home/tester/kaidyan/scripts\"\n"
+                },
+                {
+                    "date": 1770014070323,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,9 +5,9 @@\n alias a38=\"source /home/tester/venv/vtest/bin/activate\"\n alias ap3=\"source ~/.p3/bin/activate\"\n alias dac=\"deactivate\"\n alias sshpm5=\"ssh-keygen -R 10.0.99.15 -f ~/.ssh/known_hosts 2>/dev/null; sshpass -p 'admin' ssh -o StrictHostKeyChecking=accept-new admin@10.0.99.15\"\n-alias sshpm5=\"ssh-keygen -R 10.0.99.15 -f ~/.ssh/known_hosts 2>/dev/null; sshpass -p 'admin' ssh -o StrictHostKeyChecking=accept-new admin@10.0.99.15\"\n+alias sshpm1=\"ssh-keygen -R 10.0.99.15 -f ~/.ssh/known_hosts 2>/dev/null; sshpass -p 'admin' ssh -o StrictHostKeyChecking=accept-new admin@10.0.99.15\"\n \n alias cdv=\"cd /home/tester/vtest\"\n alias cdkt=\"cd /home/tester/kaidyan/test\"\n alias cdks=\"cd /home/tester/kaidyan/scripts\"\n"
+                },
+                {
+                    "date": 1770014076367,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,9 +5,9 @@\n alias a38=\"source /home/tester/venv/vtest/bin/activate\"\n alias ap3=\"source ~/.p3/bin/activate\"\n alias dac=\"deactivate\"\n alias sshpm5=\"ssh-keygen -R 10.0.99.15 -f ~/.ssh/known_hosts 2>/dev/null; sshpass -p 'admin' ssh -o StrictHostKeyChecking=accept-new admin@10.0.99.15\"\n-alias sshpm1=\"ssh-keygen -R 10.0.99.15 -f ~/.ssh/known_hosts 2>/dev/null; sshpass -p 'admin' ssh -o StrictHostKeyChecking=accept-new admin@10.0.99.15\"\n+alias sshpm1=\"ssh-keygen -R 10.0.99.11 -f ~/.ssh/known_hosts 2>/dev/null; sshpass -p 'admin' ssh -o StrictHostKeyChecking=accept-new admin@10.0.99.15\"\n \n alias cdv=\"cd /home/tester/vtest\"\n alias cdkt=\"cd /home/tester/kaidyan/test\"\n alias cdks=\"cd /home/tester/kaidyan/scripts\"\n"
+                },
+                {
+                    "date": 1770014085571,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,9 +5,9 @@\n alias a38=\"source /home/tester/venv/vtest/bin/activate\"\n alias ap3=\"source ~/.p3/bin/activate\"\n alias dac=\"deactivate\"\n alias sshpm5=\"ssh-keygen -R 10.0.99.15 -f ~/.ssh/known_hosts 2>/dev/null; sshpass -p 'admin' ssh -o StrictHostKeyChecking=accept-new admin@10.0.99.15\"\n-alias sshpm1=\"ssh-keygen -R 10.0.99.11 -f ~/.ssh/known_hosts 2>/dev/null; sshpass -p 'admin' ssh -o StrictHostKeyChecking=accept-new admin@10.0.99.15\"\n+alias sshpm1=\"ssh-keygen -R 10.0.99.11 -f ~/.ssh/known_hosts 2>/dev/null; sshpass -p 'admin' ssh -o StrictHostKeyChecking=accept-new admin@10.0.99.11\"\n \n alias cdv=\"cd /home/tester/vtest\"\n alias cdkt=\"cd /home/tester/kaidyan/test\"\n alias cdks=\"cd /home/tester/kaidyan/scripts\"\n"
+                },
+                {
+                    "date": 1770359459990,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,8 +7,11 @@\n alias dac=\"deactivate\"\n alias sshpm5=\"ssh-keygen -R 10.0.99.15 -f ~/.ssh/known_hosts 2>/dev/null; sshpass -p 'admin' ssh -o StrictHostKeyChecking=accept-new admin@10.0.99.15\"\n alias sshpm1=\"ssh-keygen -R 10.0.99.11 -f ~/.ssh/known_hosts 2>/dev/null; sshpass -p 'admin' ssh -o StrictHostKeyChecking=accept-new admin@10.0.99.11\"\n \n+alias sshvm=\"sshpass -p 'admin' ssh -o ControlMaster=no -o ControlPath=none -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -l admin \"\n+\n+\n alias cdv=\"cd /home/tester/vtest\"\n alias cdkt=\"cd /home/tester/kaidyan/test\"\n alias cdks=\"cd /home/tester/kaidyan/scripts\"\n \n"
+                },
+                {
+                    "date": 1770359471138,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,8 +8,9 @@\n alias sshpm5=\"ssh-keygen -R 10.0.99.15 -f ~/.ssh/known_hosts 2>/dev/null; sshpass -p 'admin' ssh -o StrictHostKeyChecking=accept-new admin@10.0.99.15\"\n alias sshpm1=\"ssh-keygen -R 10.0.99.11 -f ~/.ssh/known_hosts 2>/dev/null; sshpass -p 'admin' ssh -o StrictHostKeyChecking=accept-new admin@10.0.99.11\"\n \n alias sshvm=\"sshpass -p 'admin' ssh -o ControlMaster=no -o ControlPath=none -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -l admin \"\n+alias sshvm=\"sshpass -p 'admin' ssh -o ControlMaster=no -o ControlPath=none -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -l admin \"\n \n \n alias cdv=\"cd /home/tester/vtest\"\n alias cdkt=\"cd /home/tester/kaidyan/test\"\n"
+                },
+                {
+                    "date": 1770359507719,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,9 +8,9 @@\n alias sshpm5=\"ssh-keygen -R 10.0.99.15 -f ~/.ssh/known_hosts 2>/dev/null; sshpass -p 'admin' ssh -o StrictHostKeyChecking=accept-new admin@10.0.99.15\"\n alias sshpm1=\"ssh-keygen -R 10.0.99.11 -f ~/.ssh/known_hosts 2>/dev/null; sshpass -p 'admin' ssh -o StrictHostKeyChecking=accept-new admin@10.0.99.11\"\n \n alias sshvm=\"sshpass -p 'admin' ssh -o ControlMaster=no -o ControlPath=none -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -l admin \"\n-alias sshvm=\"sshpass -p 'admin' ssh -o ControlMaster=no -o ControlPath=none -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -l admin \"\n+alias sshvmv=\"sshpass -p 'Cisco#123@Viptela' ssh -o ControlMaster=no -o ControlPath=none -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -l admin \"\n \n \n alias cdv=\"cd /home/tester/vtest\"\n alias cdkt=\"cd /home/tester/kaidyan/test\"\n"
+                },
+                {
+                    "date": 1770359534153,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,9 +10,8 @@\n \n alias sshvm=\"sshpass -p 'admin' ssh -o ControlMaster=no -o ControlPath=none -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -l admin \"\n alias sshvmv=\"sshpass -p 'Cisco#123@Viptela' ssh -o ControlMaster=no -o ControlPath=none -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -l admin \"\n \n-\n alias cdv=\"cd /home/tester/vtest\"\n alias cdkt=\"cd /home/tester/kaidyan/test\"\n alias cdks=\"cd /home/tester/kaidyan/scripts\"\n \n"
+                }
+            ],
+            "date": 1769230196106,
+            "name": "Commit-0",
+            "content": "alias ll=\"ls -ltrFa\"\n\nalias a27=\"source /opt/venv/vtest2.7/bin/activate\"\nalias a36=\"source /opt/venv/vtest3.6/bin/activate\"\nalias a38=\"source /home/tester/venv/vtest/bin/activate\"\nalias ap3=\"source ~/.p3/bin/activate\"\nalias dac=\"deactivate\"\n\nalias cdv=\"cd /home/tester/vtest\"\nalias cdkt=\"cd /home/tester/kaidyan/test\"\nalias cdks=\"cd /home/tester/kaidyan/scripts\"\n\nalias cdtb=\"cd /home/tester/testbeds/tb\"\n\nalias cdy=\"cd /home/tester/yaml\"\nalias cdi=\"cd /home/tester/images\"\n\nalias cdl=\"cd /home/tester/vtest/tests/logs/\"\nalias cds=\"cd /home/tester/vtest/tests/scripts\"\n\nalias checkrun=\"ps -ef | grep vtest | grep -P 'testbed|run'\"\nalias clearrun=\"checkrun | awk '{print $2}' | xargs -r kill -9\""
+        }
+    ]
+}

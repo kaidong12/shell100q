@@ -1,0 +1,18 @@
+{
+    "sourceFile": "sdwan/1_replace_str.sh",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1767946687625,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1767946687625,
+            "name": "Commit-0",
+            "content": "#!/bin/bash\n# Interface name changed after upgrade, replace old interface names with new ones in configuration files.\n\n# Define source and destination interface name arrays\nsrc=(enp94s0f1 enp94s0f2 enp94s0f3 enp96s0f1 enp96s0f0 enp96s0f2 enp96s0f3 enp25s0f0 enp94s0f0)\ndst=(ens2f1 ens2f2 ens2f3 ens3f1 ens3f0 ens3f2 ens3f3 ens1f0 ens2f0)\n\nfor i in \"${!src[@]}\"; do\n    # find . -type f \\( -name \"*.yml\" -o -name \"*.yaml\" \\) -exec sed -i \"s/${src[$i]}/${dst[$i]}/g\" {} +\n    echo \"Replacing ${src[$i]} with ${dst[$i]}\"\n    sed -i \"s/${src[$i]}/${dst[$i]}/g\" *.yaml\ndone\n\n# Dry run (verify before replacing)\nfor s in enp94s0f1 enp94s0f2; do\n    grep -rn --include=\"*.yml\" --include=\"*.yaml\" \"$s\" .\ndone\n\necho \"Replacement complete.\"\n"
+        }
+    ]
+}

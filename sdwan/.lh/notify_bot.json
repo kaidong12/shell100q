@@ -1,0 +1,22 @@
+{
+    "sourceFile": "notify_bot",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1769230020595,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1769230069740,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,7 @@\n #!/bin/bash\n export HTTPS_PROXY=proxy.esl.cisco.com:80\n export HTTP_PROXY=proxy.esl.cisco.com:80\n+# /home/tester/.pre-commit/bin/python3.8 -m pip install webexteamssdk\n \n-# /home/tester/.pre-commit/bin/python3.8 -m pip install webexteamssdk\n /home/tester/.pre-commit/bin/python3.8 /home/tester/kaidyan/scripts/2601_notification_manager.py $1 $2\n \n"
+                }
+            ],
+            "date": 1769230020594,
+            "name": "Commit-0",
+            "content": "#!/bin/bash\nexport HTTPS_PROXY=proxy.esl.cisco.com:80\nexport HTTP_PROXY=proxy.esl.cisco.com:80\n\n# /home/tester/.pre-commit/bin/python3.8 -m pip install webexteamssdk\n/home/tester/.pre-commit/bin/python3.8 /home/tester/kaidyan/scripts/2601_notification_manager.py $1 $2\n\n"
+        }
+    ]
+}

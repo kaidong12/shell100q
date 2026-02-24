@@ -1,0 +1,18 @@
+{
+    "sourceFile": "guide/27_kvm_topology.sh",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1767682462585,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1767682462585,
+            "name": "Commit-0",
+            "content": "#!/usr/bin/env bash\n\nOUT=\"kvm_topology.dot\"\n\necho \"digraph KVM {\" > \"$OUT\"\necho \"  rankdir=LR;\" >> \"$OUT\"\necho \"  node [shape=box, style=rounded];\" >> \"$OUT\"\n\n# --- Bridges and bridge members ---\ndeclare -A BRIDGE_MEMBERS\nwhile read -r line; do\n    if [[ $line =~ ^[a-zA-Z0-9] ]]; then\n        bridge=$(echo \"$line\" | awk '{print $1}')\n        current_bridge=$bridge\n    else\n        iface=$(echo \"$line\" | awk '{print $1}')\n        [[ -n $iface ]] && BRIDGE_MEMBERS[\"$iface\"]=\"$current_bridge\"\n    fi\ndone < <(brctl show | tail -n +2)\n\n# --- Libvirt networks -> bridges ---\ndeclare -A NET_BRIDGE\nfor net in $(virsh net-list --all --name); do\n    br=$(virsh net-dumpxml \"$net\" | grep \"<bridge\" | sed -n \"s/.*name='\\([^']*\\)'.*/\\1/p\")\n    [[ -n $br ]] && NET_BRIDGE[\"$net\"]=\"$br\"\ndone\n\n# --- VM interfaces ---\nfor vm in $(virsh list --all --name); do\n    echo \"  \\\"$vm\\\" [shape=ellipse, color=blue];\" >> \"$OUT\"\n\n    virsh domiflist \"$vm\" | tail -n +3 | while read -r iface type source model mac; do\n        [[ -z $iface ]] && continue\n\n        echo \"  \\\"$iface\\\" [shape=box, color=black];\" >> \"$OUT\"\n        echo \"  \\\"$vm\\\" -> \\\"$iface\\\";\" >> \"$OUT\"\n\n        bridge=\"${BRIDGE_MEMBERS[$iface]}\"\n        if [[ -n $bridge ]]; then\n            echo \"  \\\"$bridge\\\" [shape=diamond, color=darkgreen];\" >> \"$OUT\"\n            echo \"  \\\"$iface\\\" -> \\\"$bridge\\\";\" >> \"$OUT\"\n        fi\n    done\ndone\n\n# --- Host NICs attached to bridges ---\nfor iface in \"${!BRIDGE_MEMBERS[@]}\"; do\n    bridge=\"${BRIDGE_MEMBERS[$iface]}\"\n    if [[ ! $iface =~ ^vnet ]]; then\n        echo \"  \\\"$iface\\\" [shape=box, color=red];\" >> \"$OUT\"\n        echo \"  \\\"$iface\\\" -> \\\"$bridge\\\";\" >> \"$OUT\"\n    fi\ndone\n\necho \"}\" >> \"$OUT\"\n\necho \"Topology written to $OUT\"\n\n"
+        }
+    ]
+}

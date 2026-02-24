@@ -1,0 +1,402 @@
+{
+    "sourceFile": "scp_files_2_regs.sh",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 96,
+            "patches": [
+                {
+                    "date": 1769217710205,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1769217801056,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,3 +1,12 @@\n #!/bin/bash\n \n+src=(enp94s0f1 enp94s0f2 enp94s0f3 enp96s0f1 enp96s0f0 enp96s0f2 enp96s0f3 enp25s0f0 enp94s0f0)\n+dst=(ens2f1 ens2f2 ens2f3 ens3f1 ens3f0 ens3f2 ens3f3 ens1f0 ens2f0)\n \n+for i in \"${!src[@]}\"; do\n+    # find . -type f \\( -name \"*.yml\" -o -name \"*.yaml\" \\) -exec sed -i \"s/${src[$i]}/${dst[$i]}/g\" {} +\n+    echo \"Replacing ${src[$i]} with ${dst[$i]}\"\n+    # sed -i \"s/${src[$i]}/${dst[$i]}/g\" *.yml *.yaml\n+done\n+\n+\n"
+                },
+                {
+                    "date": 1769217899083,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,7 @@\n #!/bin/bash\n \n-src=(enp94s0f1 enp94s0f2 enp94s0f3 enp96s0f1 enp96s0f0 enp96s0f2 enp96s0f3 enp25s0f0 enp94s0f0)\n+src=(10.74.6.134 10.75.28.83 10.74.6.141 enp96s0f1 enp96s0f0 enp96s0f2 enp96s0f3 enp25s0f0 enp94s0f0)\n dst=(ens2f1 ens2f2 ens2f3 ens3f1 ens3f0 ens3f2 ens3f3 ens1f0 ens2f0)\n \n for i in \"${!src[@]}\"; do\n     # find . -type f \\( -name \"*.yml\" -o -name \"*.yaml\" \\) -exec sed -i \"s/${src[$i]}/${dst[$i]}/g\" {} +\n"
+                },
+                {
+                    "date": 1769217911790,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n #!/bin/bash\n \n-src=(10.74.6.134 10.75.28.83 10.74.6.141 enp96s0f1 enp96s0f0 enp96s0f2 enp96s0f3 enp25s0f0 enp94s0f0)\n-dst=(ens2f1 ens2f2 ens2f3 ens3f1 ens3f0 ens3f2 ens3f3 ens1f0 ens2f0)\n+hosts=(10.74.6.134 10.75.28.83 10.74.6.141)\n \n+\n for i in \"${!src[@]}\"; do\n     # find . -type f \\( -name \"*.yml\" -o -name \"*.yaml\" \\) -exec sed -i \"s/${src[$i]}/${dst[$i]}/g\" {} +\n     echo \"Replacing ${src[$i]} with ${dst[$i]}\"\n     # sed -i \"s/${src[$i]}/${dst[$i]}/g\" *.yml *.yaml\n"
+                },
+                {
+                    "date": 1769217956899,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,11 +2,9 @@\n \n hosts=(10.74.6.134 10.75.28.83 10.74.6.141)\n \n \n-for i in \"${!src[@]}\"; do\n-    # find . -type f \\( -name \"*.yml\" -o -name \"*.yaml\" \\) -exec sed -i \"s/${src[$i]}/${dst[$i]}/g\" {} +\n-    echo \"Replacing ${src[$i]} with ${dst[$i]}\"\n-    # sed -i \"s/${src[$i]}/${dst[$i]}/g\" *.yml *.yaml\n+for ip in \"${!hosts[@]}\"; do\n+    echo \"Processing host: ${hosts[$ip]}\"\n done\n \n \n"
+                },
+                {
+                    "date": 1769218139100,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,9 +2,14 @@\n \n hosts=(10.74.6.134 10.75.28.83 10.74.6.141)\n \n \n-for ip in \"${!hosts[@]}\"; do\n-    echo \"Processing host: ${hosts[$ip]}\"\n+# for ip in \"${!hosts[@]}\"; do\n+#     echo \"Processing host: ${hosts[$ip]}\"\n+# done\n+\n+for host in hosts; do\n+    echo \"Copying files to ${host}\"\n+    scp /home/tester/yaml/scripts/25_replace_str.sh tester@\"${host}\":/home/tester/yaml/scripts/\n+    scp /home/tester/yaml/scripts/ifrename.sh tester@\"${host}\":/home/tester/yaml/scripts/\n done\n \n-\n"
+                },
+                {
+                    "date": 1769218217404,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,8 +8,8 @@\n # done\n \n for host in hosts; do\n     echo \"Copying files to ${host}\"\n-    scp /home/tester/yaml/scripts/25_replace_str.sh tester@\"${host}\":/home/tester/yaml/scripts/\n+    scp bvirsh tester@\"${host}\":/home/tester/yaml/scripts/\n     scp /home/tester/yaml/scripts/ifrename.sh tester@\"${host}\":/home/tester/yaml/scripts/\n done\n \n"
+                },
+                {
+                    "date": 1769218229009,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,8 +8,8 @@\n # done\n \n for host in hosts; do\n     echo \"Copying files to ${host}\"\n-    scp bvirsh tester@\"${host}\":/home/tester/yaml/scripts/\n+    scp bvirsh tester@\"${host}\":/home/tester/bin/\n     scp /home/tester/yaml/scripts/ifrename.sh tester@\"${host}\":/home/tester/yaml/scripts/\n done\n \n"
+                },
+                {
+                    "date": 1769218236875,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,7 +9,10 @@\n \n for host in hosts; do\n     echo \"Copying files to ${host}\"\n     scp bvirsh tester@\"${host}\":/home/tester/bin/\n+    scp bvirt-ssh tester@\"${host}\":/home/tester/bin/\n+    scp bvirt-scp tester@\"${host}\":/home/tester/bin/\n+    scp bvirt-copy-to-vm tester@\"${host}\":/home/tester\n     scp /home/tester/yaml/scripts/ifrename.sh tester@\"${host}\":/home/tester/yaml/scripts/\n done\n \n"
+                },
+                {
+                    "date": 1769218263702,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,8 +8,9 @@\n # done\n \n for host in hosts; do\n     echo \"Copying files to ${host}\"\n+    scp .bash_aliases tester@\"${host}\":/home/tester/bin/\n     scp bvirsh tester@\"${host}\":/home/tester/bin/\n     scp bvirt-ssh tester@\"${host}\":/home/tester/bin/\n     scp bvirt-scp tester@\"${host}\":/home/tester/bin/\n     scp bvirt-copy-to-vm tester@\"${host}\":/home/tester\n"
+                },
+                {
+                    "date": 1769218280460,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,9 +8,9 @@\n # done\n \n for host in hosts; do\n     echo \"Copying files to ${host}\"\n-    scp .bash_aliases tester@\"${host}\":/home/tester/bin/\n+    scp .bash_aliases tester@\"${host}\":/home/tester/\n     scp bvirsh tester@\"${host}\":/home/tester/bin/\n     scp bvirt-ssh tester@\"${host}\":/home/tester/bin/\n     scp bvirt-scp tester@\"${host}\":/home/tester/bin/\n     scp bvirt-copy-to-vm tester@\"${host}\":/home/tester\n"
+                },
+                {
+                    "date": 1769218294461,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,9 +10,9 @@\n for host in hosts; do\n     echo \"Copying files to ${host}\"\n     scp .bash_aliases tester@\"${host}\":/home/tester/\n     scp bvirsh tester@\"${host}\":/home/tester/bin/\n-    scp bvirt-ssh tester@\"${host}\":/home/tester/bin/\n+    scp ifrename tester@\"${host}\":/home/tester/bin/\n     scp bvirt-scp tester@\"${host}\":/home/tester/bin/\n     scp bvirt-copy-to-vm tester@\"${host}\":/home/tester\n     scp /home/tester/yaml/scripts/ifrename.sh tester@\"${host}\":/home/tester/yaml/scripts/\n done\n"
+                },
+                {
+                    "date": 1769218306593,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,9 +11,9 @@\n     echo \"Copying files to ${host}\"\n     scp .bash_aliases tester@\"${host}\":/home/tester/\n     scp bvirsh tester@\"${host}\":/home/tester/bin/\n     scp ifrename tester@\"${host}\":/home/tester/bin/\n-    scp bvirt-scp tester@\"${host}\":/home/tester/bin/\n+    scp notify_bot tester@\"${host}\":/home/tester/bin/\n     scp bvirt-copy-to-vm tester@\"${host}\":/home/tester\n     scp /home/tester/yaml/scripts/ifrename.sh tester@\"${host}\":/home/tester/yaml/scripts/\n done\n \n"
+                },
+                {
+                    "date": 1769218335736,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,8 +12,8 @@\n     scp .bash_aliases tester@\"${host}\":/home/tester/\n     scp bvirsh tester@\"${host}\":/home/tester/bin/\n     scp ifrename tester@\"${host}\":/home/tester/bin/\n     scp notify_bot tester@\"${host}\":/home/tester/bin/\n-    scp bvirt-copy-to-vm tester@\"${host}\":/home/tester\n+    scp 2601_notification_manager.py tester@\"${host}\":/home/tester\n     scp /home/tester/yaml/scripts/ifrename.sh tester@\"${host}\":/home/tester/yaml/scripts/\n done\n \n"
+                },
+                {
+                    "date": 1769218404861,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,8 +12,9 @@\n     scp .bash_aliases tester@\"${host}\":/home/tester/\n     scp bvirsh tester@\"${host}\":/home/tester/bin/\n     scp ifrename tester@\"${host}\":/home/tester/bin/\n     scp notify_bot tester@\"${host}\":/home/tester/bin/\n-    scp 2601_notification_manager.py tester@\"${host}\":/home/tester\n-    scp /home/tester/yaml/scripts/ifrename.sh tester@\"${host}\":/home/tester/yaml/scripts/\n+    scp 2601_notification_manager.py tester@\"${host}\":/home/tester/kaidyan/scripts/\n+    scp 25_replace_str.sh tester@\"${host}\":/home/tester/y\n+\n done\n \n"
+                },
+                {
+                    "date": 1769218415459,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,8 +13,8 @@\n     scp bvirsh tester@\"${host}\":/home/tester/bin/\n     scp ifrename tester@\"${host}\":/home/tester/bin/\n     scp notify_bot tester@\"${host}\":/home/tester/bin/\n     scp 2601_notification_manager.py tester@\"${host}\":/home/tester/kaidyan/scripts/\n-    scp 25_replace_str.sh tester@\"${host}\":/home/tester/y\n+    scp poll_run_status.sh tester@\"${host}\":/home/tester/y\n \n done\n \n"
+                },
+                {
+                    "date": 1769218424969,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,9 +12,10 @@\n     scp .bash_aliases tester@\"${host}\":/home/tester/\n     scp bvirsh tester@\"${host}\":/home/tester/bin/\n     scp ifrename tester@\"${host}\":/home/tester/bin/\n     scp notify_bot tester@\"${host}\":/home/tester/bin/\n+\n     scp 2601_notification_manager.py tester@\"${host}\":/home/tester/kaidyan/scripts/\n-    scp poll_run_status.sh tester@\"${host}\":/home/tester/y\n+    scp poll_run_status.sh tester@\"${host}\":/home/tester/kaidyan/scripts/\n \n done\n \n"
+                },
+                {
+                    "date": 1769218571251,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,14 +8,14 @@\n # done\n \n for host in hosts; do\n     echo \"Copying files to ${host}\"\n-    scp .bash_aliases tester@\"${host}\":/home/tester/\n-    scp bvirsh tester@\"${host}\":/home/tester/bin/\n-    scp ifrename tester@\"${host}\":/home/tester/bin/\n-    scp notify_bot tester@\"${host}\":/home/tester/bin/\n+    # scp .bash_aliases tester@\"${host}\":/home/tester/\n+    # scp bvirsh tester@\"${host}\":/home/tester/bin/\n+    # scp ifrename tester@\"${host}\":/home/tester/bin/\n+    # scp notify_bot tester@\"${host}\":/home/tester/bin/\n \n-    scp 2601_notification_manager.py tester@\"${host}\":/home/tester/kaidyan/scripts/\n-    scp poll_run_status.sh tester@\"${host}\":/home/tester/kaidyan/scripts/\n+    # scp 2601_notification_manager.py tester@\"${host}\":/home/tester/kaidyan/scripts/\n+    # scp poll_run_status.sh tester@\"${host}\":/home/tester/kaidyan/scripts/\n \n done\n \n"
+                },
+                {
+                    "date": 1769218584328,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,9 +7,9 @@\n #     echo \"Processing host: ${hosts[$ip]}\"\n # done\n \n for host in hosts; do\n-    echo \"Copying files to ${host}\"\n+    echo \"Copying files to $host\"\n     # scp .bash_aliases tester@\"${host}\":/home/tester/\n     # scp bvirsh tester@\"${host}\":/home/tester/bin/\n     # scp ifrename tester@\"${host}\":/home/tester/bin/\n     # scp notify_bot tester@\"${host}\":/home/tester/bin/\n"
+                },
+                {
+                    "date": 1769218615874,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,15 +7,15 @@\n #     echo \"Processing host: ${hosts[$ip]}\"\n # done\n \n for host in hosts; do\n-    echo \"Copying files to $host\"\n-    # scp .bash_aliases tester@\"${host}\":/home/tester/\n-    # scp bvirsh tester@\"${host}\":/home/tester/bin/\n-    # scp ifrename tester@\"${host}\":/home/tester/bin/\n-    # scp notify_bot tester@\"${host}\":/home/tester/bin/\n+    echo \"Copying files to ${host}\"\n+    scp .bash_aliases tester@\"${host}\":/home/tester/\n+    scp bvirsh tester@\"${host}\":/home/tester/bin/\n+    scp ifrename tester@\"${host}\":/home/tester/bin/\n+    scp notify_bot tester@\"${host}\":/home/tester/bin/\n \n-    # scp 2601_notification_manager.py tester@\"${host}\":/home/tester/kaidyan/scripts/\n-    # scp poll_run_status.sh tester@\"${host}\":/home/tester/kaidyan/scripts/\n+    scp 2601_notification_manager.py tester@\"${host}\":/home/tester/kaidyan/scripts/\n+    scp poll_run_status.sh tester@\"${host}\":/home/tester/kaidyan/scripts/\n \n done\n \n"
+                },
+                {
+                    "date": 1769218624629,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,11 +2,11 @@\n \n hosts=(10.74.6.134 10.75.28.83 10.74.6.141)\n \n \n-# for ip in \"${!hosts[@]}\"; do\n-#     echo \"Processing host: ${hosts[$ip]}\"\n-# done\n+for ip in \"${!hosts[@]}\"; do\n+    echo \"Processing host: ${hosts[$ip]}\"\n+done\n \n for host in hosts; do\n     echo \"Copying files to ${host}\"\n     scp .bash_aliases tester@\"${host}\":/home/tester/\n"
+                },
+                {
+                    "date": 1769218654625,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,18 +4,15 @@\n \n \n for ip in \"${!hosts[@]}\"; do\n     echo \"Processing host: ${hosts[$ip]}\"\n-done\n-\n-for host in hosts; do\n-    echo \"Copying files to ${host}\"\n+    host=\"${hosts[$ip]}\"\n     scp .bash_aliases tester@\"${host}\":/home/tester/\n     scp bvirsh tester@\"${host}\":/home/tester/bin/\n     scp ifrename tester@\"${host}\":/home/tester/bin/\n     scp notify_bot tester@\"${host}\":/home/tester/bin/\n \n     scp 2601_notification_manager.py tester@\"${host}\":/home/tester/kaidyan/scripts/\n     scp poll_run_status.sh tester@\"${host}\":/home/tester/kaidyan/scripts/\n-\n done\n \n+\n"
+                },
+                {
+                    "date": 1769218660033,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,6 +13,6 @@\n \n     scp 2601_notification_manager.py tester@\"${host}\":/home/tester/kaidyan/scripts/\n     scp poll_run_status.sh tester@\"${host}\":/home/tester/kaidyan/scripts/\n done\n+echo \"All files have been copied to the respective hosts.\"\n \n-\n"
+                },
+                {
+                    "date": 1769218679776,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,11 +2,11 @@\n \n hosts=(10.74.6.134 10.75.28.83 10.74.6.141)\n \n \n-for ip in \"${!hosts[@]}\"; do\n-    echo \"Processing host: ${hosts[$ip]}\"\n-    host=\"${hosts[$ip]}\"\n+for index in \"${!hosts[@]}\"; do\n+    echo \"Processing host: ${hosts[$index]}\"\n+    host=\"${hosts[$index]}\"\n     scp .bash_aliases tester@\"${host}\":/home/tester/\n     scp bvirsh tester@\"${host}\":/home/tester/bin/\n     scp ifrename tester@\"${host}\":/home/tester/bin/\n     scp notify_bot tester@\"${host}\":/home/tester/bin/\n"
+                },
+                {
+                    "date": 1769218702701,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,14 +5,14 @@\n \n for index in \"${!hosts[@]}\"; do\n     echo \"Processing host: ${hosts[$index]}\"\n     host=\"${hosts[$index]}\"\n-    scp .bash_aliases tester@\"${host}\":/home/tester/\n-    scp bvirsh tester@\"${host}\":/home/tester/bin/\n-    scp ifrename tester@\"${host}\":/home/tester/bin/\n-    scp notify_bot tester@\"${host}\":/home/tester/bin/\n+    scp .bash_aliases tester@\"$host\":/home/tester/\n+    scp bvirsh tester@\"$host\":/home/tester/bin/\n+    scp ifrename tester@\"$host\":/home/tester/bin/\n+    scp notify_bot tester@\"$host\":/home/tester/bin/\n \n-    scp 2601_notification_manager.py tester@\"${host}\":/home/tester/kaidyan/scripts/\n-    scp poll_run_status.sh tester@\"${host}\":/home/tester/kaidyan/scripts/\n+    scp 2601_notification_manager.py tester@\"$host\":/home/tester/kaidyan/scripts/\n+    scp poll_run_status.sh tester@\"$host\":/home/tester/kaidyan/scripts/\n done\n echo \"All files have been copied to the respective hosts.\"\n \n"
+                },
+                {
+                    "date": 1769218716372,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,10 +3,11 @@\n hosts=(10.74.6.134 10.75.28.83 10.74.6.141)\n \n \n for index in \"${!hosts[@]}\"; do\n+    host=\"${hosts[$index]}\"\n     echo \"Processing host: ${hosts[$index]}\"\n-    host=\"${hosts[$index]}\"\n+\n     scp .bash_aliases tester@\"$host\":/home/tester/\n     scp bvirsh tester@\"$host\":/home/tester/bin/\n     scp ifrename tester@\"$host\":/home/tester/bin/\n     scp notify_bot tester@\"$host\":/home/tester/bin/\n"
+                },
+                {
+                    "date": 1769218724851,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,9 +4,9 @@\n \n \n for index in \"${!hosts[@]}\"; do\n     host=\"${hosts[$index]}\"\n-    echo \"Processing host: ${hosts[$index]}\"\n+    echo \"Processing host: $host\"\n \n     scp .bash_aliases tester@\"$host\":/home/tester/\n     scp bvirsh tester@\"$host\":/home/tester/bin/\n     scp ifrename tester@\"$host\":/home/tester/bin/\n"
+                },
+                {
+                    "date": 1769218730674,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,14 +6,14 @@\n for index in \"${!hosts[@]}\"; do\n     host=\"${hosts[$index]}\"\n     echo \"Processing host: $host\"\n \n-    scp .bash_aliases tester@\"$host\":/home/tester/\n-    scp bvirsh tester@\"$host\":/home/tester/bin/\n-    scp ifrename tester@\"$host\":/home/tester/bin/\n-    scp notify_bot tester@\"$host\":/home/tester/bin/\n+    # scp .bash_aliases tester@\"$host\":/home/tester/\n+    # scp bvirsh tester@\"$host\":/home/tester/bin/\n+    # scp ifrename tester@\"$host\":/home/tester/bin/\n+    # scp notify_bot tester@\"$host\":/home/tester/bin/\n \n-    scp 2601_notification_manager.py tester@\"$host\":/home/tester/kaidyan/scripts/\n-    scp poll_run_status.sh tester@\"$host\":/home/tester/kaidyan/scripts/\n+    # scp 2601_notification_manager.py tester@\"$host\":/home/tester/kaidyan/scripts/\n+    # scp poll_run_status.sh tester@\"$host\":/home/tester/kaidyan/scripts/\n done\n echo \"All files have been copied to the respective hosts.\"\n \n"
+                },
+                {
+                    "date": 1769218740051,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,14 +6,14 @@\n for index in \"${!hosts[@]}\"; do\n     host=\"${hosts[$index]}\"\n     echo \"Processing host: $host\"\n \n-    # scp .bash_aliases tester@\"$host\":/home/tester/\n-    # scp bvirsh tester@\"$host\":/home/tester/bin/\n-    # scp ifrename tester@\"$host\":/home/tester/bin/\n-    # scp notify_bot tester@\"$host\":/home/tester/bin/\n+    scp .bash_aliases tester@\"$host\":/home/tester/\n+    scp bvirsh tester@\"$host\":/home/tester/bin/\n+    scp ifrename tester@\"$host\":/home/tester/bin/\n+    scp notify_bot tester@\"$host\":/home/tester/bin/\n \n-    # scp 2601_notification_manager.py tester@\"$host\":/home/tester/kaidyan/scripts/\n-    # scp poll_run_status.sh tester@\"$host\":/home/tester/kaidyan/scripts/\n+    scp 2601_notification_manager.py tester@\"$host\":/home/tester/kaidyan/scripts/\n+    scp poll_run_status.sh tester@\"$host\":/home/tester/kaidyan/scripts/\n done\n echo \"All files have been copied to the respective hosts.\"\n \n"
+                },
+                {
+                    "date": 1769218748560,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,6 +14,6 @@\n \n     scp 2601_notification_manager.py tester@\"$host\":/home/tester/kaidyan/scripts/\n     scp poll_run_status.sh tester@\"$host\":/home/tester/kaidyan/scripts/\n done\n-echo \"All files have been copied to the respective hosts.\"\n+echo \"Done\"\n \n"
+                },
+                {
+                    "date": 1769218852868,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,6 +14,6 @@\n \n     scp 2601_notification_manager.py tester@\"$host\":/home/tester/kaidyan/scripts/\n     scp poll_run_status.sh tester@\"$host\":/home/tester/kaidyan/scripts/\n done\n-echo \"Done\"\n+echo \"Done.\"\n \n"
+                },
+                {
+                    "date": 1769218977230,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n #!/bin/bash\n \n hosts=(10.74.6.134 10.75.28.83 10.74.6.141)\n+hostname=(10.74.6.134 10.75.28.83 10.74.6.141)\n \n-\n for index in \"${!hosts[@]}\"; do\n     host=\"${hosts[$index]}\"\n     echo \"Processing host: $host\"\n \n"
+                },
+                {
+                    "date": 1769219050532,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,7 @@\n #!/bin/bash\n \n-hosts=(10.74.6.134 10.75.28.83 10.74.6.141)\n+hosts=(10.74.6.134 10.75.28.83 10.74.6.141 10.124.10.233)\n hostname=(10.74.6.134 10.75.28.83 10.74.6.141)\n \n for index in \"${!hosts[@]}\"; do\n     host=\"${hosts[$index]}\"\n"
+                },
+                {
+                    "date": 1769219069109,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,8 @@\n #!/bin/bash\n \n hosts=(10.74.6.134 10.75.28.83 10.74.6.141 10.124.10.233)\n-hostname=(10.74.6.134 10.75.28.83 10.74.6.141)\n+hostname=(sdwan-reg-1 10.75.28.83 10.74.6.141)\n \n for index in \"${!hosts[@]}\"; do\n     host=\"${hosts[$index]}\"\n     echo \"Processing host: $host\"\n"
+                },
+                {
+                    "date": 1769219087035,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,8 @@\n #!/bin/bash\n \n hosts=(10.74.6.134 10.75.28.83 10.74.6.141 10.124.10.233)\n-hostname=(sdwan-reg-1 10.75.28.83 10.74.6.141)\n+hostname=(sdwan-reg-1 sdwan-reg-2 sdwan-reg-3 sdwan-reg-4)\n \n for index in \"${!hosts[@]}\"; do\n     host=\"${hosts[$index]}\"\n     echo \"Processing host: $host\"\n"
+                },
+                {
+                    "date": 1769219114818,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,9 +4,9 @@\n hostname=(sdwan-reg-1 sdwan-reg-2 sdwan-reg-3 sdwan-reg-4)\n \n for index in \"${!hosts[@]}\"; do\n     host=\"${hosts[$index]}\"\n-    echo \"Processing host: $host\"\n+    echo \"Processing host: ${hosts[$index]}\"\n \n     scp .bash_aliases tester@\"$host\":/home/tester/\n     scp bvirsh tester@\"$host\":/home/tester/bin/\n     scp ifrename tester@\"$host\":/home/tester/bin/\n"
+                },
+                {
+                    "date": 1769219120158,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,9 +4,9 @@\n hostname=(sdwan-reg-1 sdwan-reg-2 sdwan-reg-3 sdwan-reg-4)\n \n for index in \"${!hosts[@]}\"; do\n     host=\"${hosts[$index]}\"\n-    echo \"Processing host: ${hosts[$index]}\"\n+    echo \"Processing host: ${hosts[$index]} (${hostname[$index]})\"\n \n     scp .bash_aliases tester@\"$host\":/home/tester/\n     scp bvirsh tester@\"$host\":/home/tester/bin/\n     scp ifrename tester@\"$host\":/home/tester/bin/\n"
+                },
+                {
+                    "date": 1769219139763,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,9 +4,9 @@\n hostname=(sdwan-reg-1 sdwan-reg-2 sdwan-reg-3 sdwan-reg-4)\n \n for index in \"${!hosts[@]}\"; do\n     host=\"${hosts[$index]}\"\n-    echo \"Processing host: ${hosts[$index]} (${hostname[$index]})\"\n+    echo \"Processing host: ${hostname[$index]} (${host})\"\n \n     scp .bash_aliases tester@\"$host\":/home/tester/\n     scp bvirsh tester@\"$host\":/home/tester/bin/\n     scp ifrename tester@\"$host\":/home/tester/bin/\n"
+                },
+                {
+                    "date": 1769219149603,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,9 +4,9 @@\n hostname=(sdwan-reg-1 sdwan-reg-2 sdwan-reg-3 sdwan-reg-4)\n \n for index in \"${!hosts[@]}\"; do\n     host=\"${hosts[$index]}\"\n-    echo \"Processing host: ${hostname[$index]} (${host})\"\n+    echo \"Processing host: ${hostname[$index]} -- (${host})\"\n \n     scp .bash_aliases tester@\"$host\":/home/tester/\n     scp bvirsh tester@\"$host\":/home/tester/bin/\n     scp ifrename tester@\"$host\":/home/tester/bin/\n"
+                },
+                {
+                    "date": 1769219167592,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,16 +4,16 @@\n hostname=(sdwan-reg-1 sdwan-reg-2 sdwan-reg-3 sdwan-reg-4)\n \n for index in \"${!hosts[@]}\"; do\n     host=\"${hosts[$index]}\"\n-    echo \"Processing host: ${hostname[$index]} -- (${host})\"\n+    echo \"Processing host: ${hostname[$index]}(${host})\"\n \n-    scp .bash_aliases tester@\"$host\":/home/tester/\n-    scp bvirsh tester@\"$host\":/home/tester/bin/\n-    scp ifrename tester@\"$host\":/home/tester/bin/\n-    scp notify_bot tester@\"$host\":/home/tester/bin/\n+    # scp .bash_aliases tester@\"$host\":/home/tester/\n+    # scp bvirsh tester@\"$host\":/home/tester/bin/\n+    # scp ifrename tester@\"$host\":/home/tester/bin/\n+    # scp notify_bot tester@\"$host\":/home/tester/bin/\n \n-    scp 2601_notification_manager.py tester@\"$host\":/home/tester/kaidyan/scripts/\n-    scp poll_run_status.sh tester@\"$host\":/home/tester/kaidyan/scripts/\n+    # scp 2601_notification_manager.py tester@\"$host\":/home/tester/kaidyan/scripts/\n+    # scp poll_run_status.sh tester@\"$host\":/home/tester/kaidyan/scripts/\n done\n echo \"Done.\"\n \n"
+                },
+                {
+                    "date": 1769219176248,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,9 +4,9 @@\n hostname=(sdwan-reg-1 sdwan-reg-2 sdwan-reg-3 sdwan-reg-4)\n \n for index in \"${!hosts[@]}\"; do\n     host=\"${hosts[$index]}\"\n-    echo \"Processing host: ${hostname[$index]}(${host})\"\n+    echo \"Processing host: ${hostname[$index]} (${host})\"\n \n     # scp .bash_aliases tester@\"$host\":/home/tester/\n     # scp bvirsh tester@\"$host\":/home/tester/bin/\n     # scp ifrename tester@\"$host\":/home/tester/bin/\n"
+                },
+                {
+                    "date": 1769219198115,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,14 +6,14 @@\n for index in \"${!hosts[@]}\"; do\n     host=\"${hosts[$index]}\"\n     echo \"Processing host: ${hostname[$index]} (${host})\"\n \n-    # scp .bash_aliases tester@\"$host\":/home/tester/\n-    # scp bvirsh tester@\"$host\":/home/tester/bin/\n-    # scp ifrename tester@\"$host\":/home/tester/bin/\n-    # scp notify_bot tester@\"$host\":/home/tester/bin/\n+    scp .bash_aliases tester@\"$host\":/home/tester/\n+    scp bvirsh tester@\"$host\":/home/tester/bin/\n+    scp ifrename tester@\"$host\":/home/tester/bin/\n+    scp notify_bot tester@\"$host\":/home/tester/bin/\n \n-    # scp 2601_notification_manager.py tester@\"$host\":/home/tester/kaidyan/scripts/\n-    # scp poll_run_status.sh tester@\"$host\":/home/tester/kaidyan/scripts/\n+    scp 2601_notification_manager.py tester@\"$host\":/home/tester/kaidyan/scripts/\n+    scp poll_run_status.sh tester@\"$host\":/home/tester/kaidyan/scripts/\n done\n echo \"Done.\"\n \n"
+                },
+                {
+                    "date": 1769222367219,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,8 @@\n #!/bin/bash\n \n hosts=(10.74.6.134 10.75.28.83 10.74.6.141 10.124.10.233)\n-hostname=(sdwan-reg-1 sdwan-reg-2 sdwan-reg-3 sdwan-reg-4)\n+hostname=(sdwan-reg-1 sdwan-reg-2 sdwan-reg-3 sdwan-reg-4 Mirable_SDWAN_Platform)\n \n for index in \"${!hosts[@]}\"; do\n     host=\"${hosts[$index]}\"\n     echo \"Processing host: ${hostname[$index]} (${host})\"\n"
+                },
+                {
+                    "date": 1769222381885,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,7 @@\n #!/bin/bash\n \n-hosts=(10.74.6.134 10.75.28.83 10.74.6.141 10.124.10.233)\n+hosts=(10.74.6.134 10.75.28.83 10.74.6.141 10.124.10.233 10.74.5.23)\n hostname=(sdwan-reg-1 sdwan-reg-2 sdwan-reg-3 sdwan-reg-4 Mirable_SDWAN_Platform)\n \n for index in \"${!hosts[@]}\"; do\n     host=\"${hosts[$index]}\"\n"
+                },
+                {
+                    "date": 1769223777824,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,15 @@\n #!/bin/bash\n \n+mode=$1\n+\n hosts=(10.74.6.134 10.75.28.83 10.74.6.141 10.124.10.233 10.74.5.23)\n hostname=(sdwan-reg-1 sdwan-reg-2 sdwan-reg-3 sdwan-reg-4 Mirable_SDWAN_Platform)\n \n+if [ \"$mode\" != \"all\" ] && [ \"$mode\" != \"range\" ]; then\n+    echo \"Usage: $0 [all|range]\"\n+    exit 1\n+fi\n for index in \"${!hosts[@]}\"; do\n     host=\"${hosts[$index]}\"\n     echo \"Processing host: ${hostname[$index]} (${host})\"\n \n"
+                },
+                {
+                    "date": 1769224846770,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,8 +8,9 @@\n if [ \"$mode\" != \"all\" ] && [ \"$mode\" != \"range\" ]; then\n     echo \"Usage: $0 [all|range]\"\n     exit 1\n fi\n+\n for index in \"${!hosts[@]}\"; do\n     host=\"${hosts[$index]}\"\n     echo \"Processing host: ${hostname[$index]} (${host})\"\n \n"
+                },
+                {
+                    "date": 1769224908045,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,9 +2,9 @@\n \n mode=$1\n \n hosts=(10.74.6.134 10.75.28.83 10.74.6.141 10.124.10.233 10.74.5.23)\n-hostname=(sdwan-reg-1 sdwan-reg-2 sdwan-reg-3 sdwan-reg-4 Mirable_SDWAN_Platform)\n+hostname=(sdwan-reg-1 sdwan-reg-2 sdwan-reg-3 sdwan-reg-4 sdwan-reg-5)\n \n if [ \"$mode\" != \"all\" ] && [ \"$mode\" != \"range\" ]; then\n     echo \"Usage: $0 [all|range]\"\n     exit 1\n"
+                },
+                {
+                    "date": 1769224927364,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,9 +2,9 @@\n \n mode=$1\n \n hosts=(10.74.6.134 10.75.28.83 10.74.6.141 10.124.10.233 10.74.5.23)\n-hostname=(sdwan-reg-1 sdwan-reg-2 sdwan-reg-3 sdwan-reg-4 sdwan-reg-5)\n+hostnames=(sdwan-reg-1 sdwan-reg-2 sdwan-reg-3 sdwan-reg-4 sdwan-reg-5)\n \n if [ \"$mode\" != \"all\" ] && [ \"$mode\" != \"range\" ]; then\n     echo \"Usage: $0 [all|range]\"\n     exit 1\n"
+                },
+                {
+                    "date": 1769224932574,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,9 +11,9 @@\n fi\n \n for index in \"${!hosts[@]}\"; do\n     host=\"${hosts[$index]}\"\n-    echo \"Processing host: ${hostname[$index]} (${host})\"\n+    echo \"Processing host: ${hostnames[$index]} (${host})\"\n \n     scp .bash_aliases tester@\"$host\":/home/tester/\n     scp bvirsh tester@\"$host\":/home/tester/bin/\n     scp ifrename tester@\"$host\":/home/tester/bin/\n"
+                },
+                {
+                    "date": 1769224946667,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,7 @@\n #!/bin/bash\n \n-mode=$1\n+hostname=$1\n \n hosts=(10.74.6.134 10.75.28.83 10.74.6.141 10.124.10.233 10.74.5.23)\n hostnames=(sdwan-reg-1 sdwan-reg-2 sdwan-reg-3 sdwan-reg-4 sdwan-reg-5)\n \n"
+                },
+                {
+                    "date": 1769225138486,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,11 +4,13 @@\n \n hosts=(10.74.6.134 10.75.28.83 10.74.6.141 10.124.10.233 10.74.5.23)\n hostnames=(sdwan-reg-1 sdwan-reg-2 sdwan-reg-3 sdwan-reg-4 sdwan-reg-5)\n \n-if [ \"$mode\" != \"all\" ] && [ \"$mode\" != \"range\" ]; then\n+if [ \"$hostname\" != \"all\" ]; then\n     echo \"Usage: $0 [all|range]\"\n     exit 1\n+elif [ \"$hostname\" == *reg* ]; then\n+    hosts=(\n fi\n \n for index in \"${!hosts[@]}\"; do\n     host=\"${hosts[$index]}\"\n"
+                },
+                {
+                    "date": 1769225149542,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,9 +7,9 @@\n \n if [ \"$hostname\" != \"all\" ]; then\n     echo \"Usage: $0 [all|range]\"\n     exit 1\n-elif [ \"$hostname\" == *reg* ]; then\n+elif [[ \"$hostname\" == *reg* ]]; then\n     hosts=(\n fi\n \n for index in \"${!hosts[@]}\"; do\n"
+                },
+                {
+                    "date": 1769225160733,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,9 +7,9 @@\n \n if [ \"$hostname\" != \"all\" ]; then\n     echo \"Usage: $0 [all|range]\"\n     exit 1\n-elif [[ \"$hostname\" == *reg* ]]; then\n+elif [[ \"$hostname\" == sdwan-reg-* ]]; then\n     hosts=(\n fi\n \n for index in \"${!hosts[@]}\"; do\n"
+                },
+                {
+                    "date": 1769225177342,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,8 +9,10 @@\n     echo \"Usage: $0 [all|range]\"\n     exit 1\n elif [[ \"$hostname\" == sdwan-reg-* ]]; then\n     hosts=(\n+else\n+    echo \"Copying files to all hosts...\"\n fi\n \n for index in \"${!hosts[@]}\"; do\n     host=\"${hosts[$index]}\"\n"
+                },
+                {
+                    "date": 1769225191644,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,14 +5,14 @@\n hosts=(10.74.6.134 10.75.28.83 10.74.6.141 10.124.10.233 10.74.5.23)\n hostnames=(sdwan-reg-1 sdwan-reg-2 sdwan-reg-3 sdwan-reg-4 sdwan-reg-5)\n \n if [ \"$hostname\" != \"all\" ]; then\n-    echo \"Usage: $0 [all|range]\"\n-    exit 1\n+\n elif [[ \"$hostname\" == sdwan-reg-* ]]; then\n     hosts=(\n else\n-    echo \"Copying files to all hosts...\"\n+    echo \"Usage: $0 [all|range]\"\n+    exit 1\n fi\n \n for index in \"${!hosts[@]}\"; do\n     host=\"${hosts[$index]}\"\n"
+                },
+                {
+                    "date": 1769225206560,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,9 +9,9 @@\n \n elif [[ \"$hostname\" == sdwan-reg-* ]]; then\n     hosts=(\n else\n-    echo \"Usage: $0 [all|range]\"\n+    echo \"Usage: $0 [all|sdwan-reg-1|sdwan-reg-2|sdwan-reg-3|sdwan-reg-4|sdwan-reg-5]\"\n     exit 1\n fi\n \n for index in \"${!hosts[@]}\"; do\n"
+                },
+                {
+                    "date": 1769225331198,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,43 @@\n+#!/bin/bash\n+\n+hostname=$1\n+\n+function scp_files(){\n+    local host=$1\n+    echo \"Copying files to $host...\"\n+    scp .bash_aliases tester@\"$host\":/home/tester/\n+    scp bvirsh tester@\"$host\":/home/tester/bin/\n+    scp ifrename tester@\"$host\":/home/tester/bin/\n+    scp notify_bot tester@\"$host\":/home/tester/bin/\n+\n+    scp 2601_notification_manager.py tester@\"$host\":/home/tester/kaidyan/scripts/\n+    scp poll_run_status.sh tester@\"$host\":/home/tester/kaidyan/scripts/\n+}\n+\n+\n+hosts=(10.74.6.134 10.75.28.83 10.74.6.141 10.124.10.233 10.74.5.23)\n+hostnames=(sdwan-reg-1 sdwan-reg-2 sdwan-reg-3 sdwan-reg-4 sdwan-reg-5)\n+\n+if [ \"$hostname\" != \"all\" ]; then\n+\n+elif [[ \"$hostname\" == sdwan-reg-* ]]; then\n+    hosts=(\n+else\n+    echo \"Usage: $0 [all|sdwan-reg-1|sdwan-reg-2|sdwan-reg-3|sdwan-reg-4|sdwan-reg-5]\"\n+    exit 1\n+fi\n+\n+for index in \"${!hosts[@]}\"; do\n+    host=\"${hosts[$index]}\"\n+    echo \"Processing host: ${hostnames[$index]} (${host})\"\n+\n+    scp .bash_aliases tester@\"$host\":/home/tester/\n+    scp bvirsh tester@\"$host\":/home/tester/bin/\n+    scp ifrename tester@\"$host\":/home/tester/bin/\n+    scp notify_bot tester@\"$host\":/home/tester/bin/\n+\n+    scp 2601_notification_manager.py tester@\"$host\":/home/tester/kaidyan/scripts/\n+    scp poll_run_status.sh tester@\"$host\":/home/tester/kaidyan/scripts/\n+done\n+echo \"Done.\"\n+\n"
+                },
+                {
+                    "date": 1769225339055,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n #!/bin/bash\n \n hostname=$1\n \n-function scp_files(){\n+function scp_file(){\n     local host=$1\n     echo \"Copying files to $host...\"\n     scp .bash_aliases tester@\"$host\":/home/tester/\n     scp bvirsh tester@\"$host\":/home/tester/bin/\n@@ -40,34 +40,4 @@\n     scp poll_run_status.sh tester@\"$host\":/home/tester/kaidyan/scripts/\n done\n echo \"Done.\"\n \n-#!/bin/bash\n-\n-hostname=$1\n-\n-hosts=(10.74.6.134 10.75.28.83 10.74.6.141 10.124.10.233 10.74.5.23)\n-hostnames=(sdwan-reg-1 sdwan-reg-2 sdwan-reg-3 sdwan-reg-4 sdwan-reg-5)\n-\n-if [ \"$hostname\" != \"all\" ]; then\n-\n-elif [[ \"$hostname\" == sdwan-reg-* ]]; then\n-    hosts=(\n-else\n-    echo \"Usage: $0 [all|sdwan-reg-1|sdwan-reg-2|sdwan-reg-3|sdwan-reg-4|sdwan-reg-5]\"\n-    exit 1\n-fi\n-\n-for index in \"${!hosts[@]}\"; do\n-    host=\"${hosts[$index]}\"\n-    echo \"Processing host: ${hostnames[$index]} (${host})\"\n-\n-    scp .bash_aliases tester@\"$host\":/home/tester/\n-    scp bvirsh tester@\"$host\":/home/tester/bin/\n-    scp ifrename tester@\"$host\":/home/tester/bin/\n-    scp notify_bot tester@\"$host\":/home/tester/bin/\n-\n-    scp 2601_notification_manager.py tester@\"$host\":/home/tester/kaidyan/scripts/\n-    scp poll_run_status.sh tester@\"$host\":/home/tester/kaidyan/scripts/\n-done\n-echo \"Done.\"\n-\n"
+                },
+                {
+                    "date": 1769225354048,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n #!/bin/bash\n \n hostname=$1\n \n-function scp_file(){\n+function scp_files(){\n     local host=$1\n     echo \"Copying files to $host...\"\n     scp .bash_aliases tester@\"$host\":/home/tester/\n     scp bvirsh tester@\"$host\":/home/tester/bin/\n"
+                },
+                {
+                    "date": 1769225384384,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -30,14 +30,8 @@\n for index in \"${!hosts[@]}\"; do\n     host=\"${hosts[$index]}\"\n     echo \"Processing host: ${hostnames[$index]} (${host})\"\n \n-    scp .bash_aliases tester@\"$host\":/home/tester/\n-    scp bvirsh tester@\"$host\":/home/tester/bin/\n-    scp ifrename tester@\"$host\":/home/tester/bin/\n-    scp notify_bot tester@\"$host\":/home/tester/bin/\n-\n-    scp 2601_notification_manager.py tester@\"$host\":/home/tester/kaidyan/scripts/\n-    scp poll_run_status.sh tester@\"$host\":/home/tester/kaidyan/scripts/\n+    scp_files \"$host\"\n done\n echo \"Done.\"\n \n"
+                },
+                {
+                    "date": 1769225403443,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,20 +18,20 @@\n hosts=(10.74.6.134 10.75.28.83 10.74.6.141 10.124.10.233 10.74.5.23)\n hostnames=(sdwan-reg-1 sdwan-reg-2 sdwan-reg-3 sdwan-reg-4 sdwan-reg-5)\n \n if [ \"$hostname\" != \"all\" ]; then\n+    for index in \"${!hosts[@]}\"; do\n+        host=\"${hosts[$index]}\"\n+        echo \"Processing host: ${hostnames[$index]} (${host})\"\n \n+        scp_files \"$host\"\n+    done\n elif [[ \"$hostname\" == sdwan-reg-* ]]; then\n     hosts=(\n else\n     echo \"Usage: $0 [all|sdwan-reg-1|sdwan-reg-2|sdwan-reg-3|sdwan-reg-4|sdwan-reg-5]\"\n     exit 1\n fi\n \n-for index in \"${!hosts[@]}\"; do\n-    host=\"${hosts[$index]}\"\n-    echo \"Processing host: ${hostnames[$index]} (${host})\"\n \n-    scp_files \"$host\"\n-done\n echo \"Done.\"\n \n"
+                },
+                {
+                    "date": 1769225414354,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -25,9 +25,9 @@\n \n         scp_files \"$host\"\n     done\n elif [[ \"$hostname\" == sdwan-reg-* ]]; then\n-    hosts=(\n+    scp_files \"$host\"\n else\n     echo \"Usage: $0 [all|sdwan-reg-1|sdwan-reg-2|sdwan-reg-3|sdwan-reg-4|sdwan-reg-5]\"\n     exit 1\n fi\n"
+                },
+                {
+                    "date": 1769225436881,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,8 +23,9 @@\n         host=\"${hosts[$index]}\"\n         echo \"Processing host: ${hostnames[$index]} (${host})\"\n \n         scp_files \"$host\"\n+        echo\n     done\n elif [[ \"$hostname\" == sdwan-reg-* ]]; then\n     scp_files \"$host\"\n else\n"
+                },
+                {
+                    "date": 1769225442414,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,9 @@\n         host=\"${hosts[$index]}\"\n         echo \"Processing host: ${hostnames[$index]} (${host})\"\n \n         scp_files \"$host\"\n-        echo\n+        echo \"Files copied to ${hostnames[$index]} (${host})\"\n     done\n elif [[ \"$hostname\" == sdwan-reg-* ]]; then\n     scp_files \"$host\"\n else\n"
+                },
+                {
+                    "date": 1769225454871,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,9 @@\n         host=\"${hosts[$index]}\"\n         echo \"Processing host: ${hostnames[$index]} (${host})\"\n \n         scp_files \"$host\"\n-        echo \"Files copied to ${hostnames[$index]} (${host})\"\n+        echo \"\"\n     done\n elif [[ \"$hostname\" == sdwan-reg-* ]]; then\n     scp_files \"$host\"\n else\n"
+                },
+                {
+                    "date": 1769225498558,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -26,8 +26,11 @@\n         scp_files \"$host\"\n         echo \"\"\n     done\n elif [[ \"$hostname\" == sdwan-reg-* ]]; then\n+    index=$(( ${hostname##*-} - 1 ))\n+    host=\"${hosts[$index]}\"\n+    echo \"Processing host: ${hostnames[$index]} (${host})\"\n     scp_files \"$host\"\n else\n     echo \"Usage: $0 [all|sdwan-reg-1|sdwan-reg-2|sdwan-reg-3|sdwan-reg-4|sdwan-reg-5]\"\n     exit 1\n"
+                },
+                {
+                    "date": 1769225618790,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -26,9 +26,14 @@\n         scp_files \"$host\"\n         echo \"\"\n     done\n elif [[ \"$hostname\" == sdwan-reg-* ]]; then\n-    index=$(( ${hostname##*-} - 1 ))\n+    for i in \"${!hosts[@]}\"; do\n+    if [[ \"${hosts[$i]}\" == \"$hostname\" ]]; then\n+        echo \"$i\"\n+        break\n+    fi\n+    done\n     host=\"${hosts[$index]}\"\n     echo \"Processing host: ${hostnames[$index]} (${host})\"\n     scp_files \"$host\"\n else\n"
+                },
+                {
+                    "date": 1769225639381,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -27,12 +27,12 @@\n         echo \"\"\n     done\n elif [[ \"$hostname\" == sdwan-reg-* ]]; then\n     for i in \"${!hosts[@]}\"; do\n-    if [[ \"${hosts[$i]}\" == \"$hostname\" ]]; then\n-        echo \"$i\"\n-        break\n-    fi\n+        if [[ \"${hosts[$i]}\" == \"$hostname\" ]]; then\n+            echo \"$i\"\n+            break\n+        fi\n     done\n     host=\"${hosts[$index]}\"\n     echo \"Processing host: ${hostnames[$index]} (${host})\"\n     scp_files \"$host\"\n"
+                },
+                {
+                    "date": 1769225651606,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -28,13 +28,13 @@\n     done\n elif [[ \"$hostname\" == sdwan-reg-* ]]; then\n     for i in \"${!hosts[@]}\"; do\n         if [[ \"${hosts[$i]}\" == \"$hostname\" ]]; then\n-            echo \"$i\"\n+            host=\"${hosts[$index]}\"\n             break\n         fi\n     done\n-    host=\"${hosts[$index]}\"\n+    \n     echo \"Processing host: ${hostnames[$index]} (${host})\"\n     scp_files \"$host\"\n else\n     echo \"Usage: $0 [all|sdwan-reg-1|sdwan-reg-2|sdwan-reg-3|sdwan-reg-4|sdwan-reg-5]\"\n"
+                },
+                {
+                    "date": 1769225656730,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -32,9 +32,8 @@\n             host=\"${hosts[$index]}\"\n             break\n         fi\n     done\n-    \n     echo \"Processing host: ${hostnames[$index]} (${host})\"\n     scp_files \"$host\"\n else\n     echo \"Usage: $0 [all|sdwan-reg-1|sdwan-reg-2|sdwan-reg-3|sdwan-reg-4|sdwan-reg-5]\"\n"
+                },
+                {
+                    "date": 1769225666050,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -28,9 +28,9 @@\n     done\n elif [[ \"$hostname\" == sdwan-reg-* ]]; then\n     for i in \"${!hosts[@]}\"; do\n         if [[ \"${hosts[$i]}\" == \"$hostname\" ]]; then\n-            host=\"${hosts[$index]}\"\n+            host=\"${hosts[$i]}\"\n             break\n         fi\n     done\n     echo \"Processing host: ${hostnames[$index]} (${host})\"\n"
+                },
+                {
+                    "date": 1769225706132,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -26,11 +26,11 @@\n         scp_files \"$host\"\n         echo \"\"\n     done\n elif [[ \"$hostname\" == sdwan-reg-* ]]; then\n-    for i in \"${!hosts[@]}\"; do\n-        if [[ \"${hosts[$i]}\" == \"$hostname\" ]]; then\n-            host=\"${hosts[$i]}\"\n+    for index in \"${!hosts[@]}\"; do\n+        if [[ \"${hosts[$index]}\" == \"$hostname\" ]]; then\n+            host=\"${hosts[$index]}\"\n             break\n         fi\n     done\n     echo \"Processing host: ${hostnames[$index]} (${host})\"\n"
+                },
+                {
+                    "date": 1769225752086,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -39,7 +39,6 @@\n     echo \"Usage: $0 [all|sdwan-reg-1|sdwan-reg-2|sdwan-reg-3|sdwan-reg-4|sdwan-reg-5]\"\n     exit 1\n fi\n \n-\n echo \"Done.\"\n \n"
+                },
+                {
+                    "date": 1769225806228,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,9 +17,9 @@\n \n hosts=(10.74.6.134 10.75.28.83 10.74.6.141 10.124.10.233 10.74.5.23)\n hostnames=(sdwan-reg-1 sdwan-reg-2 sdwan-reg-3 sdwan-reg-4 sdwan-reg-5)\n \n-if [ \"$hostname\" != \"all\" ]; then\n+if [ \"$hostname\" == \"all\" ]; then\n     for index in \"${!hosts[@]}\"; do\n         host=\"${hosts[$index]}\"\n         echo \"Processing host: ${hostnames[$index]} (${host})\"\n \n"
+                },
+                {
+                    "date": 1769225823740,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -35,9 +35,9 @@\n     done\n     echo \"Processing host: ${hostnames[$index]} (${host})\"\n     scp_files \"$host\"\n else\n-    echo \"Usage: $0 [all|sdwan-reg-1|sdwan-reg-2|sdwan-reg-3|sdwan-reg-4|sdwan-reg-5]\"\n+    echo \"Usage:\\n $0 [all|sdwan-reg-1|sdwan-reg-2|sdwan-reg-3|sdwan-reg-4|sdwan-reg-5]\"\n     exit 1\n fi\n \n echo \"Done.\"\n"
+                },
+                {
+                    "date": 1769225831156,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -35,9 +35,9 @@\n     done\n     echo \"Processing host: ${hostnames[$index]} (${host})\"\n     scp_files \"$host\"\n else\n-    echo \"Usage:\\n $0 [all|sdwan-reg-1|sdwan-reg-2|sdwan-reg-3|sdwan-reg-4|sdwan-reg-5]\"\n+    echo \"Usage: $0 [all|sdwan-reg-1|sdwan-reg-2|sdwan-reg-3|sdwan-reg-4|sdwan-reg-5]\"\n     exit 1\n fi\n \n echo \"Done.\"\n"
+                },
+                {
+                    "date": 1769225842913,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -35,9 +35,10 @@\n     done\n     echo \"Processing host: ${hostnames[$index]} (${host})\"\n     scp_files \"$host\"\n else\n-    echo \"Usage: $0 [all|sdwan-reg-1|sdwan-reg-2|sdwan-reg-3|sdwan-reg-4|sdwan-reg-5]\"\n+    echo \"Usage:\"\n+    echo \"  $0 [all|sdwan-reg-1|sdwan-reg-2|sdwan-reg-3|sdwan-reg-4|sdwan-reg-5]\"\n     exit 1\n fi\n \n echo \"Done.\"\n"
+                },
+                {
+                    "date": 1769225931057,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,9 +13,8 @@\n     scp 2601_notification_manager.py tester@\"$host\":/home/tester/kaidyan/scripts/\n     scp poll_run_status.sh tester@\"$host\":/home/tester/kaidyan/scripts/\n }\n \n-\n hosts=(10.74.6.134 10.75.28.83 10.74.6.141 10.124.10.233 10.74.5.23)\n hostnames=(sdwan-reg-1 sdwan-reg-2 sdwan-reg-3 sdwan-reg-4 sdwan-reg-5)\n \n if [ \"$hostname\" == \"all\" ]; then\n"
+                },
+                {
+                    "date": 1769225995099,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -26,9 +26,9 @@\n         echo \"\"\n     done\n elif [[ \"$hostname\" == sdwan-reg-* ]]; then\n     for index in \"${!hosts[@]}\"; do\n-        if [[ \"${hosts[$index]}\" == \"$hostname\" ]]; then\n+        if [[ \"${hostnames[$index]}\" == \"$hostname\" ]]; then\n             host=\"${hosts[$index]}\"\n             break\n         fi\n     done\n"
+                },
+                {
+                    "date": 1769230216963,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,9 +4,11 @@\n \n function scp_files(){\n     local host=$1\n     echo \"Copying files to $host...\"\n+\n     scp .bash_aliases tester@\"$host\":/home/tester/\n+\n     scp bvirsh tester@\"$host\":/home/tester/bin/\n     scp ifrename tester@\"$host\":/home/tester/bin/\n     scp notify_bot tester@\"$host\":/home/tester/bin/\n \n"
+                },
+                {
+                    "date": 1769232540195,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,13 +5,13 @@\n function scp_files(){\n     local host=$1\n     echo \"Copying files to $host...\"\n \n-    scp .bash_aliases tester@\"$host\":/home/tester/\n+    # scp .bash_aliases tester@\"$host\":/home/tester/\n \n-    scp bvirsh tester@\"$host\":/home/tester/bin/\n-    scp ifrename tester@\"$host\":/home/tester/bin/\n-    scp notify_bot tester@\"$host\":/home/tester/bin/\n+    # scp bvirsh tester@\"$host\":/home/tester/bin/\n+    # scp ifrename tester@\"$host\":/home/tester/bin/\n+    # scp notify_bot tester@\"$host\":/home/tester/bin/\n \n     scp 2601_notification_manager.py tester@\"$host\":/home/tester/kaidyan/scripts/\n     scp poll_run_status.sh tester@\"$host\":/home/tester/kaidyan/scripts/\n }\n"
+                },
+                {
+                    "date": 1769232546336,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,9 +12,9 @@\n     # scp ifrename tester@\"$host\":/home/tester/bin/\n     # scp notify_bot tester@\"$host\":/home/tester/bin/\n \n     scp 2601_notification_manager.py tester@\"$host\":/home/tester/kaidyan/scripts/\n-    scp poll_run_status.sh tester@\"$host\":/home/tester/kaidyan/scripts/\n+    # scp poll_run_status.sh tester@\"$host\":/home/tester/kaidyan/scripts/\n }\n \n hosts=(10.74.6.134 10.75.28.83 10.74.6.141 10.124.10.233 10.74.5.23)\n hostnames=(sdwan-reg-1 sdwan-reg-2 sdwan-reg-3 sdwan-reg-4 sdwan-reg-5)\n"
+                },
+                {
+                    "date": 1769232561647,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,9 +12,9 @@\n     # scp ifrename tester@\"$host\":/home/tester/bin/\n     # scp notify_bot tester@\"$host\":/home/tester/bin/\n \n     scp 2601_notification_manager.py tester@\"$host\":/home/tester/kaidyan/scripts/\n-    # scp poll_run_status.sh tester@\"$host\":/home/tester/kaidyan/scripts/\n+    scp poll_run_status.sh tester@\"$host\":/home/tester/kaidyan/scripts/\n }\n \n hosts=(10.74.6.134 10.75.28.83 10.74.6.141 10.124.10.233 10.74.5.23)\n hostnames=(sdwan-reg-1 sdwan-reg-2 sdwan-reg-3 sdwan-reg-4 sdwan-reg-5)\n"
+                },
+                {
+                    "date": 1769232567563,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,13 +5,13 @@\n function scp_files(){\n     local host=$1\n     echo \"Copying files to $host...\"\n \n-    # scp .bash_aliases tester@\"$host\":/home/tester/\n+    scp .bash_aliases tester@\"$host\":/home/tester/\n \n-    # scp bvirsh tester@\"$host\":/home/tester/bin/\n-    # scp ifrename tester@\"$host\":/home/tester/bin/\n-    # scp notify_bot tester@\"$host\":/home/tester/bin/\n+    scp bvirsh tester@\"$host\":/home/tester/bin/\n+    scp ifrename tester@\"$host\":/home/tester/bin/\n+    scp notify_bot tester@\"$host\":/home/tester/bin/\n \n     scp 2601_notification_manager.py tester@\"$host\":/home/tester/kaidyan/scripts/\n     scp poll_run_status.sh tester@\"$host\":/home/tester/kaidyan/scripts/\n }\n"
+                },
+                {
+                    "date": 1769316001465,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,8 +13,10 @@\n     scp notify_bot tester@\"$host\":/home/tester/bin/\n \n     scp 2601_notification_manager.py tester@\"$host\":/home/tester/kaidyan/scripts/\n     scp poll_run_status.sh tester@\"$host\":/home/tester/kaidyan/scripts/\n+\n+    scp poll_run_status.sh tester@\"$host\":/home/tester/kaidyan/scripts/\n }\n \n hosts=(10.74.6.134 10.75.28.83 10.74.6.141 10.124.10.233 10.74.5.23)\n hostnames=(sdwan-reg-1 sdwan-reg-2 sdwan-reg-3 sdwan-reg-4 sdwan-reg-5)\n"
+                },
+                {
+                    "date": 1769316007056,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,16 +5,16 @@\n function scp_files(){\n     local host=$1\n     echo \"Copying files to $host...\"\n \n-    scp .bash_aliases tester@\"$host\":/home/tester/\n+    # scp .bash_aliases tester@\"$host\":/home/tester/\n \n-    scp bvirsh tester@\"$host\":/home/tester/bin/\n-    scp ifrename tester@\"$host\":/home/tester/bin/\n-    scp notify_bot tester@\"$host\":/home/tester/bin/\n+    # scp bvirsh tester@\"$host\":/home/tester/bin/\n+    # scp ifrename tester@\"$host\":/home/tester/bin/\n+    # scp notify_bot tester@\"$host\":/home/tester/bin/\n \n-    scp 2601_notification_manager.py tester@\"$host\":/home/tester/kaidyan/scripts/\n-    scp poll_run_status.sh tester@\"$host\":/home/tester/kaidyan/scripts/\n+    # scp 2601_notification_manager.py tester@\"$host\":/home/tester/kaidyan/scripts/\n+    # scp poll_run_status.sh tester@\"$host\":/home/tester/kaidyan/scripts/\n \n     scp poll_run_status.sh tester@\"$host\":/home/tester/kaidyan/scripts/\n }\n \n"
+                },
+                {
+                    "date": 1769316027188,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,9 @@\n \n     # scp 2601_notification_manager.py tester@\"$host\":/home/tester/kaidyan/scripts/\n     # scp poll_run_status.sh tester@\"$host\":/home/tester/kaidyan/scripts/\n \n-    scp poll_run_status.sh tester@\"$host\":/home/tester/kaidyan/scripts/\n+    scp ntp.conf tester@\"$host\":/home/tester/kaidyan/scripts/\n }\n \n hosts=(10.74.6.134 10.75.28.83 10.74.6.141 10.124.10.233 10.74.5.23)\n hostnames=(sdwan-reg-1 sdwan-reg-2 sdwan-reg-3 sdwan-reg-4 sdwan-reg-5)\n"
+                },
+                {
+                    "date": 1769316139876,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,9 @@\n \n     # scp 2601_notification_manager.py tester@\"$host\":/home/tester/kaidyan/scripts/\n     # scp poll_run_status.sh tester@\"$host\":/home/tester/kaidyan/scripts/\n \n-    scp ntp.conf tester@\"$host\":/home/tester/kaidyan/scripts/\n+    # scp ntp.conf tester@\"$host\":/home/tester/kaidyan/scripts/\n }\n \n hosts=(10.74.6.134 10.75.28.83 10.74.6.141 10.124.10.233 10.74.5.23)\n hostnames=(sdwan-reg-1 sdwan-reg-2 sdwan-reg-3 sdwan-reg-4 sdwan-reg-5)\n"
+                },
+                {
+                    "date": 1769316144915,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,16 +5,16 @@\n function scp_files(){\n     local host=$1\n     echo \"Copying files to $host...\"\n \n-    # scp .bash_aliases tester@\"$host\":/home/tester/\n+    scp .bash_aliases tester@\"$host\":/home/tester/\n \n-    # scp bvirsh tester@\"$host\":/home/tester/bin/\n-    # scp ifrename tester@\"$host\":/home/tester/bin/\n-    # scp notify_bot tester@\"$host\":/home/tester/bin/\n+    scp bvirsh tester@\"$host\":/home/tester/bin/\n+    scp ifrename tester@\"$host\":/home/tester/bin/\n+    scp notify_bot tester@\"$host\":/home/tester/bin/\n \n-    # scp 2601_notification_manager.py tester@\"$host\":/home/tester/kaidyan/scripts/\n-    # scp poll_run_status.sh tester@\"$host\":/home/tester/kaidyan/scripts/\n+    scp 2601_notification_manager.py tester@\"$host\":/home/tester/kaidyan/scripts/\n+    scp poll_run_status.sh tester@\"$host\":/home/tester/kaidyan/scripts/\n \n     # scp ntp.conf tester@\"$host\":/home/tester/kaidyan/scripts/\n }\n \n"
+                },
+                {
+                    "date": 1770013204366,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,14 +7,14 @@\n     echo \"Copying files to $host...\"\n \n     scp .bash_aliases tester@\"$host\":/home/tester/\n \n-    scp bvirsh tester@\"$host\":/home/tester/bin/\n-    scp ifrename tester@\"$host\":/home/tester/bin/\n-    scp notify_bot tester@\"$host\":/home/tester/bin/\n+    # scp bvirsh tester@\"$host\":/home/tester/bin/\n+    # scp ifrename tester@\"$host\":/home/tester/bin/\n+    # scp notify_bot tester@\"$host\":/home/tester/bin/\n \n-    scp 2601_notification_manager.py tester@\"$host\":/home/tester/kaidyan/scripts/\n-    scp poll_run_status.sh tester@\"$host\":/home/tester/kaidyan/scripts/\n+    # scp 2601_notification_manager.py tester@\"$host\":/home/tester/kaidyan/scripts/\n+    # scp poll_run_status.sh tester@\"$host\":/home/tester/kaidyan/scripts/\n \n     # scp ntp.conf tester@\"$host\":/home/tester/kaidyan/scripts/\n }\n \n"
+                },
+                {
+                    "date": 1770014342549,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,14 +7,14 @@\n     echo \"Copying files to $host...\"\n \n     scp .bash_aliases tester@\"$host\":/home/tester/\n \n-    # scp bvirsh tester@\"$host\":/home/tester/bin/\n-    # scp ifrename tester@\"$host\":/home/tester/bin/\n-    # scp notify_bot tester@\"$host\":/home/tester/bin/\n+    scp bvirsh tester@\"$host\":/home/tester/bin/\n+    scp ifrename tester@\"$host\":/home/tester/bin/\n+    scp notify_bot tester@\"$host\":/home/tester/bin/\n \n-    # scp 2601_notification_manager.py tester@\"$host\":/home/tester/kaidyan/scripts/\n-    # scp poll_run_status.sh tester@\"$host\":/home/tester/kaidyan/scripts/\n+    scp 2601_notification_manager.py tester@\"$host\":/home/tester/kaidyan/scripts/\n+    scp poll_run_status.sh tester@\"$host\":/home/tester/kaidyan/scripts/\n \n     # scp ntp.conf tester@\"$host\":/home/tester/kaidyan/scripts/\n }\n \n"
+                },
+                {
+                    "date": 1770014360725,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,8 +14,9 @@\n \n     scp 2601_notification_manager.py tester@\"$host\":/home/tester/kaidyan/scripts/\n     scp poll_run_status.sh tester@\"$host\":/home/tester/kaidyan/scripts/\n \n+    -- config files --\n     # scp ntp.conf tester@\"$host\":/home/tester/kaidyan/scripts/\n }\n \n hosts=(10.74.6.134 10.75.28.83 10.74.6.141 10.124.10.233 10.74.5.23)\n"
+                },
+                {
+                    "date": 1770014368912,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,9 @@\n \n     scp 2601_notification_manager.py tester@\"$host\":/home/tester/kaidyan/scripts/\n     scp poll_run_status.sh tester@\"$host\":/home/tester/kaidyan/scripts/\n \n-    -- config files --\n+    # -- config files --\n     # scp ntp.conf tester@\"$host\":/home/tester/kaidyan/scripts/\n }\n \n hosts=(10.74.6.134 10.75.28.83 10.74.6.141 10.124.10.233 10.74.5.23)\n"
+                },
+                {
+                    "date": 1770359830566,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,14 +7,14 @@\n     echo \"Copying files to $host...\"\n \n     scp .bash_aliases tester@\"$host\":/home/tester/\n \n-    scp bvirsh tester@\"$host\":/home/tester/bin/\n-    scp ifrename tester@\"$host\":/home/tester/bin/\n-    scp notify_bot tester@\"$host\":/home/tester/bin/\n+    # scp bvirsh tester@\"$host\":/home/tester/bin/\n+    # scp ifrename tester@\"$host\":/home/tester/bin/\n+    # scp notify_bot tester@\"$host\":/home/tester/bin/\n \n-    scp 2601_notification_manager.py tester@\"$host\":/home/tester/kaidyan/scripts/\n-    scp poll_run_status.sh tester@\"$host\":/home/tester/kaidyan/scripts/\n+    # scp 2601_notification_manager.py tester@\"$host\":/home/tester/kaidyan/scripts/\n+    # scp poll_run_status.sh tester@\"$host\":/home/tester/kaidyan/scripts/\n \n     # -- config files --\n     # scp ntp.conf tester@\"$host\":/home/tester/kaidyan/scripts/\n }\n"
+                },
+                {
+                    "date": 1770359979129,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,14 +7,14 @@\n     echo \"Copying files to $host...\"\n \n     scp .bash_aliases tester@\"$host\":/home/tester/\n \n-    # scp bvirsh tester@\"$host\":/home/tester/bin/\n-    # scp ifrename tester@\"$host\":/home/tester/bin/\n-    # scp notify_bot tester@\"$host\":/home/tester/bin/\n+    scp bvirsh tester@\"$host\":/home/tester/bin/\n+    scp ifrename tester@\"$host\":/home/tester/bin/\n+    scp notify_bot tester@\"$host\":/home/tester/bin/\n \n-    # scp 2601_notification_manager.py tester@\"$host\":/home/tester/kaidyan/scripts/\n-    # scp poll_run_status.sh tester@\"$host\":/home/tester/kaidyan/scripts/\n+    scp 2601_notification_manager.py tester@\"$host\":/home/tester/kaidyan/scripts/\n+    scp poll_run_status.sh tester@\"$host\":/home/tester/kaidyan/scripts/\n \n     # -- config files --\n     # scp ntp.conf tester@\"$host\":/home/tester/kaidyan/scripts/\n }\n"
+                },
+                {
+                    "date": 1770464967439,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,16 +5,16 @@\n function scp_files(){\n     local host=$1\n     echo \"Copying files to $host...\"\n \n-    scp .bash_aliases tester@\"$host\":/home/tester/\n+    # scp .bash_aliases tester@\"$host\":/home/tester/\n \n-    scp bvirsh tester@\"$host\":/home/tester/bin/\n-    scp ifrename tester@\"$host\":/home/tester/bin/\n-    scp notify_bot tester@\"$host\":/home/tester/bin/\n+    # scp bvirsh tester@\"$host\":/home/tester/bin/\n+    # scp ifrename tester@\"$host\":/home/tester/bin/\n+    # scp notify_bot tester@\"$host\":/home/tester/bin/\n \n     scp 2601_notification_manager.py tester@\"$host\":/home/tester/kaidyan/scripts/\n-    scp poll_run_status.sh tester@\"$host\":/home/tester/kaidyan/scripts/\n+    # scp poll_run_status.sh tester@\"$host\":/home/tester/kaidyan/scripts/\n \n     # -- config files --\n     # scp ntp.conf tester@\"$host\":/home/tester/kaidyan/scripts/\n }\n"
+                },
+                {
+                    "date": 1770465022971,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,16 +5,16 @@\n function scp_files(){\n     local host=$1\n     echo \"Copying files to $host...\"\n \n-    # scp .bash_aliases tester@\"$host\":/home/tester/\n+    scp .bash_aliases tester@\"$host\":/home/tester/\n \n-    # scp bvirsh tester@\"$host\":/home/tester/bin/\n-    # scp ifrename tester@\"$host\":/home/tester/bin/\n-    # scp notify_bot tester@\"$host\":/home/tester/bin/\n+    scp bvirsh tester@\"$host\":/home/tester/bin/\n+    scp ifrename tester@\"$host\":/home/tester/bin/\n+    scp notify_bot tester@\"$host\":/home/tester/bin/\n \n     scp 2601_notification_manager.py tester@\"$host\":/home/tester/kaidyan/scripts/\n-    # scp poll_run_status.sh tester@\"$host\":/home/tester/kaidyan/scripts/\n+    scp poll_run_status.sh tester@\"$host\":/home/tester/kaidyan/scripts/\n \n     # -- config files --\n     # scp ntp.conf tester@\"$host\":/home/tester/kaidyan/scripts/\n }\n"
+                }
+            ],
+            "date": 1769217710205,
+            "name": "Commit-0",
+            "content": "#!/bin/bash\n\n\n"
+        }
+    ]
+}

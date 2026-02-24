@@ -1,0 +1,410 @@
+{
+    "sourceFile": "scp_images_2_regs.sh",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 98,
+            "patches": [
+                {
+                    "date": 1770261510820,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1770261519199,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,9 @@\n+#!/bin/bash\n \n \n sshpass -p 'PASSWORD' scp \\\n   -o StrictHostKeyChecking=no \\\n   -o UserKnownHostsFile=/dev/null \\\n\\ No newline at end of file\n-  file.txt admin@10.0.1.36:/tmp/\n+  file.txt admin@10.0.1.36:/tmp/\n+\n+\n"
+                },
+                {
+                    "date": 1770261525720,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,9 @@\n #!/bin/bash\n+hostname=$1\n \n-\n sshpass -p 'PASSWORD' scp \\\n   -o StrictHostKeyChecking=no \\\n   -o UserKnownHostsFile=/dev/null \\\n   file.txt admin@10.0.1.36:/tmp/\n \n+\n"
+                },
+                {
+                    "date": 1770261532475,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,7 +3,7 @@\n \n sshpass -p 'PASSWORD' scp \\\n   -o StrictHostKeyChecking=no \\\n   -o UserKnownHostsFile=/dev/null \\\n-  file.txt admin@10.0.1.36:/tmp/\n+  file.txt admin@$hostname:/tmp/\n \n \n"
+                },
+                {
+                    "date": 1770262220863,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,12 @@\n #!/bin/bash\n-hostname=$1\n \n+hosts=(10.74.6.134 10.75.28.83 10.74.6.141 10.124.10.233 10.74.5.23)\n+hostnames=(sdwan-reg-1 sdwan-reg-2 sdwan-reg-3 sdwan-reg-4 sdwan-reg-5)\n+\n+hostname=\"\"\n+path=\"/auto/sdwan2/builds/daily/26.2/5052\"\n+\n sshpass -p 'PASSWORD' scp \\\n   -o StrictHostKeyChecking=no \\\n   -o UserKnownHostsFile=/dev/null \\\n   file.txt admin@$hostname:/tmp/\n"
+                },
+                {
+                    "date": 1770262233240,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,10 @@\n #!/bin/bash\n \n+hostnames=(sdwan-reg-1 sdwan-reg-2 sdwan-reg-3 sdwan-reg-4 sdwan-reg-5)\n hosts=(10.74.6.134 10.75.28.83 10.74.6.141 10.124.10.233 10.74.5.23)\n-hostnames=(sdwan-reg-1 sdwan-reg-2 sdwan-reg-3 sdwan-reg-4 sdwan-reg-5)\n \n+\n hostname=\"\"\n path=\"/auto/sdwan2/builds/daily/26.2/5052\"\n \n sshpass -p 'PASSWORD' scp \\\n"
+                },
+                {
+                    "date": 1770262366710,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,10 +2,9 @@\n \n hostnames=(sdwan-reg-1 sdwan-reg-2 sdwan-reg-3 sdwan-reg-4 sdwan-reg-5)\n hosts=(10.74.6.134 10.75.28.83 10.74.6.141 10.124.10.233 10.74.5.23)\n \n-\n-hostname=\"\"\n+hostname=$1\n path=\"/auto/sdwan2/builds/daily/26.2/5052\"\n \n sshpass -p 'PASSWORD' scp \\\n   -o StrictHostKeyChecking=no \\\n"
+                },
+                {
+                    "date": 1770262395696,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,8 +3,10 @@\n hostnames=(sdwan-reg-1 sdwan-reg-2 sdwan-reg-3 sdwan-reg-4 sdwan-reg-5)\n hosts=(10.74.6.134 10.75.28.83 10.74.6.141 10.124.10.233 10.74.5.23)\n \n hostname=$1\n+version=$2\n+build=$3\n path=\"/auto/sdwan2/builds/daily/26.2/5052\"\n \n sshpass -p 'PASSWORD' scp \\\n   -o StrictHostKeyChecking=no \\\n"
+                },
+                {
+                    "date": 1770262408760,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,9 +5,9 @@\n \n hostname=$1\n version=$2\n build=$3\n-path=\"/auto/sdwan2/builds/daily/26.2/5052\"\n+path=\"/auto/sdwan2/builds/daily/$2/5052\"\n \n sshpass -p 'PASSWORD' scp \\\n   -o StrictHostKeyChecking=no \\\n   -o UserKnownHostsFile=/dev/null \\\n"
+                },
+                {
+                    "date": 1770262415448,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,9 +5,9 @@\n \n hostname=$1\n version=$2\n build=$3\n-path=\"/auto/sdwan2/builds/daily/$2/5052\"\n+path=\"/auto/sdwan2/builds/daily/$2/$3\"\n \n sshpass -p 'PASSWORD' scp \\\n   -o StrictHostKeyChecking=no \\\n   -o UserKnownHostsFile=/dev/null \\\n"
+                },
+                {
+                    "date": 1770262433764,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,8 +7,9 @@\n version=$2\n build=$3\n path=\"/auto/sdwan2/builds/daily/$2/$3\"\n \n+pushd \"$path\" || { echo \"Invalid path: $path\"; exit 1; }\n sshpass -p 'PASSWORD' scp \\\n   -o StrictHostKeyChecking=no \\\n   -o UserKnownHostsFile=/dev/null \\\n   file.txt admin@$hostname:/tmp/\n"
+                },
+                {
+                    "date": 1770262443325,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,8 +8,14 @@\n build=$3\n path=\"/auto/sdwan2/builds/daily/$2/$3\"\n \n pushd \"$path\" || { echo \"Invalid path: $path\"; exit 1; }\n+function scp_image(){\n+    local host=$1\n+    echo \"Copying image to $host...\"\n+\n+    scp sdwan-*.img tester@\"$host\":/home/tester/kaidyan/images/\n+}\n sshpass -p 'PASSWORD' scp \\\n   -o StrictHostKeyChecking=no \\\n   -o UserKnownHostsFile=/dev/null \\\n   file.txt admin@$hostname:/tmp/\n"
+                },
+                {
+                    "date": 1770262449791,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,14 +8,16 @@\n build=$3\n path=\"/auto/sdwan2/builds/daily/$2/$3\"\n \n pushd \"$path\" || { echo \"Invalid path: $path\"; exit 1; }\n+\n function scp_image(){\n     local host=$1\n     echo \"Copying image to $host...\"\n \n     scp sdwan-*.img tester@\"$host\":/home/tester/kaidyan/images/\n }\n+\n sshpass -p 'PASSWORD' scp \\\n   -o StrictHostKeyChecking=no \\\n   -o UserKnownHostsFile=/dev/null \\\n   file.txt admin@$hostname:/tmp/\n"
+                },
+                {
+                    "date": 1770262486672,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,9 +13,9 @@\n function scp_image(){\n     local host=$1\n     echo \"Copying image to $host...\"\n \n-    scp sdwan-*.img tester@\"$host\":/home/tester/kaidyan/images/\n+    scp viptela-vmanage-genericx86-64.qcow2 tester@\"$host\":/home/tester/kaidyan/images/\n }\n \n sshpass -p 'PASSWORD' scp \\\n   -o StrictHostKeyChecking=no \\\n"
+                },
+                {
+                    "date": 1770262516111,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,9 +13,9 @@\n function scp_image(){\n     local host=$1\n     echo \"Copying image to $host...\"\n \n-    scp viptela-vmanage-genericx86-64.qcow2 tester@\"$host\":/home/tester/kaidyan/images/\n+    scp viptela-vmanage-genericx86-64.qcow2 -o StrictHostKeyChecking=no tester@\"$host\":/home/tester/kaidyan/images/\n }\n \n sshpass -p 'PASSWORD' scp \\\n   -o StrictHostKeyChecking=no \\\n"
+                },
+                {
+                    "date": 1770262523670,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,9 +13,9 @@\n function scp_image(){\n     local host=$1\n     echo \"Copying image to $host...\"\n \n-    scp viptela-vmanage-genericx86-64.qcow2 -o StrictHostKeyChecking=no tester@\"$host\":/home/tester/kaidyan/images/\n+    scp viptela-vmanage-genericx86-64.qcow2 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null tester@\"$host\":/home/tester/kaidyan/images/\n }\n \n sshpass -p 'PASSWORD' scp \\\n   -o StrictHostKeyChecking=no \\\n"
+                },
+                {
+                    "date": 1770262533773,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,9 +13,9 @@\n function scp_image(){\n     local host=$1\n     echo \"Copying image to $host...\"\n \n-    scp viptela-vmanage-genericx86-64.qcow2 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null tester@\"$host\":/home/tester/kaidyan/images/\n+    scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null tester@\"$host\":/home/tester/kaidyan/images/\n }\n \n sshpass -p 'PASSWORD' scp \\\n   -o StrictHostKeyChecking=no \\\n"
+                },
+                {
+                    "date": 1770262543922,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,9 +13,9 @@\n function scp_image(){\n     local host=$1\n     echo \"Copying image to $host...\"\n \n-    scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null tester@\"$host\":/home/tester/kaidyan/images/\n+    scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-vmanage-genericx86-64.qcow2 tester@\"$host\":/home/tester/kaidyan/images/\n }\n \n sshpass -p 'PASSWORD' scp \\\n   -o StrictHostKeyChecking=no \\\n"
+                },
+                {
+                    "date": 1770262589902,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,8 +6,9 @@\n hostname=$1\n version=$2\n build=$3\n path=\"/auto/sdwan2/builds/daily/$2/$3\"\n+dest=\"/home/tester/kaidyan/images/\"\n \n pushd \"$path\" || { echo \"Invalid path: $path\"; exit 1; }\n \n function scp_image(){\n"
+                },
+                {
+                    "date": 1770262610771,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,9 +6,9 @@\n hostname=$1\n version=$2\n build=$3\n path=\"/auto/sdwan2/builds/daily/$2/$3\"\n-dest=\"/home/tester/kaidyan/images/\"\n+dest=\"/home/tester/images/\"\n \n pushd \"$path\" || { echo \"Invalid path: $path\"; exit 1; }\n \n function scp_image(){\n"
+                },
+                {
+                    "date": 1770262672683,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,8 +5,10 @@\n \n hostname=$1\n version=$2\n build=$3\n+folder=$4\n+\n path=\"/auto/sdwan2/builds/daily/$2/$3\"\n dest=\"/home/tester/images/\"\n \n pushd \"$path\" || { echo \"Invalid path: $path\"; exit 1; }\n"
+                },
+                {
+                    "date": 1770262698604,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,12 +3,13 @@\n hostnames=(sdwan-reg-1 sdwan-reg-2 sdwan-reg-3 sdwan-reg-4 sdwan-reg-5)\n hosts=(10.74.6.134 10.75.28.83 10.74.6.141 10.124.10.233 10.74.5.23)\n \n hostname=$1\n+folder=$4\n version=$2\n build=$3\n-folder=$4\n \n+\n path=\"/auto/sdwan2/builds/daily/$2/$3\"\n dest=\"/home/tester/images/\"\n \n pushd \"$path\" || { echo \"Invalid path: $path\"; exit 1; }\n"
+                },
+                {
+                    "date": 1770262707846,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,11 +3,11 @@\n hostnames=(sdwan-reg-1 sdwan-reg-2 sdwan-reg-3 sdwan-reg-4 sdwan-reg-5)\n hosts=(10.74.6.134 10.75.28.83 10.74.6.141 10.124.10.233 10.74.5.23)\n \n hostname=$1\n-folder=$4\n-version=$2\n-build=$3\n+folder=$2\n+version=$3\n+build=$4\n \n \n path=\"/auto/sdwan2/builds/daily/$2/$3\"\n dest=\"/home/tester/images/\"\n"
+                },
+                {
+                    "date": 1770262722510,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,10 +7,9 @@\n folder=$2\n version=$3\n build=$4\n \n-\n-path=\"/auto/sdwan2/builds/daily/$2/$3\"\n+path=\"/auto/sdwan2/builds/daily/$3/$4\"\n dest=\"/home/tester/images/\"\n \n pushd \"$path\" || { echo \"Invalid path: $path\"; exit 1; }\n \n"
+                },
+                {
+                    "date": 1770262742090,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,9 +8,9 @@\n version=$3\n build=$4\n \n path=\"/auto/sdwan2/builds/daily/$3/$4\"\n-dest=\"/home/tester/images/\"\n+dest=\"/home/tester/images/$folder\"\n \n pushd \"$path\" || { echo \"Invalid path: $path\"; exit 1; }\n \n function scp_image(){\n"
+                },
+                {
+                    "date": 1770262754583,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,9 +7,9 @@\n folder=$2\n version=$3\n build=$4\n \n-path=\"/auto/sdwan2/builds/daily/$3/$4\"\n+path=\"/auto/sdwan2/builds/daily/$version/$build\"\n dest=\"/home/tester/images/$folder\"\n \n pushd \"$path\" || { echo \"Invalid path: $path\"; exit 1; }\n \n"
+                },
+                {
+                    "date": 1770262797339,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,10 +19,7 @@\n \n     scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-vmanage-genericx86-64.qcow2 tester@\"$host\":/home/tester/kaidyan/images/\n }\n \n-sshpass -p 'PASSWORD' scp \\\n-  -o StrictHostKeyChecking=no \\\n-  -o UserKnownHostsFile=/dev/null \\\n-  file.txt admin@$hostname:/tmp/\n \n \n+\n"
+                },
+                {
+                    "date": 1770262811637,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,7 +19,28 @@\n \n     scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-vmanage-genericx86-64.qcow2 tester@\"$host\":/home/tester/kaidyan/images/\n }\n \n+if [ \"$hostname\" == \"all\" ]; then\n+    for index in \"${!hosts[@]}\"; do\n+        host=\"${hosts[$index]}\"\n+        echo \"Processing host: ${hostnames[$index]} (${host})\"\n \n+        scp_image \"$host\"\n+        echo \"\"\n+    done\n+elif [[ \"$hostname\" == sdwan-reg-* ]]; then\n+    for index in \"${!hosts[@]}\"; do\n+        if [[ \"${hostnames[$index]}\" == \"$hostname\" ]]; then\n+            host=\"${hosts[$index]}\"\n+            break\n+        fi\n+    done\n+    echo \"Processing host: ${hostnames[$index]} (${host})\"\n+    scp_image \"$host\"\n+else\n+    echo \"Usage:\"\n+    echo \"  $0 [all|sdwan-reg-1|sdwan-reg-2|sdwan-reg-3|sdwan-reg-4|sdwan-reg-5] [folder_name] [version] [build_number]\"\n+    exit 1\n+fi\n \n \n"
+                },
+                {
+                    "date": 1770262897288,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -38,9 +38,9 @@\n     echo \"Processing host: ${hostnames[$index]} (${host})\"\n     scp_image \"$host\"\n else\n     echo \"Usage:\"\n-    echo \"  $0 [all|sdwan-reg-1|sdwan-reg-2|sdwan-reg-3|sdwan-reg-4|sdwan-reg-5] [folder_name] [version] [build_number]\"\n+    echo \"  $0 [all|sdwan-reg-1|sdwan-reg-2|sdwan-reg-3|sdwan-reg-4|sdwan-reg-5] [images_folder_name] [version] [build_number]\"\n     exit 1\n fi\n \n \n"
+                },
+                {
+                    "date": 1770262940716,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,18 +19,10 @@\n \n     scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-vmanage-genericx86-64.qcow2 tester@\"$host\":/home/tester/kaidyan/images/\n }\n \n-if [ \"$hostname\" == \"all\" ]; then\n+if [[ \"$hostname\" == sdwan-reg-* ]]; then\n     for index in \"${!hosts[@]}\"; do\n-        host=\"${hosts[$index]}\"\n-        echo \"Processing host: ${hostnames[$index]} (${host})\"\n-\n-        scp_image \"$host\"\n-        echo \"\"\n-    done\n-elif [[ \"$hostname\" == sdwan-reg-* ]]; then\n-    for index in \"${!hosts[@]}\"; do\n         if [[ \"${hostnames[$index]}\" == \"$hostname\" ]]; then\n             host=\"${hosts[$index]}\"\n             break\n         fi\n"
+                },
+                {
+                    "date": 1770263052124,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,8 +17,13 @@\n     local host=$1\n     echo \"Copying image to $host...\"\n \n     scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-vmanage-genericx86-64.qcow2 tester@\"$host\":/home/tester/kaidyan/images/\n+\n+    scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-vmanage-genericx86-64.qcow2 tester@\"$host\":/home/tester/kaidyan/images/\n+\n+\n+\n }\n \n if [[ \"$hostname\" == sdwan-reg-* ]]; then\n     for index in \"${!hosts[@]}\"; do\n"
+                },
+                {
+                    "date": 1770263085800,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,8 +16,9 @@\n function scp_image(){\n     local host=$1\n     echo \"Copying image to $host...\"\n \n+    echo \"scp viptela-vmanage-genericx86-64.qcow2 ...\"\n     scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-vmanage-genericx86-64.qcow2 tester@\"$host\":/home/tester/kaidyan/images/\n \n     scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-vmanage-genericx86-64.qcow2 tester@\"$host\":/home/tester/kaidyan/images/\n \n"
+                },
+                {
+                    "date": 1770263091549,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,8 +19,9 @@\n \n     echo \"scp viptela-vmanage-genericx86-64.qcow2 ...\"\n     scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-vmanage-genericx86-64.qcow2 tester@\"$host\":/home/tester/kaidyan/images/\n \n+    echo \"scp viptela-vmanage-genericx86-64.qcow2 ...\"\n     scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-vmanage-genericx86-64.qcow2 tester@\"$host\":/home/tester/kaidyan/images/\n \n \n \n"
+                },
+                {
+                    "date": 1770263097471,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,45 @@\n+#!/bin/bash\n+\n+hostnames=(sdwan-reg-1 sdwan-reg-2 sdwan-reg-3 sdwan-reg-4 sdwan-reg-5)\n+hosts=(10.74.6.134 10.75.28.83 10.74.6.141 10.124.10.233 10.74.5.23)\n+\n+hostname=$1\n+folder=$2\n+version=$3\n+build=$4\n+\n+path=\"/auto/sdwan2/builds/daily/$version/$build\"\n+dest=\"/home/tester/images/$folder\"\n+\n+pushd \"$path\" || { echo \"Invalid path: $path\"; exit 1; }\n+\n+function scp_image(){\n+    local host=$1\n+    echo \"Copying image to $host...\"\n+\n+    echo \"scp viptela-vmanage-genericx86-64.qcow2 ...\"\n+    scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-vmanage-genericx86-64.qcow2 tester@\"$host\":/home/tester/kaidyan/images/\n+\n+    echo \"scp viptela-smart-genericx86-64.qcow2 ...\"\n+    scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-vmanage-genericx86-64.qcow2 tester@\"$host\":/home/tester/kaidyan/images/\n+\n+\n+\n+}\n+\n+if [[ \"$hostname\" == sdwan-reg-* ]]; then\n+    for index in \"${!hosts[@]}\"; do\n+        if [[ \"${hostnames[$index]}\" == \"$hostname\" ]]; then\n+            host=\"${hosts[$index]}\"\n+            break\n+        fi\n+    done\n+    echo \"Processing host: ${hostnames[$index]} (${host})\"\n+    scp_image \"$host\"\n+else\n+    echo \"Usage:\"\n+    echo \"  $0 [all|sdwan-reg-1|sdwan-reg-2|sdwan-reg-3|sdwan-reg-4|sdwan-reg-5] [images_folder_name] [version] [build_number]\"\n+    exit 1\n+fi\n+\n+\n"
+                },
+                {
+                    "date": 1770263103942,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,10 +20,12 @@\n     echo \"scp viptela-vmanage-genericx86-64.qcow2 ...\"\n     scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-vmanage-genericx86-64.qcow2 tester@\"$host\":/home/tester/kaidyan/images/\n \n     echo \"scp viptela-smart-genericx86-64.qcow2 ...\"\n-    scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-vmanage-genericx86-64.qcow2 tester@\"$host\":/home/tester/kaidyan/images/\n+    scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-smart-genericx86-64.qcow2 tester@\"$host\":/home/tester/kaidyan/images/\n \n+    echo \"scp viptela-smart-genericx86-64.qcow2 ...\"\n+    scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-smart-genericx86-64.qcow2 tester@\"$host\":/home/tester/kaidyan/images/\n \n \n }\n \n@@ -42,49 +44,4 @@\n     exit 1\n fi\n \n \n-#!/bin/bash\n-\n-hostnames=(sdwan-reg-1 sdwan-reg-2 sdwan-reg-3 sdwan-reg-4 sdwan-reg-5)\n-hosts=(10.74.6.134 10.75.28.83 10.74.6.141 10.124.10.233 10.74.5.23)\n-\n-hostname=$1\n-folder=$2\n-version=$3\n-build=$4\n-\n-path=\"/auto/sdwan2/builds/daily/$version/$build\"\n-dest=\"/home/tester/images/$folder\"\n-\n-pushd \"$path\" || { echo \"Invalid path: $path\"; exit 1; }\n-\n-function scp_image(){\n-    local host=$1\n-    echo \"Copying image to $host...\"\n-\n-    echo \"scp viptela-vmanage-genericx86-64.qcow2 ...\"\n-    scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-vmanage-genericx86-64.qcow2 tester@\"$host\":/home/tester/kaidyan/images/\n-\n-    echo \"scp viptela-vmanage-genericx86-64.qcow2 ...\"\n-    scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-vmanage-genericx86-64.qcow2 tester@\"$host\":/home/tester/kaidyan/images/\n-\n-\n-\n-}\n-\n-if [[ \"$hostname\" == sdwan-reg-* ]]; then\n-    for index in \"${!hosts[@]}\"; do\n-        if [[ \"${hostnames[$index]}\" == \"$hostname\" ]]; then\n-            host=\"${hosts[$index]}\"\n-            break\n-        fi\n-    done\n-    echo \"Processing host: ${hostnames[$index]} (${host})\"\n-    scp_image \"$host\"\n-else\n-    echo \"Usage:\"\n-    echo \"  $0 [all|sdwan-reg-1|sdwan-reg-2|sdwan-reg-3|sdwan-reg-4|sdwan-reg-5] [images_folder_name] [version] [build_number]\"\n-    exit 1\n-fi\n-\n-\n"
+                },
+                {
+                    "date": 1770263109170,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -22,9 +22,9 @@\n \n     echo \"scp viptela-smart-genericx86-64.qcow2 ...\"\n     scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-smart-genericx86-64.qcow2 tester@\"$host\":/home/tester/kaidyan/images/\n \n-    echo \"scp viptela-smart-genericx86-64.qcow2 ...\"\n+    echo \"scp viptela-bond-genericx86-64.qcow2 ...\"\n     scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-smart-genericx86-64.qcow2 tester@\"$host\":/home/tester/kaidyan/images/\n \n \n }\n"
+                },
+                {
+                    "date": 1770263158164,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,15 +17,15 @@\n     local host=$1\n     echo \"Copying image to $host...\"\n \n     echo \"scp viptela-vmanage-genericx86-64.qcow2 ...\"\n-    scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-vmanage-genericx86-64.qcow2 tester@\"$host\":/home/tester/kaidyan/images/\n+    scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-vmanage-genericx86-64.qcow2 tester@\"$host\":${dest}/\n \n     echo \"scp viptela-smart-genericx86-64.qcow2 ...\"\n     scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-smart-genericx86-64.qcow2 tester@\"$host\":/home/tester/kaidyan/images/\n \n     echo \"scp viptela-bond-genericx86-64.qcow2 ...\"\n-    scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-smart-genericx86-64.qcow2 tester@\"$host\":/home/tester/kaidyan/images/\n+    scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-bond-genericx86-64.qcow2 tester@\"$host\":/home/tester/kaidyan/images/\n \n \n }\n \n"
+                },
+                {
+                    "date": 1770263164521,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,14 +20,13 @@\n     echo \"scp viptela-vmanage-genericx86-64.qcow2 ...\"\n     scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-vmanage-genericx86-64.qcow2 tester@\"$host\":${dest}/\n \n     echo \"scp viptela-smart-genericx86-64.qcow2 ...\"\n-    scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-smart-genericx86-64.qcow2 tester@\"$host\":/home/tester/kaidyan/images/\n+    scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-smart-genericx86-64.qcow2 tester@\"$host\":${dest}/\n \n     echo \"scp viptela-bond-genericx86-64.qcow2 ...\"\n-    scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-bond-genericx86-64.qcow2 tester@\"$host\":/home/tester/kaidyan/images/\n+    scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-bond-genericx86-64.qcow2 tester@\"$host\":${dest}/\n \n-\n }\n \n if [[ \"$hostname\" == sdwan-reg-* ]]; then\n     for index in \"${!hosts[@]}\"; do\n"
+                },
+                {
+                    "date": 1770263180451,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -25,8 +25,12 @@\n \n     echo \"scp viptela-bond-genericx86-64.qcow2 ...\"\n     scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-bond-genericx86-64.qcow2 tester@\"$host\":${dest}/\n \n+    echo \"scp viptela-bond-genericx86-64.qcow2 ...\"\n+    scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-bond-genericx86-64.qcow2 tester@\"$host\":${dest}/\n+\n+\n }\n \n if [[ \"$hostname\" == sdwan-reg-* ]]; then\n     for index in \"${!hosts[@]}\"; do\n"
+                },
+                {
+                    "date": 1770263192190,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -25,9 +25,9 @@\n \n     echo \"scp viptela-bond-genericx86-64.qcow2 ...\"\n     scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-bond-genericx86-64.qcow2 tester@\"$host\":${dest}/\n \n-    echo \"scp viptela-bond-genericx86-64.qcow2 ...\"\n+    echo \"scp MD5SUMS ...\"\n     scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-bond-genericx86-64.qcow2 tester@\"$host\":${dest}/\n \n \n }\n"
+                },
+                {
+                    "date": 1770263199936,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -26,10 +26,11 @@\n     echo \"scp viptela-bond-genericx86-64.qcow2 ...\"\n     scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-bond-genericx86-64.qcow2 tester@\"$host\":${dest}/\n \n     echo \"scp MD5SUMS ...\"\n-    scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-bond-genericx86-64.qcow2 tester@\"$host\":${dest}/\n+    scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null MD5SUMS tester@\"$host\":${dest}/\n \n+    echo\n \n }\n \n if [[ \"$hostname\" == sdwan-reg-* ]]; then\n"
+                },
+                {
+                    "date": 1770263207237,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -47,5 +47,4 @@\n     echo \"  $0 [all|sdwan-reg-1|sdwan-reg-2|sdwan-reg-3|sdwan-reg-4|sdwan-reg-5] [images_folder_name] [version] [build_number]\"\n     exit 1\n fi\n \n-\n"
+                },
+                {
+                    "date": 1770263213315,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -47,4 +47,5 @@\n     echo \"  $0 [all|sdwan-reg-1|sdwan-reg-2|sdwan-reg-3|sdwan-reg-4|sdwan-reg-5] [images_folder_name] [version] [build_number]\"\n     exit 1\n fi\n \n+popd || exit\n"
+                },
+                {
+                    "date": 1770263262780,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -43,9 +43,9 @@\n     echo \"Processing host: ${hostnames[$index]} (${host})\"\n     scp_image \"$host\"\n else\n     echo \"Usage:\"\n-    echo \"  $0 [all|sdwan-reg-1|sdwan-reg-2|sdwan-reg-3|sdwan-reg-4|sdwan-reg-5] [images_folder_name] [version] [build_number]\"\n+    echo \"  $0 [sdwan-reg-1|sdwan-reg-2|sdwan-reg-3|sdwan-reg-4|sdwan-reg-5] [images_folder_name] [version] [build_number]\"\n     exit 1\n fi\n \n popd || exit\n"
+                },
+                {
+                    "date": 1770263274076,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,8 @@\n #!/bin/bash\n \n+# \n+\n hostnames=(sdwan-reg-1 sdwan-reg-2 sdwan-reg-3 sdwan-reg-4 sdwan-reg-5)\n hosts=(10.74.6.134 10.75.28.83 10.74.6.141 10.124.10.233 10.74.5.23)\n \n hostname=$1\n"
+                },
+                {
+                    "date": 1770263285289,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,7 @@\n #!/bin/bash\n \n-# \n+# scp_images_2_regs.sh <sdwan-reg-x> <images_folder_name> <version> <build_number>\n \n hostnames=(sdwan-reg-1 sdwan-reg-2 sdwan-reg-3 sdwan-reg-4 sdwan-reg-5)\n hosts=(10.74.6.134 10.75.28.83 10.74.6.141 10.124.10.233 10.74.5.23)\n \n"
+                },
+                {
+                    "date": 1770263295724,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,8 @@\n #!/bin/bash\n \n # scp_images_2_regs.sh <sdwan-reg-x> <images_folder_name> <version> <build_number>\n+# ./scp_images_2_regs.sh sdwan-reg-1 images_viptela_20.3.4 20.3.4 12345\n \n hostnames=(sdwan-reg-1 sdwan-reg-2 sdwan-reg-3 sdwan-reg-4 sdwan-reg-5)\n hosts=(10.74.6.134 10.75.28.83 10.74.6.141 10.124.10.233 10.74.5.23)\n \n"
+                },
+                {
+                    "date": 1770263325226,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,8 @@\n #!/bin/bash\n \n # scp_images_2_regs.sh <sdwan-reg-x> <images_folder_name> <version> <build_number>\n-# ./scp_images_2_regs.sh sdwan-reg-1 images_viptela_20.3.4 20.3.4 12345\n+# ./scp_images_2_regs.sh sdwan-reg-1 regression_images_styxL/ 20.3.4 12345\n \n hostnames=(sdwan-reg-1 sdwan-reg-2 sdwan-reg-3 sdwan-reg-4 sdwan-reg-5)\n hosts=(10.74.6.134 10.75.28.83 10.74.6.141 10.124.10.233 10.74.5.23)\n \n"
+                },
+                {
+                    "date": 1770263331498,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,8 @@\n #!/bin/bash\n \n # scp_images_2_regs.sh <sdwan-reg-x> <images_folder_name> <version> <build_number>\n-# ./scp_images_2_regs.sh sdwan-reg-1 regression_images_styxL/ 20.3.4 12345\n+# ./scp_images_2_regs.sh sdwan-reg-1 regression_images_styxL 20.3.4 12345\n \n hostnames=(sdwan-reg-1 sdwan-reg-2 sdwan-reg-3 sdwan-reg-4 sdwan-reg-5)\n hosts=(10.74.6.134 10.75.28.83 10.74.6.141 10.124.10.233 10.74.5.23)\n \n"
+                },
+                {
+                    "date": 1770263344493,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,8 @@\n #!/bin/bash\n \n # scp_images_2_regs.sh <sdwan-reg-x> <images_folder_name> <version> <build_number>\n-# ./scp_images_2_regs.sh sdwan-reg-1 regression_images_styxL 20.3.4 12345\n+# ./scp_images_2_regs.sh sdwan-reg-1 regression_images_styxL 26.2 12345\n \n hostnames=(sdwan-reg-1 sdwan-reg-2 sdwan-reg-3 sdwan-reg-4 sdwan-reg-5)\n hosts=(10.74.6.134 10.75.28.83 10.74.6.141 10.124.10.233 10.74.5.23)\n \n"
+                },
+                {
+                    "date": 1770263352089,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,8 @@\n #!/bin/bash\n \n # scp_images_2_regs.sh <sdwan-reg-x> <images_folder_name> <version> <build_number>\n-# ./scp_images_2_regs.sh sdwan-reg-1 regression_images_styxL 26.2 12345\n+# ./scp_images_2_regs.sh sdwan-reg-1 regression_images_styxL 26.2 5052\n \n hostnames=(sdwan-reg-1 sdwan-reg-2 sdwan-reg-3 sdwan-reg-4 sdwan-reg-5)\n hosts=(10.74.6.134 10.75.28.83 10.74.6.141 10.124.10.233 10.74.5.23)\n \n"
+                },
+                {
+                    "date": 1770263366241,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,10 @@\n #!/bin/bash\n \n # scp_images_2_regs.sh <sdwan-reg-x> <images_folder_name> <version> <build_number>\n # ./scp_images_2_regs.sh sdwan-reg-1 regression_images_styxL 26.2 5052\n+# ./scp_images_2_regs.sh sdwan-reg-1 regression_images_styxL 26.2 5052\n+# ./scp_images_2_regs.sh sdwan-reg-1 regression_images_styxL 26.2 5052\n \n hostnames=(sdwan-reg-1 sdwan-reg-2 sdwan-reg-3 sdwan-reg-4 sdwan-reg-5)\n hosts=(10.74.6.134 10.75.28.83 10.74.6.141 10.124.10.233 10.74.5.23)\n \n"
+                },
+                {
+                    "date": 1770263378075,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,10 +1,10 @@\n #!/bin/bash\n \n # scp_images_2_regs.sh <sdwan-reg-x> <images_folder_name> <version> <build_number>\n-# ./scp_images_2_regs.sh sdwan-reg-1 regression_images_styxL 26.2 5052\n-# ./scp_images_2_regs.sh sdwan-reg-1 regression_images_styxL 26.2 5052\n-# ./scp_images_2_regs.sh sdwan-reg-1 regression_images_styxL 26.2 5052\n+# ./scp_images_2_regs.sh sdwan-reg-3 regression_images_styxL 26.2 5052\n+# ./scp_images_2_regs.sh sdwan-reg-2 regression_images_styxL 26.2 5052\n+# ./scp_images_2_regs.sh sdwan-reg-4 regression_images_styxL 26.2 5052\n \n hostnames=(sdwan-reg-1 sdwan-reg-2 sdwan-reg-3 sdwan-reg-4 sdwan-reg-5)\n hosts=(10.74.6.134 10.75.28.83 10.74.6.141 10.124.10.233 10.74.5.23)\n \n"
+                },
+                {
+                    "date": 1770263398333,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,9 +2,9 @@\n \n # scp_images_2_regs.sh <sdwan-reg-x> <images_folder_name> <version> <build_number>\n # ./scp_images_2_regs.sh sdwan-reg-3 regression_images_styxL 26.2 5052\n # ./scp_images_2_regs.sh sdwan-reg-2 regression_images_styxL 26.2 5052\n-# ./scp_images_2_regs.sh sdwan-reg-4 regression_images_styxL 26.2 5052\n+# ./scp_images_2_regs.sh sdwan-reg-4 regression_images_Styx 26.2 5052\n \n hostnames=(sdwan-reg-1 sdwan-reg-2 sdwan-reg-3 sdwan-reg-4 sdwan-reg-5)\n hosts=(10.74.6.134 10.75.28.83 10.74.6.141 10.124.10.233 10.74.5.23)\n \n"
+                },
+                {
+                    "date": 1770263411369,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,9 +2,9 @@\n \n # scp_images_2_regs.sh <sdwan-reg-x> <images_folder_name> <version> <build_number>\n # ./scp_images_2_regs.sh sdwan-reg-3 regression_images_styxL 26.2 5052\n # ./scp_images_2_regs.sh sdwan-reg-2 regression_images_styxL 26.2 5052\n-# ./scp_images_2_regs.sh sdwan-reg-4 regression_images_Styx 26.2 5052\n+# ./scp_images_2_regs.sh sdwan-reg-4 regression_images_Styx 26.1 5052\n \n hostnames=(sdwan-reg-1 sdwan-reg-2 sdwan-reg-3 sdwan-reg-4 sdwan-reg-5)\n hosts=(10.74.6.134 10.75.28.83 10.74.6.141 10.124.10.233 10.74.5.23)\n \n"
+                },
+                {
+                    "date": 1770263470394,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,9 +2,9 @@\n \n # scp_images_2_regs.sh <sdwan-reg-x> <images_folder_name> <version> <build_number>\n # ./scp_images_2_regs.sh sdwan-reg-3 regression_images_styxL 26.2 5052\n # ./scp_images_2_regs.sh sdwan-reg-2 regression_images_styxL 26.2 5052\n-# ./scp_images_2_regs.sh sdwan-reg-4 regression_images_Styx 26.1 5052\n+# ./scp_images_2_regs.sh sdwan-reg-4 regression_images_Styx 26.1 150\n \n hostnames=(sdwan-reg-1 sdwan-reg-2 sdwan-reg-3 sdwan-reg-4 sdwan-reg-5)\n hosts=(10.74.6.134 10.75.28.83 10.74.6.141 10.124.10.233 10.74.5.23)\n \n"
+                },
+                {
+                    "date": 1770263493455,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n #!/bin/bash\n \n # scp_images_2_regs.sh <sdwan-reg-x> <images_folder_name> <version> <build_number>\n # ./scp_images_2_regs.sh sdwan-reg-3 regression_images_styxL 26.2 5052\n-# ./scp_images_2_regs.sh sdwan-reg-2 regression_images_styxL 26.2 5052\n+# ./scp_images_2_regs.sh sdwan-reg-2 regression_images_hydra 26.2 5052\n # ./scp_images_2_regs.sh sdwan-reg-4 regression_images_Styx 26.1 150\n \n hostnames=(sdwan-reg-1 sdwan-reg-2 sdwan-reg-3 sdwan-reg-4 sdwan-reg-5)\n hosts=(10.74.6.134 10.75.28.83 10.74.6.141 10.124.10.233 10.74.5.23)\n"
+                },
+                {
+                    "date": 1770263563103,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n #!/bin/bash\n \n # scp_images_2_regs.sh <sdwan-reg-x> <images_folder_name> <version> <build_number>\n # ./scp_images_2_regs.sh sdwan-reg-3 regression_images_styxL 26.2 5052\n-# ./scp_images_2_regs.sh sdwan-reg-2 regression_images_hydra 26.2 5052\n+# ./scp_images_2_regs.sh sdwan-reg-2 regression_images_hydra 26.2 5060\n # ./scp_images_2_regs.sh sdwan-reg-4 regression_images_Styx 26.1 150\n \n hostnames=(sdwan-reg-1 sdwan-reg-2 sdwan-reg-3 sdwan-reg-4 sdwan-reg-5)\n hosts=(10.74.6.134 10.75.28.83 10.74.6.141 10.124.10.233 10.74.5.23)\n"
+                },
+                {
+                    "date": 1770263570949,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,8 @@\n #!/bin/bash\n \n # scp_images_2_regs.sh <sdwan-reg-x> <images_folder_name> <version> <build_number>\n-# ./scp_images_2_regs.sh sdwan-reg-3 regression_images_styxL 26.2 5052\n+# ./scp_images_2_regs.sh sdwan-reg-3 regression_images_styxL 26.2 5094\n # ./scp_images_2_regs.sh sdwan-reg-2 regression_images_hydra 26.2 5060\n # ./scp_images_2_regs.sh sdwan-reg-4 regression_images_Styx 26.1 150\n \n hostnames=(sdwan-reg-1 sdwan-reg-2 sdwan-reg-3 sdwan-reg-4 sdwan-reg-5)\n"
+                },
+                {
+                    "date": 1770263584151,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,10 @@\n #!/bin/bash\n \n # scp_images_2_regs.sh <sdwan-reg-x> <images_folder_name> <version> <build_number>\n+# ./scp_images_2_regs.sh sdwan-reg-2 regression_images_hydra 26.2 5060\n # ./scp_images_2_regs.sh sdwan-reg-3 regression_images_styxL 26.2 5094\n-# ./scp_images_2_regs.sh sdwan-reg-2 regression_images_hydra 26.2 5060\n+\n # ./scp_images_2_regs.sh sdwan-reg-4 regression_images_Styx 26.1 150\n \n hostnames=(sdwan-reg-1 sdwan-reg-2 sdwan-reg-3 sdwan-reg-4 sdwan-reg-5)\n hosts=(10.74.6.134 10.75.28.83 10.74.6.141 10.124.10.233 10.74.5.23)\n"
+                },
+                {
+                    "date": 1770263589310,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,9 +2,8 @@\n \n # scp_images_2_regs.sh <sdwan-reg-x> <images_folder_name> <version> <build_number>\n # ./scp_images_2_regs.sh sdwan-reg-2 regression_images_hydra 26.2 5060\n # ./scp_images_2_regs.sh sdwan-reg-3 regression_images_styxL 26.2 5094\n-\n # ./scp_images_2_regs.sh sdwan-reg-4 regression_images_Styx 26.1 150\n \n hostnames=(sdwan-reg-1 sdwan-reg-2 sdwan-reg-3 sdwan-reg-4 sdwan-reg-5)\n hosts=(10.74.6.134 10.75.28.83 10.74.6.141 10.124.10.233 10.74.5.23)\n"
+                },
+                {
+                    "date": 1770264290552,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -24,8 +24,12 @@\n \n     echo \"scp viptela-vmanage-genericx86-64.qcow2 ...\"\n     scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-vmanage-genericx86-64.qcow2 tester@\"$host\":${dest}/\n \n+    echo \"scp viptela-vmanage-genericx86-64.qcow2 ...\"\n+    scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-vmanage-genericx86-64.qcow2 tester@\"$host\":${dest}/\n+\n+\n     echo \"scp viptela-smart-genericx86-64.qcow2 ...\"\n     scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-smart-genericx86-64.qcow2 tester@\"$host\":${dest}/\n \n     echo \"scp viptela-bond-genericx86-64.qcow2 ...\"\n"
+                },
+                {
+                    "date": 1770264384101,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -24,12 +24,11 @@\n \n     echo \"scp viptela-vmanage-genericx86-64.qcow2 ...\"\n     scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-vmanage-genericx86-64.qcow2 tester@\"$host\":${dest}/\n \n-    echo \"scp viptela-vmanage-genericx86-64.qcow2 ...\"\n+    echo \"scp c8000v-universalk9_serial.26.*.iso\"\n     scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-vmanage-genericx86-64.qcow2 tester@\"$host\":${dest}/\n \n-\n     echo \"scp viptela-smart-genericx86-64.qcow2 ...\"\n     scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-smart-genericx86-64.qcow2 tester@\"$host\":${dest}/\n \n     echo \"scp viptela-bond-genericx86-64.qcow2 ...\"\n"
+                },
+                {
+                    "date": 1770264389945,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -24,10 +24,10 @@\n \n     echo \"scp viptela-vmanage-genericx86-64.qcow2 ...\"\n     scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-vmanage-genericx86-64.qcow2 tester@\"$host\":${dest}/\n \n-    echo \"scp c8000v-universalk9_serial.26.*.iso\"\n-    scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-vmanage-genericx86-64.qcow2 tester@\"$host\":${dest}/\n+    echo \"scp c8000v-universalk9_serial.26.*.iso ...\"\n+    scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null c8000v-universalk9_serial.26.*.iso tester@\"$host\":${dest}/\n \n     echo \"scp viptela-smart-genericx86-64.qcow2 ...\"\n     scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-smart-genericx86-64.qcow2 tester@\"$host\":${dest}/\n \n"
+                },
+                {
+                    "date": 1770264409470,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -30,13 +30,13 @@\n \n     echo \"scp viptela-smart-genericx86-64.qcow2 ...\"\n     scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-smart-genericx86-64.qcow2 tester@\"$host\":${dest}/\n \n-    echo \"scp viptela-bond-genericx86-64.qcow2 ...\"\n-    scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-bond-genericx86-64.qcow2 tester@\"$host\":${dest}/\n+    # echo \"scp viptela-bond-genericx86-64.qcow2 ...\"\n+    # scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-bond-genericx86-64.qcow2 tester@\"$host\":${dest}/\n \n-    echo \"scp MD5SUMS ...\"\n-    scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null MD5SUMS tester@\"$host\":${dest}/\n+    # echo \"scp MD5SUMS ...\"\n+    # scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null MD5SUMS tester@\"$host\":${dest}/\n \n     echo\n \n }\n"
+                },
+                {
+                    "date": 1770264415560,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,10 +21,10 @@\n function scp_image(){\n     local host=$1\n     echo \"Copying image to $host...\"\n \n-    echo \"scp viptela-vmanage-genericx86-64.qcow2 ...\"\n-    scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-vmanage-genericx86-64.qcow2 tester@\"$host\":${dest}/\n+    # echo \"scp viptela-vmanage-genericx86-64.qcow2 ...\"\n+    # scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-vmanage-genericx86-64.qcow2 tester@\"$host\":${dest}/\n \n     echo \"scp c8000v-universalk9_serial.26.*.iso ...\"\n     scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null c8000v-universalk9_serial.26.*.iso tester@\"$host\":${dest}/\n \n"
+                },
+                {
+                    "date": 1770295828621,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,24 +21,24 @@\n function scp_image(){\n     local host=$1\n     echo \"Copying image to $host...\"\n \n-    # echo \"scp viptela-vmanage-genericx86-64.qcow2 ...\"\n-    # scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-vmanage-genericx86-64.qcow2 tester@\"$host\":${dest}/\n+    echo \"scp viptela-vmanage-genericx86-64.qcow2 ...\"\n+    scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-vmanage-genericx86-64.qcow2 tester@\"$host\":${dest}/\n \n     echo \"scp c8000v-universalk9_serial.26.*.iso ...\"\n     scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null c8000v-universalk9_serial.26.*.iso tester@\"$host\":${dest}/\n \n     echo \"scp viptela-smart-genericx86-64.qcow2 ...\"\n     scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-smart-genericx86-64.qcow2 tester@\"$host\":${dest}/\n \n-    # echo \"scp viptela-bond-genericx86-64.qcow2 ...\"\n-    # scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-bond-genericx86-64.qcow2 tester@\"$host\":${dest}/\n+    echo \"scp viptela-bond-genericx86-64.qcow2 ...\"\n+    scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-bond-genericx86-64.qcow2 tester@\"$host\":${dest}/\n \n-    # echo \"scp MD5SUMS ...\"\n-    # scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null MD5SUMS tester@\"$host\":${dest}/\n+    echo \"scp MD5SUMS ...\"\n+    scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null MD5SUMS tester@\"$host\":${dest}/\n \n-    echo\n+    echo \"Completed copying images to $host.\"\n \n }\n \n if [[ \"$hostname\" == sdwan-reg-* ]]; then\n"
+                },
+                {
+                    "date": 1770370436377,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,22 +21,22 @@\n function scp_image(){\n     local host=$1\n     echo \"Copying image to $host...\"\n \n-    echo \"scp viptela-vmanage-genericx86-64.qcow2 ...\"\n-    scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-vmanage-genericx86-64.qcow2 tester@\"$host\":${dest}/\n+    # echo \"scp viptela-vmanage-genericx86-64.qcow2 ...\"\n+    # scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-vmanage-genericx86-64.qcow2 tester@\"$host\":${dest}/\n \n-    echo \"scp c8000v-universalk9_serial.26.*.iso ...\"\n-    scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null c8000v-universalk9_serial.26.*.iso tester@\"$host\":${dest}/\n+    # echo \"scp c8000v-universalk9_serial.26.*.iso ...\"\n+    # scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null c8000v-universalk9_serial.26.*.iso tester@\"$host\":${dest}/\n \n-    echo \"scp viptela-smart-genericx86-64.qcow2 ...\"\n-    scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-smart-genericx86-64.qcow2 tester@\"$host\":${dest}/\n+    # echo \"scp viptela-smart-genericx86-64.qcow2 ...\"\n+    # scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-smart-genericx86-64.qcow2 tester@\"$host\":${dest}/\n \n-    echo \"scp viptela-bond-genericx86-64.qcow2 ...\"\n-    scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-bond-genericx86-64.qcow2 tester@\"$host\":${dest}/\n+    # echo \"scp viptela-bond-genericx86-64.qcow2 ...\"\n+    # scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-bond-genericx86-64.qcow2 tester@\"$host\":${dest}/\n \n-    echo \"scp MD5SUMS ...\"\n-    scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null MD5SUMS tester@\"$host\":${dest}/\n+    # echo \"scp MD5SUMS ...\"\n+    # scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null MD5SUMS tester@\"$host\":${dest}/\n \n     echo \"Completed copying images to $host.\"\n \n }\n"
+                },
+                {
+                    "date": 1770370446335,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -36,8 +36,12 @@\n \n     # echo \"scp MD5SUMS ...\"\n     # scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null MD5SUMS tester@\"$host\":${dest}/\n \n+    echo \"scp viptela-vmanage-genericx86-64.qcow2 ...\"\n+    scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-vmanage-genericx86-64.qcow2 tester@\"$host\":${dest}/\n+\n+\n     echo \"Completed copying images to $host.\"\n \n }\n \n"
+                },
+                {
+                    "date": 1770370462549,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -36,9 +36,9 @@\n \n     # echo \"scp MD5SUMS ...\"\n     # scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null MD5SUMS tester@\"$host\":${dest}/\n \n-    echo \"scp viptela-vmanage-genericx86-64.qcow2 ...\"\n+    echo \"scp controller images ...\"\n     scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-vmanage-genericx86-64.qcow2 tester@\"$host\":${dest}/\n \n \n     echo \"Completed copying images to $host.\"\n"
+                },
+                {
+                    "date": 1770370492750,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -37,9 +37,14 @@\n     # echo \"scp MD5SUMS ...\"\n     # scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null MD5SUMS tester@\"$host\":${dest}/\n \n     echo \"scp controller images ...\"\n-    scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-vmanage-genericx86-64.qcow2 tester@\"$host\":${dest}/\n+    scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-vmanage-genericx86-64.qcow2 \\\n+        c8000v-universalk9_serial.26.*.iso \\\n+        viptela-smart-genericx86-64.qcow2 \\\n+        viptela-bond-genericx86-64.qcow2 \\\n+        MD5SUMS \\    \n+        tester@\"$host\":${dest}/\n \n \n     echo \"Completed copying images to $host.\"\n \n"
+                },
+                {
+                    "date": 1770370498794,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -44,9 +44,8 @@\n         viptela-bond-genericx86-64.qcow2 \\\n         MD5SUMS \\    \n         tester@\"$host\":${dest}/\n \n-\n     echo \"Completed copying images to $host.\"\n \n }\n \n"
+                },
+                {
+                    "date": 1770370895121,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -41,10 +41,9 @@\n     scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-vmanage-genericx86-64.qcow2 \\\n         c8000v-universalk9_serial.26.*.iso \\\n         viptela-smart-genericx86-64.qcow2 \\\n         viptela-bond-genericx86-64.qcow2 \\\n-        MD5SUMS \\    \n-        tester@\"$host\":${dest}/\n+        MD5SUMS tester@\"$host\":${dest}/\n \n     echo \"Completed copying images to $host.\"\n \n }\n"
+                },
+                {
+                    "date": 1770802938051,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -39,8 +39,9 @@\n \n     echo \"scp controller images ...\"\n     scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-vmanage-genericx86-64.qcow2 \\\n         c8000v-universalk9_serial.26.*.iso \\\n+        cEdge/c8kg2be-*.bin \\\n         viptela-smart-genericx86-64.qcow2 \\\n         viptela-bond-genericx86-64.qcow2 \\\n         MD5SUMS tester@\"$host\":${dest}/\n \n"
+                },
+                {
+                    "date": 1770802999086,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -38,13 +38,14 @@\n     # scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null MD5SUMS tester@\"$host\":${dest}/\n \n     echo \"scp controller images ...\"\n     scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-vmanage-genericx86-64.qcow2 \\\n+        viptela-smart-genericx86-64.qcow2 \\\n+        viptela-bond-genericx86-64.qcow2 \\\n+        MD5SUMS \\\n         c8000v-universalk9_serial.26.*.iso \\\n         cEdge/c8kg2be-*.bin \\\n-        viptela-smart-genericx86-64.qcow2 \\\n-        viptela-bond-genericx86-64.qcow2 \\\n-        MD5SUMS tester@\"$host\":${dest}/\n+        tester@\"$host\":${dest}/\n \n     echo \"Completed copying images to $host.\"\n \n }\n"
+                },
+                {
+                    "date": 1770805292666,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,8 +15,10 @@\n \n path=\"/auto/sdwan2/builds/daily/$version/$build\"\n dest=\"/home/tester/images/$folder\"\n \n+path2=\"/auto/sdwan2/builds/daily/20.9/STABLE/\"\n+\n pushd \"$path\" || { echo \"Invalid path: $path\"; exit 1; }\n \n function scp_image(){\n     local host=$1\n"
+                },
+                {
+                    "date": 1770805387104,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -51,8 +51,9 @@\n     echo \"Completed copying images to $host.\"\n \n }\n \n+\n if [[ \"$hostname\" == sdwan-reg-* ]]; then\n     for index in \"${!hosts[@]}\"; do\n         if [[ \"${hostnames[$index]}\" == \"$hostname\" ]]; then\n             host=\"${hosts[$index]}\"\n@@ -67,4 +68,10 @@\n     exit 1\n fi\n \n popd || exit\n+\n+pushd \"$path2\" || { echo \"Invalid path: $path2\"; exit 1; }\n+\n+\n+\n+\n"
+                },
+                {
+                    "date": 1770805429466,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -71,7 +71,7 @@\n popd || exit\n \n pushd \"$path2\" || { echo \"Invalid path: $path2\"; exit 1; }\n \n+    echo \"scp vedge images ...\"\n \n \n-\n"
+                },
+                {
+                    "date": 1770805438197,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -71,7 +71,7 @@\n popd || exit\n \n pushd \"$path2\" || { echo \"Invalid path: $path2\"; exit 1; }\n \n-    echo \"scp vedge images ...\"\n+echo \"scp vedge image ...\"\n \n \n"
+                },
+                {
+                    "date": 1770805519029,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -72,6 +72,9 @@\n \n pushd \"$path2\" || { echo \"Invalid path: $path2\"; exit 1; }\n \n echo \"scp vedge image ...\"\n+scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-edge-genericx86-64.qcow2 tester@\"$host\":${dest}/\n+echo \"Completed copying vedge image to $host.\"\n \n+popd || exit\n \n"
+                },
+                {
+                    "date": 1770805530381,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -77,4 +77,5 @@\n echo \"Completed copying vedge image to $host.\"\n \n popd || exit\n \n+echo \"All done.\"\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1770805575990,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -69,13 +69,5 @@\n fi\n \n popd || exit\n \n-pushd \"$path2\" || { echo \"Invalid path: $path2\"; exit 1; }\n-\n-echo \"scp vedge image ...\"\n-scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-edge-genericx86-64.qcow2 tester@\"$host\":${dest}/\n-echo \"Completed copying vedge image to $host.\"\n-\n-popd || exit\n-\n echo \"All done.\"\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1770805582243,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,8 +17,16 @@\n dest=\"/home/tester/images/$folder\"\n \n path2=\"/auto/sdwan2/builds/daily/20.9/STABLE/\"\n \n+pushd \"$path2\" || { echo \"Invalid path: $path2\"; exit 1; }\n+\n+echo \"scp vedge image ...\"\n+scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-edge-genericx86-64.qcow2 tester@\"$host\":${dest}/\n+echo \"Completed copying vedge image to $host.\"\n+\n+popd || exit\n+\n pushd \"$path\" || { echo \"Invalid path: $path\"; exit 1; }\n \n function scp_image(){\n     local host=$1\n"
+                },
+                {
+                    "date": 1770805798195,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -27,9 +27,9 @@\n popd || exit\n \n pushd \"$path\" || { echo \"Invalid path: $path\"; exit 1; }\n \n-function scp_image(){\n+function scp_controller_image(){\n     local host=$1\n     echo \"Copying image to $host...\"\n \n     # echo \"scp viptela-vmanage-genericx86-64.qcow2 ...\"\n"
+                },
+                {
+                    "date": 1770805824437,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,15 +17,17 @@\n dest=\"/home/tester/images/$folder\"\n \n path2=\"/auto/sdwan2/builds/daily/20.9/STABLE/\"\n \n-pushd \"$path2\" || { echo \"Invalid path: $path2\"; exit 1; }\n+function scp_controller_image(){\n+    pushd \"$path2\" || { echo \"Invalid path: $path2\"; exit 1; }\n \n-echo \"scp vedge image ...\"\n-scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-edge-genericx86-64.qcow2 tester@\"$host\":${dest}/\n-echo \"Completed copying vedge image to $host.\"\n+    echo \"scp vedge image ...\"\n+    scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-edge-genericx86-64.qcow2 tester@\"$host\":${dest}/\n+    echo \"Completed copying vedge image to $host.\"\n \n-popd || exit\n+    popd || exit\n+}\n \n pushd \"$path\" || { echo \"Invalid path: $path\"; exit 1; }\n \n function scp_controller_image(){\n@@ -68,9 +70,9 @@\n             break\n         fi\n     done\n     echo \"Processing host: ${hostnames[$index]} (${host})\"\n-    scp_image \"$host\"\n+    scp_controller_image \"$host\"\n else\n     echo \"Usage:\"\n     echo \"  $0 [sdwan-reg-1|sdwan-reg-2|sdwan-reg-3|sdwan-reg-4|sdwan-reg-5] [images_folder_name] [version] [build_number]\"\n     exit 1\n"
+                },
+                {
+                    "date": 1770805831365,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,9 +17,9 @@\n dest=\"/home/tester/images/$folder\"\n \n path2=\"/auto/sdwan2/builds/daily/20.9/STABLE/\"\n \n-function scp_controller_image(){\n+function scp_vedge_image(){\n     pushd \"$path2\" || { echo \"Invalid path: $path2\"; exit 1; }\n \n     echo \"scp vedge image ...\"\n     scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-edge-genericx86-64.qcow2 tester@\"$host\":${dest}/\n"
+                },
+                {
+                    "date": 1770805849815,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -27,11 +27,12 @@\n \n     popd || exit\n }\n \n-pushd \"$path\" || { echo \"Invalid path: $path\"; exit 1; }\n \n+\n function scp_controller_image(){\n+    pushd \"$path\" || { echo \"Invalid path: $path\"; exit 1; }\n     local host=$1\n     echo \"Copying image to $host...\"\n \n     # echo \"scp viptela-vmanage-genericx86-64.qcow2 ...\"\n"
+                },
+                {
+                    "date": 1770805857878,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -59,9 +59,9 @@\n         cEdge/c8kg2be-*.bin \\\n         tester@\"$host\":${dest}/\n \n     echo \"Completed copying images to $host.\"\n-\n+    popd || exit\n }\n \n \n if [[ \"$hostname\" == sdwan-reg-* ]]; then\n@@ -78,7 +78,7 @@\n     echo \"  $0 [sdwan-reg-1|sdwan-reg-2|sdwan-reg-3|sdwan-reg-4|sdwan-reg-5] [images_folder_name] [version] [build_number]\"\n     exit 1\n fi\n \n-popd || exit\n \n+\n echo \"All done.\"\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1770805863740,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -27,10 +27,8 @@\n \n     popd || exit\n }\n \n-\n-\n function scp_controller_image(){\n     pushd \"$path\" || { echo \"Invalid path: $path\"; exit 1; }\n     local host=$1\n     echo \"Copying image to $host...\"\n"
+                },
+                {
+                    "date": 1770805872434,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -69,8 +69,9 @@\n             break\n         fi\n     done\n     echo \"Processing host: ${hostnames[$index]} (${host})\"\n+    scp_vedge_image \"$host\"\n     scp_controller_image \"$host\"\n else\n     echo \"Usage:\"\n     echo \"  $0 [sdwan-reg-1|sdwan-reg-2|sdwan-reg-3|sdwan-reg-4|sdwan-reg-5] [images_folder_name] [version] [build_number]\"\n"
+                },
+                {
+                    "date": 1770805883356,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,8 +19,9 @@\n path2=\"/auto/sdwan2/builds/daily/20.9/STABLE/\"\n \n function scp_vedge_image(){\n     pushd \"$path2\" || { echo \"Invalid path: $path2\"; exit 1; }\n+    local host=$1\n \n     echo \"scp vedge image ...\"\n     scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-edge-genericx86-64.qcow2 tester@\"$host\":${dest}/\n     echo \"Completed copying vedge image to $host.\"\n"
+                },
+                {
+                    "date": 1770805892003,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,8 +20,9 @@\n \n function scp_vedge_image(){\n     pushd \"$path2\" || { echo \"Invalid path: $path2\"; exit 1; }\n     local host=$1\n+    echo \"Copying vedge image to $host...\"\n \n     echo \"scp vedge image ...\"\n     scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-edge-genericx86-64.qcow2 tester@\"$host\":${dest}/\n     echo \"Completed copying vedge image to $host.\"\n"
+                },
+                {
+                    "date": 1770805898050,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,10 +21,8 @@\n function scp_vedge_image(){\n     pushd \"$path2\" || { echo \"Invalid path: $path2\"; exit 1; }\n     local host=$1\n     echo \"Copying vedge image to $host...\"\n-\n-    echo \"scp vedge image ...\"\n     scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-edge-genericx86-64.qcow2 tester@\"$host\":${dest}/\n     echo \"Completed copying vedge image to $host.\"\n \n     popd || exit\n"
+                },
+                {
+                    "date": 1770806057434,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,9 +21,11 @@\n function scp_vedge_image(){\n     pushd \"$path2\" || { echo \"Invalid path: $path2\"; exit 1; }\n     local host=$1\n     echo \"Copying vedge image to $host...\"\n+\n     scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-edge-genericx86-64.qcow2 tester@\"$host\":${dest}/\n+    \n     echo \"Completed copying vedge image to $host.\"\n \n     popd || exit\n }\n"
+                },
+                {
+                    "date": 1770806065476,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -25,9 +25,8 @@\n \n     scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-edge-genericx86-64.qcow2 tester@\"$host\":${dest}/\n     \n     echo \"Completed copying vedge image to $host.\"\n-\n     popd || exit\n }\n \n function scp_controller_image(){\n"
+                },
+                {
+                    "date": 1770806074521,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -78,7 +78,5 @@\n     echo \"  $0 [sdwan-reg-1|sdwan-reg-2|sdwan-reg-3|sdwan-reg-4|sdwan-reg-5] [images_folder_name] [version] [build_number]\"\n     exit 1\n fi\n \n-\n-\n-echo \"All done.\"\n\\ No newline at end of file\n+echo \"All done.\"\n"
+                },
+                {
+                    "date": 1770806091792,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,12 +13,13 @@\n version=$3\n build=$4\n \n path=\"/auto/sdwan2/builds/daily/$version/$build\"\n+path2=\"/auto/sdwan2/builds/daily/20.9/STABLE/\"\n dest=\"/home/tester/images/$folder\"\n \n-path2=\"/auto/sdwan2/builds/daily/20.9/STABLE/\"\n \n+\n function scp_vedge_image(){\n     pushd \"$path2\" || { echo \"Invalid path: $path2\"; exit 1; }\n     local host=$1\n     echo \"Copying vedge image to $host...\"\n@@ -61,9 +62,8 @@\n     echo \"Completed copying images to $host.\"\n     popd || exit\n }\n \n-\n if [[ \"$hostname\" == sdwan-reg-* ]]; then\n     for index in \"${!hosts[@]}\"; do\n         if [[ \"${hostnames[$index]}\" == \"$hostname\" ]]; then\n             host=\"${hosts[$index]}\"\n"
+                },
+                {
+                    "date": 1770806120473,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,10 +16,8 @@\n path=\"/auto/sdwan2/builds/daily/$version/$build\"\n path2=\"/auto/sdwan2/builds/daily/20.9/STABLE/\"\n dest=\"/home/tester/images/$folder\"\n \n-\n-\n function scp_vedge_image(){\n     pushd \"$path2\" || { echo \"Invalid path: $path2\"; exit 1; }\n     local host=$1\n     echo \"Copying vedge image to $host...\"\n@@ -69,8 +67,9 @@\n             host=\"${hosts[$index]}\"\n             break\n         fi\n     done\n+    \n     echo \"Processing host: ${hostnames[$index]} (${host})\"\n     scp_vedge_image \"$host\"\n     scp_controller_image \"$host\"\n else\n"
+                },
+                {
+                    "date": 1771923031638,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,13 +13,13 @@\n version=$3\n build=$4\n \n path=\"/auto/sdwan2/builds/daily/$version/$build\"\n-path2=\"/auto/sdwan2/builds/daily/20.9/STABLE/\"\n+path_vedge=\"/auto/sdwan2/builds/daily/20.9/STABLE/\"\n dest=\"/home/tester/images/$folder\"\n \n function scp_vedge_image(){\n-    pushd \"$path2\" || { echo \"Invalid path: $path2\"; exit 1; }\n+    pushd \"$path_vedge\" || { echo \"Invalid path: $path_vedge\"; exit 1; }\n     local host=$1\n     echo \"Copying vedge image to $host...\"\n \n     scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-edge-genericx86-64.qcow2 tester@\"$host\":${dest}/\n"
+                }
+            ],
+            "date": 1770261510820,
+            "name": "Commit-0",
+            "content": "\n\nsshpass -p 'PASSWORD' scp \\\n  -o StrictHostKeyChecking=no \\\n  -o UserKnownHostsFile=/dev/null \\\n  file.txt admin@10.0.1.36:/tmp/"
+        }
+    ]
+}

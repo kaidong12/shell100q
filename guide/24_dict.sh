@@ -1,7 +1,7 @@
-在 Bash 中，关联数组（Associative Array） 是一种特殊的数据结构，
-允许使用任意字符串作为键（key）来存储和访问值（value），
-类似于其他编程语言中的字典（Dictionary）或哈希表（Hash）。
-它是 Bash 4.0 及以上版本引入的功能。
+# 在 Bash 中，关联数组（Associative Array） 是一种特殊的数据结构，
+# 允许使用任意字符串作为键（key）来存储和访问值（value），
+# 类似于其他编程语言中的字典（Dictionary）或哈希表（Hash）。
+# 它是 Bash 4.0 及以上版本引入的功能。
 
 # 1, 必须显式声明类型：
 declare -A my_dict  # -A 表示关联数组

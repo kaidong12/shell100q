@@ -1,0 +1,18 @@
+{
+    "sourceFile": "sdwan/4_bvirsh.sh",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1767946646340,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1767946646340,
+            "name": "Commit-0",
+            "content": "#!/bin/bash\n\nop=$1\nvm=$2\n\nfunction virsh_vm_range(){\n  for ((i=1; i<=13;i++))\n  do\n    name=\"vm\"$i\n    if [ $i -eq 5 ]; then\n      name=\"vm16\"\n    fi\n    echo  \"virsh $op $name\"\n    virsh $op $name\n  done\n}\n\nif [ $vm == \"range\" ]; then\n  virsh_vm_range\nelif [ $vm == \"all\" ]; then\n  virsh_vm_range\n\n  echo \"virsh $op vm16\"\n  virsh $op \"vm16\"\n  echo \"virsh $op aastha\"\n  virsh $op \"aastha\"\n  echo \"virsh $op ubuntu-services\"\n  virsh $op \"ubuntu-services\" \nelse\n  echo \"virsh $op $vm\"\n  virsh $op $vm\nfi\n\n\n"
+        }
+    ]
+}

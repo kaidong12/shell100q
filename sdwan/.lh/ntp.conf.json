@@ -1,0 +1,22 @@
+{
+    "sourceFile": "ntp.conf",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1769317299988,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1769317343292,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -38,9 +38,9 @@\n restrict -6 default kod notrap nomodify nopeer noquery limited\n \n # Local users may interrogate the ntp server more closely.\n restrict 127.0.0.1\n-restrict -6 ::1\n+restrict ::1\n \n # Needed for adding pool entries\n restrict source notrap nomodify noquery\n \n"
+                }
+            ],
+            "date": 1769317299988,
+            "name": "Commit-0",
+            "content": "# /etc/ntp.conf, configuration for ntpd; see ntp.conf(5) for help\n\ndriftfile /var/lib/ntp/ntp.drift\n\n# Enable this if you want statistics to be logged.\n#statsdir /var/log/ntpstats/\n\nstatistics loopstats peerstats clockstats\nfilegen loopstats file loopstats type day enable\nfilegen peerstats file peerstats type day enable\nfilegen clockstats file clockstats type day enable\n\n# Specify one or more NTP servers.\n\n# Use servers from the NTP Pool Project. Approved by Ubuntu Technical Board\n# on 2011-02-08 (LP: #104525). See http://www.pool.ntp.org/join.html for\n# more information.\n#server 10.74.12.7 iburst\nserver 10.64.58.51 iburst\n#pool 0.ubuntu.pool.ntp.org iburst\n#pool 1.ubuntu.pool.ntp.org iburst\n#pool 2.ubuntu.pool.ntp.org iburst\n#pool 3.ubuntu.pool.ntp.org iburst\n\n# Use Ubuntu's ntp server as a fallback.\n#pool ntp.ubuntu.com\n\n# Access control configuration; see /usr/share/doc/ntp-doc/html/accopt.html for\n# details.  The web page <http://support.ntp.org/bin/view/Support/AccessRestrictions>\n# might also be helpful.\n#\n# Note that \"restrict\" applies to both servers and clients, so a configuration\n# that might be intended to block requests from certain clients could also end\n# up blocking replies from your own upstream servers.\n\n# By default, exchange time with everybody, but don't allow configuration.\nrestrict -4 default kod notrap nomodify nopeer noquery limited\nrestrict -6 default kod notrap nomodify nopeer noquery limited\n\n# Local users may interrogate the ntp server more closely.\nrestrict 127.0.0.1\nrestrict -6 ::1\n\n# Needed for adding pool entries\nrestrict source notrap nomodify noquery\n\n# Clients from this (example!) subnet have unlimited access, but only if\n# cryptographically authenticated.\n#restrict 192.168.123.0 mask 255.255.255.0 notrust\n\n\n# If you want to provide time to your local subnet, change the next line.\n# (Again, the address is an example only.)\n#broadcast 192.168.123.255\n\n# If you want to listen to time broadcasts on your local subnet, de-comment the\n# next lines.  Please do this only if you trust everybody on the network!\n#disable auth\n#broadcastclient\n\n#Changes recquired to use pps synchonisation as explained in documentation:\n#http://www.ntp.org/ntpfaq/NTP-s-config-adv.htm#AEN3918\n\n#server 127.127.8.1 mode 135 prefer    # Meinberg GPS167 with PPS\n#fudge 127.127.8.1 time1 0.0042        # relative to PPS for my hardware\n\n#server 127.127.22.1                   # ATOM(PPS)\n#fudge 127.127.22.1 flag3 1            # enable PPS API\n"
+        }
+    ]
+}
