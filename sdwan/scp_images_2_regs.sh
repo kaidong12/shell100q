@@ -53,8 +53,9 @@ function scp_controller_image(){
         viptela-smart-genericx86-64.qcow2 \
         viptela-bond-genericx86-64.qcow2 \
         MD5SUMS \
-        c8000v-universalk9_serial.26.*.iso \
+        c8000v-universalk9_serial.*.iso \
         cEdge/c8kg2be-*.bin \
+        cEdge/c84g2aes-*.bin \
         tester@"$host":${dest}/
 
     echo "Completed copying images to $host."

@@ -139,35 +139,7 @@ pipeline {
             }
         }
 
-        stage('Test-4: configuration_groups_20_9') {
-            steps {
-                script {
-                    build job: 'configuration_groups_20_9',
-                          propagate: params.EXIT_ON_FAIL,
-                          parameters: [
-                              string(name: 'WEBEX_ROOM_ID', value: env.WEBEX_ROOM_ID),
-                              string(name: 'NODE_LABEL', value: params.NODE_LABEL),
-                              string(name: 'YAML_PATH', value: params.YAML_PATH)
-                          ]
-                }
-            }
-        }
-
-        stage('Reset-5: reset_environment') {
-            steps {
-                script {
-                    build job: 'reset_environment',
-                          propagate: params.EXIT_ON_FAIL,
-                          parameters: [
-                              string(name: 'WEBEX_ROOM_ID', value: env.WEBEX_ROOM_ID),
-                              string(name: 'NODE_LABEL', value: params.NODE_LABEL),
-                              string(name: 'YAML_PATH', value: params.YAML_PATH)
-                          ]
-                }
-            }
-        }
-
-        stage('Test-5: cEdgeBFD') {
+        stage('Test-4: cEdgeBFD') {
             steps {
                 script {
                     build job: 'cEdgeBFD',
@@ -181,7 +153,7 @@ pipeline {
             }
         }
 
-        // stage('Reset-6: reset_environment') {
+        // stage('Reset-5: reset_environment') {
         //     steps {
         //         script {
         //             build job: 'reset_environment',

@@ -55,10 +55,10 @@ pipeline {
             }
         }
 
-        stage('Test-1: cEdgeNat') {
+        stage('Test-1: bgp_vrrp_cedge') {
             steps {
                 script {
-                    build job: 'cEdgeNat',
+                    build job: 'bgp_vrrp_cedge',
                           propagate: params.EXIT_ON_FAIL,
                           parameters: [
                               string(name: 'WEBEX_ROOM_ID', value: env.WEBEX_ROOM_ID),
@@ -83,10 +83,10 @@ pipeline {
             }
         }
 
-        stage('Test-2: standard_ipsec_tier1') {
+        stage('Test-2: cExpress_bgp_vEdge') {
             steps {
                 script {
-                    build job: 'standard_ipsec_tier1',
+                    build job: 'cExpress_bgp_vEdge',
                           propagate: params.EXIT_ON_FAIL,
                           parameters: [
                               string(name: 'WEBEX_ROOM_ID', value: env.WEBEX_ROOM_ID),
@@ -111,10 +111,10 @@ pipeline {
             }
         }
 
-        stage('Test-3: enterprise_certs') {
+        stage('Test-3: configuration_groups_20_9') {
             steps {
                 script {
-                    build job: 'enterprise_certs',
+                    build job: 'configuration_groups_20_9',
                           propagate: params.EXIT_ON_FAIL,
                           parameters: [
                               string(name: 'WEBEX_ROOM_ID', value: env.WEBEX_ROOM_ID),
@@ -139,10 +139,10 @@ pipeline {
             }
         }
 
-        stage('Test-4: tlocExt') {
+        stage('Test-4: cEdgeFNF') {
             steps {
                 script {
-                    build job: 'tlocExt',
+                    build job: 'cEdgeFNF',
                           propagate: params.EXIT_ON_FAIL,
                           parameters: [
                               string(name: 'WEBEX_ROOM_ID', value: env.WEBEX_ROOM_ID),
@@ -153,35 +153,7 @@ pipeline {
             }
         }
 
-        stage('Reset-5: reset_environment') {
-            steps {
-                script {
-                    build job: 'reset_environment',
-                          propagate: params.EXIT_ON_FAIL,
-                          parameters: [
-                              string(name: 'WEBEX_ROOM_ID', value: env.WEBEX_ROOM_ID),
-                              string(name: 'NODE_LABEL', value: params.NODE_LABEL),
-                              string(name: 'YAML_PATH', value: params.YAML_PATH)
-                          ]
-                }
-            }
-        }
-
-        stage('Test-5: configuration_groups_20_9') {
-            steps {
-                script {
-                    build job: 'configuration_groups_20_9',
-                          propagate: params.EXIT_ON_FAIL,
-                          parameters: [
-                              string(name: 'WEBEX_ROOM_ID', value: env.WEBEX_ROOM_ID),
-                              string(name: 'NODE_LABEL', value: params.NODE_LABEL),
-                              string(name: 'YAML_PATH', value: params.YAML_PATH)
-                          ]
-                }
-            }
-        }
-
-        // stage('Reset-6: reset_environment') {
+        // stage('Reset-5: reset_environment') {
         //     steps {
         //         script {
         //             build job: 'reset_environment',
@@ -194,6 +166,7 @@ pipeline {
         //         }
         //     }
         // }
+
     }
 
     post {

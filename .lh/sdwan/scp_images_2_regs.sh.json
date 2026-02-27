@@ -1,0 +1,26 @@
+{
+    "sourceFile": "sdwan/scp_images_2_regs.sh",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 2,
+            "patches": [
+                {
+                    "date": 1772077578289,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1772077601509,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -54,9 +54,9 @@\n         viptela-bond-genericx86-64.qcow2 \\\n         MD5SUMS \\\n         c8000v-universalk9_serial.26.*.iso \\\n         cEdge/c8kg2be-*.bin \\\n-        cEdge/c8kg2be-*.bin \\\n+        cEdge/c84g2aes-*.bin \\\n         tester@\"$host\":${dest}/\n \n     echo \"Completed copying images to $host.\"\n     popd || exit\n"
+                },
+                {
+                    "date": 1772077661282,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -52,9 +52,9 @@\n     scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-vmanage-genericx86-64.qcow2 \\\n         viptela-smart-genericx86-64.qcow2 \\\n         viptela-bond-genericx86-64.qcow2 \\\n         MD5SUMS \\\n-        c8000v-universalk9_serial.26.*.iso \\\n+        c8000v-universalk9_serial.*.iso \\\n         cEdge/c8kg2be-*.bin \\\n         cEdge/c84g2aes-*.bin \\\n         tester@\"$host\":${dest}/\n \n"
+                }
+            ],
+            "date": 1772077578289,
+            "name": "Commit-0",
+            "content": "#!/bin/bash\n\n# scp_images_2_regs.sh <sdwan-reg-x> <images_folder_name> <version> <build_number>\n# ./scp_images_2_regs.sh sdwan-reg-2 regression_images_hydra 26.2 5060\n# ./scp_images_2_regs.sh sdwan-reg-3 regression_images_styxL 26.2 5094\n# ./scp_images_2_regs.sh sdwan-reg-4 regression_images_Styx 26.1 150\n\nhostnames=(sdwan-reg-1 sdwan-reg-2 sdwan-reg-3 sdwan-reg-4 sdwan-reg-5)\nhosts=(10.74.6.134 10.75.28.83 10.74.6.141 10.124.10.233 10.74.5.23)\n\nhostname=$1\nfolder=$2\nversion=$3\nbuild=$4\n\npath=\"/auto/sdwan2/builds/daily/$version/$build\"\npath_vedge=\"/auto/sdwan2/builds/daily/20.9/STABLE/\"\ndest=\"/home/tester/images/$folder\"\n\nfunction scp_vedge_image(){\n    pushd \"$path_vedge\" || { echo \"Invalid path: $path_vedge\"; exit 1; }\n    local host=$1\n    echo \"Copying vedge image to $host...\"\n\n    scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-edge-genericx86-64.qcow2 tester@\"$host\":${dest}/\n    \n    echo \"Completed copying vedge image to $host.\"\n    popd || exit\n}\n\nfunction scp_controller_image(){\n    pushd \"$path\" || { echo \"Invalid path: $path\"; exit 1; }\n    local host=$1\n    echo \"Copying image to $host...\"\n\n    # echo \"scp viptela-vmanage-genericx86-64.qcow2 ...\"\n    # scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-vmanage-genericx86-64.qcow2 tester@\"$host\":${dest}/\n\n    # echo \"scp c8000v-universalk9_serial.26.*.iso ...\"\n    # scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null c8000v-universalk9_serial.26.*.iso tester@\"$host\":${dest}/\n\n    # echo \"scp viptela-smart-genericx86-64.qcow2 ...\"\n    # scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-smart-genericx86-64.qcow2 tester@\"$host\":${dest}/\n\n    # echo \"scp viptela-bond-genericx86-64.qcow2 ...\"\n    # scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-bond-genericx86-64.qcow2 tester@\"$host\":${dest}/\n\n    # echo \"scp MD5SUMS ...\"\n    # scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null MD5SUMS tester@\"$host\":${dest}/\n\n    echo \"scp controller images ...\"\n    scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-vmanage-genericx86-64.qcow2 \\\n        viptela-smart-genericx86-64.qcow2 \\\n        viptela-bond-genericx86-64.qcow2 \\\n        MD5SUMS \\\n        c8000v-universalk9_serial.26.*.iso \\\n        cEdge/c8kg2be-*.bin \\\n        cEdge/c8kg2be-*.bin \\\n        tester@\"$host\":${dest}/\n\n    echo \"Completed copying images to $host.\"\n    popd || exit\n}\n\nif [[ \"$hostname\" == sdwan-reg-* ]]; then\n    for index in \"${!hosts[@]}\"; do\n        if [[ \"${hostnames[$index]}\" == \"$hostname\" ]]; then\n            host=\"${hosts[$index]}\"\n            break\n        fi\n    done\n    \n    echo \"Processing host: ${hostnames[$index]} (${host})\"\n    scp_vedge_image \"$host\"\n    scp_controller_image \"$host\"\nelse\n    echo \"Usage:\"\n    echo \"  $0 [sdwan-reg-1|sdwan-reg-2|sdwan-reg-3|sdwan-reg-4|sdwan-reg-5] [images_folder_name] [version] [build_number]\"\n    exit 1\nfi\n\necho \"All done.\"\n"
+        }
+    ]
+}

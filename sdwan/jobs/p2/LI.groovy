@@ -50,8 +50,8 @@ pipeline {
                     echo "============================environment============================"
                     
                     echo "----------------------------------------------------------------------------------------------------"
-                    # /home/tester/vtest/bin/runner LI -v -ntr -ntg -ns -transport -ikev2 -ntg -ns -m LI -evm -t setup -t P0 -q;
-                    /home/tester/vtest/bin/runner LI -y /home/tester/yaml/${params.YAML_PATH}/LI.yaml -v -ntr -ntg -ns -transport -ikev2 -ntg -ns -m LI -evm -n tb -o -b next -t setup -t P0 -q;
+                    # /home/tester/vtest/bin/runner LI -v -ntr -ntg -ns -transport -ikev2 -ntg -ns -m LI -evm -t setup -t P0 -q -et test_config_li_snmp_user -et test_set_source_ifinedx_id;
+                    /home/tester/vtest/bin/runner LI -y /home/tester/yaml/${params.YAML_PATH}/LI.yaml -v -ntr -ntg -ns -transport -ikev2 -ntg -ns -m LI -evm -n tb -o -b next -t setup -t P0 -q -et test_config_li_snmp_user -et test_set_source_ifinedx_id;
                     echo "----------------------------------------------------------------------------------------------------"
                     date
                     
