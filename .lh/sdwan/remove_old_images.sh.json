@@ -1,0 +1,38 @@
+{
+    "sourceFile": "sdwan/remove_old_images.sh",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 5,
+            "patches": [
+                {
+                    "date": 1773223649539,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1773223676205,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,9 @@\n #!/bin/bash\n \n cd /home/tester/images/26.1/topology_provided\n \n+rm -rf viptela-bond-genericx86-64.qcow2 viptela-smart-genericx86-64.qcow2 viptela-vmanage-genericx86-64.qcow2 viptela-edge-genericx86-64.qcow2 regression.bin c8000v-regression.iso MD5SUMS\n \n+cd /home/tester/images\n+rm -rf viptela-bond-genericx86-64.qcow2 viptela-smart-genericx86-64.qcow2 viptela-vmanage-genericx86-64.qcow2 viptela-edge-genericx86-64.qcow2 regression.bin c8000v-regression.iso MD5SUMS\n+\n"
+                },
+                {
+                    "date": 1773223758396,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,11 @@\n #!/bin/bash\n \n-cd /home/tester/images/26.1/topology_provided\n+pushd /home/tester/images/26.1/topology_provided || exit 1\n \n rm -rf viptela-bond-genericx86-64.qcow2 viptela-smart-genericx86-64.qcow2 viptela-vmanage-genericx86-64.qcow2 viptela-edge-genericx86-64.qcow2 regression.bin c8000v-regression.iso MD5SUMS\n \n-cd /home/tester/images\n+popd || exit 1\n+\n+pushd /home/tester/images || exit 1\n rm -rf viptela-bond-genericx86-64.qcow2 viptela-smart-genericx86-64.qcow2 viptela-vmanage-genericx86-64.qcow2 viptela-edge-genericx86-64.qcow2 regression.bin c8000v-regression.iso MD5SUMS\n-\n+popd || exit 1\n"
+                },
+                {
+                    "date": 1773223822287,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,11 +1,11 @@\n #!/bin/bash\n \n pushd /home/tester/images/26.1/topology_provided || exit 1\n-\n rm -rf viptela-bond-genericx86-64.qcow2 viptela-smart-genericx86-64.qcow2 viptela-vmanage-genericx86-64.qcow2 viptela-edge-genericx86-64.qcow2 regression.bin c8000v-regression.iso MD5SUMS\n-\n popd || exit 1\n \n pushd /home/tester/images || exit 1\n rm -rf viptela-bond-genericx86-64.qcow2 viptela-smart-genericx86-64.qcow2 viptela-vmanage-genericx86-64.qcow2 viptela-edge-genericx86-64.qcow2 regression.bin c8000v-regression.iso MD5SUMS\n popd || exit 1\n+\n+cd /home/tester/images\n"
+                },
+                {
+                    "date": 1773223852614,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,5 +7,6 @@\n pushd /home/tester/images || exit 1\n rm -rf viptela-bond-genericx86-64.qcow2 viptela-smart-genericx86-64.qcow2 viptela-vmanage-genericx86-64.qcow2 viptela-edge-genericx86-64.qcow2 regression.bin c8000v-regression.iso MD5SUMS\n popd || exit 1\n \n+\n cd /home/tester/images\n"
+                },
+                {
+                    "date": 1773223861493,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,6 +7,5 @@\n pushd /home/tester/images || exit 1\n rm -rf viptela-bond-genericx86-64.qcow2 viptela-smart-genericx86-64.qcow2 viptela-vmanage-genericx86-64.qcow2 viptela-edge-genericx86-64.qcow2 regression.bin c8000v-regression.iso MD5SUMS\n popd || exit 1\n \n-\n cd /home/tester/images\n"
+                }
+            ],
+            "date": 1773223649539,
+            "name": "Commit-0",
+            "content": "#!/bin/bash\n\ncd /home/tester/images/26.1/topology_provided\n\n\n"
+        }
+    ]
+}

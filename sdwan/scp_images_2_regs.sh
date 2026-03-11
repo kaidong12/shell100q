@@ -12,6 +12,7 @@ hostname=$1
 folder=$2
 version=$3
 build=$4
+vedge=$5
 
 path="/auto/sdwan2/builds/daily/$version/$build"
 path_vedge="/auto/sdwan2/builds/daily/20.9/STABLE/"
@@ -49,15 +50,22 @@ function scp_controller_image(){
     # scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null MD5SUMS tester@"$host":${dest}/
 
     echo "scp controller images ..."
-    scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-vmanage-genericx86-64.qcow2 \
+    scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
+        viptela-vmanage-genericx86-64.qcow2 \
         viptela-smart-genericx86-64.qcow2 \
         viptela-bond-genericx86-64.qcow2 \
         MD5SUMS \
         c8000v-universalk9_serial.*.iso \
-        cEdge/c8kg2be-*.bin \
-        cEdge/c84g2aes-*.bin \
         tester@"$host":${dest}/
-
+        # cEdge/c8kg2be-*.bin \
+        # cEdge/c81g2be-*.bin \
+        # cEdge/c84g2aes-*.bin \
+        # cEdge/c8000be-*.bin \
+        # tester@"$host":${dest}/
+    # styx: c8kg2be-*.bin
+    # hydra, charon: c81g2be-*.bin
+    # bender: c84g2aes-*.bin
+    # curie: c8000be-*.bin
     echo "Completed copying images to $host."
     popd || exit
 }
@@ -71,11 +79,17 @@ if [[ "$hostname" == sdwan-reg-* ]]; then
     done
     
     echo "Processing host: ${hostnames[$index]} (${host})"
-    scp_vedge_image "$host"
+    if [[ -n "$vedge" ]]; then
+        echo "==========vedge image will be copied to $host.=========="
+        scp_vedge_image "$host"
+    else
+        echo "==========No vedge image will be copied to $host.=========="
+    fi
     scp_controller_image "$host"
+    
 else
     echo "Usage:"
-    echo "  $0 [sdwan-reg-1|sdwan-reg-2|sdwan-reg-3|sdwan-reg-4|sdwan-reg-5] [images_folder_name] [version] [build_number]"
+    echo "  $0 [sdwan-reg-1|sdwan-reg-2|sdwan-reg-3|sdwan-reg-4|sdwan-reg-5] [images_folder_name] [version] [build_number] [vedge_image]"
     exit 1
 fi
 

@@ -7,9 +7,10 @@ alias ap3="source ~/.p3/bin/activate"
 alias dac="deactivate"
 alias sshpm5="ssh-keygen -R 10.0.99.15 -f ~/.ssh/known_hosts 2>/dev/null; sshpass -p 'admin' ssh -o StrictHostKeyChecking=accept-new admin@10.0.99.15"
 alias sshpm1="ssh-keygen -R 10.0.99.11 -f ~/.ssh/known_hosts 2>/dev/null; sshpass -p 'admin' ssh -o StrictHostKeyChecking=accept-new admin@10.0.99.11"
-
+alias sshvm12="sshpass -p 'Cisco#123@Viptela' ssh -o ControlMaster=no -o ControlPath=none -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -l admin 10.0.1.32"
 alias sshvm="sshpass -p 'admin' ssh -o ControlMaster=no -o ControlPath=none -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -l admin "
-alias sshvmv="sshpass -p 'Cisco#123@Viptela' ssh -o ControlMaster=no -o ControlPath=none -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -l admin "
+
+alias capturelog="tmux capture-pane -pS -100000 > /home/tester/yaml/logs/tmux-pane.log"
 
 alias cdv="cd /home/tester/vtest"
 alias cdkt="cd /home/tester/kaidyan/test"

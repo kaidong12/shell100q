@@ -1,0 +1,30 @@
+{
+    "sourceFile": "sdwan/.bash_aliases",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 3,
+            "patches": [
+                {
+                    "date": 1772723757629,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1772723769640,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,9 +6,9 @@\n alias ap3=\"source ~/.p3/bin/activate\"\n alias dac=\"deactivate\"\n alias sshpm5=\"ssh-keygen -R 10.0.99.15 -f ~/.ssh/known_hosts 2>/dev/null; sshpass -p 'admin' ssh -o StrictHostKeyChecking=accept-new admin@10.0.99.15\"\n alias sshpm1=\"ssh-keygen -R 10.0.99.11 -f ~/.ssh/known_hosts 2>/dev/null; sshpass -p 'admin' ssh -o StrictHostKeyChecking=accept-new admin@10.0.99.11\"\n-alias sshvm12=\"sshpass -p 'Cisco#123@Viptela' ssh -o ControlMaster=no -o ControlPath=none -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -l admin \"\n+alias sshvm12=\"sshpass -p 'Cisco#123@Viptela' ssh -o ControlMaster=no -o ControlPath=none -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -l admin 10.0.1.32\"\n \n alias sshvm=\"sshpass -p 'admin' ssh -o ControlMaster=no -o ControlPath=none -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -l admin \"\n \n \n"
+                },
+                {
+                    "date": 1772724084527,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,11 +7,11 @@\n alias dac=\"deactivate\"\n alias sshpm5=\"ssh-keygen -R 10.0.99.15 -f ~/.ssh/known_hosts 2>/dev/null; sshpass -p 'admin' ssh -o StrictHostKeyChecking=accept-new admin@10.0.99.15\"\n alias sshpm1=\"ssh-keygen -R 10.0.99.11 -f ~/.ssh/known_hosts 2>/dev/null; sshpass -p 'admin' ssh -o StrictHostKeyChecking=accept-new admin@10.0.99.11\"\n alias sshvm12=\"sshpass -p 'Cisco#123@Viptela' ssh -o ControlMaster=no -o ControlPath=none -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -l admin 10.0.1.32\"\n-\n alias sshvm=\"sshpass -p 'admin' ssh -o ControlMaster=no -o ControlPath=none -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -l admin \"\n \n+alias savelog=\"tmux capture-pane -pS -100000 > /home/tester/yaml/logs/tmux-pane.log\"\n \n alias cdv=\"cd /home/tester/vtest\"\n alias cdkt=\"cd /home/tester/kaidyan/test\"\n alias cdks=\"cd /home/tester/kaidyan/scripts\"\n"
+                },
+                {
+                    "date": 1772724108845,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,9 +9,9 @@\n alias sshpm1=\"ssh-keygen -R 10.0.99.11 -f ~/.ssh/known_hosts 2>/dev/null; sshpass -p 'admin' ssh -o StrictHostKeyChecking=accept-new admin@10.0.99.11\"\n alias sshvm12=\"sshpass -p 'Cisco#123@Viptela' ssh -o ControlMaster=no -o ControlPath=none -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -l admin 10.0.1.32\"\n alias sshvm=\"sshpass -p 'admin' ssh -o ControlMaster=no -o ControlPath=none -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -l admin \"\n \n-alias savelog=\"tmux capture-pane -pS -100000 > /home/tester/yaml/logs/tmux-pane.log\"\n+alias capturelog=\"tmux capture-pane -pS -100000 > /home/tester/yaml/logs/tmux-pane.log\"\n \n alias cdv=\"cd /home/tester/vtest\"\n alias cdkt=\"cd /home/tester/kaidyan/test\"\n alias cdks=\"cd /home/tester/kaidyan/scripts\"\n"
+                }
+            ],
+            "date": 1772723757629,
+            "name": "Commit-0",
+            "content": "alias ll=\"ls -ltrFa\"\n\nalias a27=\"source /opt/venv/vtest2.7/bin/activate\"\nalias a36=\"source /opt/venv/vtest3.6/bin/activate\"\nalias a38=\"source /home/tester/venv/vtest/bin/activate\"\nalias ap3=\"source ~/.p3/bin/activate\"\nalias dac=\"deactivate\"\nalias sshpm5=\"ssh-keygen -R 10.0.99.15 -f ~/.ssh/known_hosts 2>/dev/null; sshpass -p 'admin' ssh -o StrictHostKeyChecking=accept-new admin@10.0.99.15\"\nalias sshpm1=\"ssh-keygen -R 10.0.99.11 -f ~/.ssh/known_hosts 2>/dev/null; sshpass -p 'admin' ssh -o StrictHostKeyChecking=accept-new admin@10.0.99.11\"\nalias sshvm12=\"sshpass -p 'Cisco#123@Viptela' ssh -o ControlMaster=no -o ControlPath=none -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -l admin \"\n\nalias sshvm=\"sshpass -p 'admin' ssh -o ControlMaster=no -o ControlPath=none -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -l admin \"\n\n\nalias cdv=\"cd /home/tester/vtest\"\nalias cdkt=\"cd /home/tester/kaidyan/test\"\nalias cdks=\"cd /home/tester/kaidyan/scripts\"\n\nalias cdtb=\"cd /home/tester/testbeds/tb\"\n\nalias cdy=\"cd /home/tester/yaml\"\nalias cdi=\"cd /home/tester/images\"\n\nalias cdl=\"cd /home/tester/vtest/tests/logs/\"\nalias cds=\"cd /home/tester/vtest/tests/scripts\"\n\nalias checkrun=\"ps -ef | grep vtest | grep -P 'testbed|run'\"\nalias clearrun=\"checkrun | awk '{print $2}' | xargs -r kill -9\"\n"
+        }
+    ]
+}

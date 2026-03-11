@@ -115,16 +115,20 @@ def update_yaml(yaml_file: Path, bindings: dict, logger: logging.Logger):
 
 def main():
     parser = argparse.ArgumentParser(description="Update YAML interface bindings")
-    parser.add_argument(
-        "path",
-        choices=["hydra-vtest_FCV1", "styx-vtest", "hydra-vtest_10G", "styx-vtest_1G"],
-        help="path to yaml files",
-    )
+    parser.add_argument("path", help="path to yaml files", type=str, action="store")
     args = parser.parse_args()
 
     logger = setup_logging(args.path)
 
     logger.info(f"path: {args.path}".center(80, "="))
+
+    if not Path(args.path).is_dir():
+        logger.error(f"{args.path} does not exist or is not a directory!")
+        return
+
+    if not Path(f"{args.path}.yaml").is_file():
+        logger.error(f"{args.path}.yaml does not exist!")
+        return
 
     bindings = read_yaml(f"{args.path}.yaml")["vlan_binding"]
     for file in Path(args.path).iterdir():

@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 2,
+            "activePatchIndex": 33,
             "patches": [
                 {
                     "date": 1772077578289,
@@ -16,6 +16,130 @@
                 {
                     "date": 1772077661282,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -52,9 +52,9 @@\n     scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-vmanage-genericx86-64.qcow2 \\\n         viptela-smart-genericx86-64.qcow2 \\\n         viptela-bond-genericx86-64.qcow2 \\\n         MD5SUMS \\\n-        c8000v-universalk9_serial.26.*.iso \\\n+        c8000v-universalk9_serial.*.iso \\\n         cEdge/c8kg2be-*.bin \\\n         cEdge/c84g2aes-*.bin \\\n         tester@\"$host\":${dest}/\n \n"
+                },
+                {
+                    "date": 1772773974226,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -55,8 +55,9 @@\n         MD5SUMS \\\n         c8000v-universalk9_serial.*.iso \\\n         cEdge/c8kg2be-*.bin \\\n         cEdge/c84g2aes-*.bin \\\n+        cEdge/c84g2aes-*.bin \\\n         tester@\"$host\":${dest}/\n \n     echo \"Completed copying images to $host.\"\n     popd || exit\n"
+                },
+                {
+                    "date": 1772774012988,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -55,9 +55,9 @@\n         MD5SUMS \\\n         c8000v-universalk9_serial.*.iso \\\n         cEdge/c8kg2be-*.bin \\\n         cEdge/c84g2aes-*.bin \\\n-        cEdge/c84g2aes-*.bin \\\n+        cEdge/c8000be-*.bin \\\n         tester@\"$host\":${dest}/\n \n     echo \"Completed copying images to $host.\"\n     popd || exit\n"
+                },
+                {
+                    "date": 1772774085728,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -57,9 +57,11 @@\n         cEdge/c8kg2be-*.bin \\\n         cEdge/c84g2aes-*.bin \\\n         cEdge/c8000be-*.bin \\\n         tester@\"$host\":${dest}/\n-\n+    # \n+    #\n+    # curie: c8000be-*.bin\n     echo \"Completed copying images to $host.\"\n     popd || exit\n }\n \n"
+                },
+                {
+                    "date": 1772774095200,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -57,9 +57,9 @@\n         cEdge/c8kg2be-*.bin \\\n         cEdge/c84g2aes-*.bin \\\n         cEdge/c8000be-*.bin \\\n         tester@\"$host\":${dest}/\n-    # \n+    # styx:\n     #\n     # curie: c8000be-*.bin\n     echo \"Completed copying images to $host.\"\n     popd || exit\n"
+                },
+                {
+                    "date": 1772774108743,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -57,9 +57,9 @@\n         cEdge/c8kg2be-*.bin \\\n         cEdge/c84g2aes-*.bin \\\n         cEdge/c8000be-*.bin \\\n         tester@\"$host\":${dest}/\n-    # styx:\n+    # styx: c8kg2be-*.bin\n     #\n     # curie: c8000be-*.bin\n     echo \"Completed copying images to $host.\"\n     popd || exit\n"
+                },
+                {
+                    "date": 1772774122093,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -58,9 +58,9 @@\n         cEdge/c84g2aes-*.bin \\\n         cEdge/c8000be-*.bin \\\n         tester@\"$host\":${dest}/\n     # styx: c8kg2be-*.bin\n-    #\n+    # hydra: c81g2be-*.bin\n     # curie: c8000be-*.bin\n     echo \"Completed copying images to $host.\"\n     popd || exit\n }\n"
+                },
+                {
+                    "date": 1772774137229,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -59,8 +59,9 @@\n         cEdge/c8000be-*.bin \\\n         tester@\"$host\":${dest}/\n     # styx: c8kg2be-*.bin\n     # hydra: c81g2be-*.bin\n+    # bender: \n     # curie: c8000be-*.bin\n     echo \"Completed copying images to $host.\"\n     popd || exit\n }\n"
+                },
+                {
+                    "date": 1772774150430,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -59,9 +59,9 @@\n         cEdge/c8000be-*.bin \\\n         tester@\"$host\":${dest}/\n     # styx: c8kg2be-*.bin\n     # hydra: c81g2be-*.bin\n-    # bender: \n+    # bender: c84g2aes-*.bin\n     # curie: c8000be-*.bin\n     echo \"Completed copying images to $host.\"\n     popd || exit\n }\n"
+                },
+                {
+                    "date": 1772774176542,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -58,9 +58,9 @@\n         cEdge/c84g2aes-*.bin \\\n         cEdge/c8000be-*.bin \\\n         tester@\"$host\":${dest}/\n     # styx: c8kg2be-*.bin\n-    # hydra: c81g2be-*.bin\n+    # hydra, charon: c81g2be-*.bin\n     # bender: c84g2aes-*.bin\n     # curie: c8000be-*.bin\n     echo \"Completed copying images to $host.\"\n     popd || exit\n"
+                },
+                {
+                    "date": 1772774220987,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -56,8 +56,9 @@\n         c8000v-universalk9_serial.*.iso \\\n         cEdge/c8kg2be-*.bin \\\n         cEdge/c84g2aes-*.bin \\\n         cEdge/c8000be-*.bin \\\n+        cEdge/c8000be-*.bin \\\n         tester@\"$host\":${dest}/\n     # styx: c8kg2be-*.bin\n     # hydra, charon: c81g2be-*.bin\n     # bender: c84g2aes-*.bin\n"
+                },
+                {
+                    "date": 1772774234592,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -54,9 +54,9 @@\n         viptela-bond-genericx86-64.qcow2 \\\n         MD5SUMS \\\n         c8000v-universalk9_serial.*.iso \\\n         cEdge/c8kg2be-*.bin \\\n-        cEdge/c84g2aes-*.bin \\\n+        cEdge/c81g2be-*.bin \\\n         cEdge/c8000be-*.bin \\\n         cEdge/c8000be-*.bin \\\n         tester@\"$host\":${dest}/\n     # styx: c8kg2be-*.bin\n"
+                },
+                {
+                    "date": 1772774249358,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -55,10 +55,10 @@\n         MD5SUMS \\\n         c8000v-universalk9_serial.*.iso \\\n         cEdge/c8kg2be-*.bin \\\n         cEdge/c81g2be-*.bin \\\n+        cEdge/c84g2aes-*.bin \\\n         cEdge/c8000be-*.bin \\\n-        cEdge/c8000be-*.bin \\\n         tester@\"$host\":${dest}/\n     # styx: c8kg2be-*.bin\n     # hydra, charon: c81g2be-*.bin\n     # bender: c84g2aes-*.bin\n"
+                },
+                {
+                    "date": 1773221560439,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -53,13 +53,15 @@\n         viptela-smart-genericx86-64.qcow2 \\\n         viptela-bond-genericx86-64.qcow2 \\\n         MD5SUMS \\\n         c8000v-universalk9_serial.*.iso \\\n-        cEdge/c8kg2be-*.bin \\\n-        cEdge/c81g2be-*.bin \\\n-        cEdge/c84g2aes-*.bin \\\n-        cEdge/c8000be-*.bin \\\n         tester@\"$host\":${dest}/\n+\n+        # cEdge/c8kg2be-*.bin \\\n+        # cEdge/c81g2be-*.bin \\\n+        # cEdge/c84g2aes-*.bin \\\n+        # cEdge/c8000be-*.bin \\\n+        # tester@\"$host\":${dest}/\n     # styx: c8kg2be-*.bin\n     # hydra, charon: c81g2be-*.bin\n     # bender: c84g2aes-*.bin\n     # curie: c8000be-*.bin\n"
+                },
+                {
+                    "date": 1773221596349,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -48,15 +48,15 @@\n     # echo \"scp MD5SUMS ...\"\n     # scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null MD5SUMS tester@\"$host\":${dest}/\n \n     echo \"scp controller images ...\"\n-    scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null viptela-vmanage-genericx86-64.qcow2 \\\n+    scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \\\n+        viptela-vmanage-genericx86-64.qcow2 \\\n         viptela-smart-genericx86-64.qcow2 \\\n         viptela-bond-genericx86-64.qcow2 \\\n         MD5SUMS \\\n         c8000v-universalk9_serial.*.iso \\\n         tester@\"$host\":${dest}/\n-\n         # cEdge/c8kg2be-*.bin \\\n         # cEdge/c81g2be-*.bin \\\n         # cEdge/c84g2aes-*.bin \\\n         # cEdge/c8000be-*.bin \\\n"
+                },
+                {
+                    "date": 1773222106590,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,8 +11,9 @@\n hostname=$1\n folder=$2\n version=$3\n build=$4\n+mode=$5\n \n path=\"/auto/sdwan2/builds/daily/$version/$build\"\n path_vedge=\"/auto/sdwan2/builds/daily/20.9/STABLE/\"\n dest=\"/home/tester/images/$folder\"\n"
+                },
+                {
+                    "date": 1773222160958,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -78,8 +78,12 @@\n         fi\n     done\n     \n     echo \"Processing host: ${hostnames[$index]} (${host})\"\n+    if [[ -z \"$mode\" ]]; then\n+        echo \"Error: Hostname '$hostname' not found in the list.\"\n+        exit 1\n+    fi\n     scp_vedge_image \"$host\"\n     scp_controller_image \"$host\"\n else\n     echo \"Usage:\"\n"
+                },
+                {
+                    "date": 1773222231740,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,9 +11,9 @@\n hostname=$1\n folder=$2\n version=$3\n build=$4\n-mode=$5\n+vedge=$5\n \n path=\"/auto/sdwan2/builds/daily/$version/$build\"\n path_vedge=\"/auto/sdwan2/builds/daily/20.9/STABLE/\"\n dest=\"/home/tester/images/$folder\"\n"
+                },
+                {
+                    "date": 1773222238939,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -78,9 +78,9 @@\n         fi\n     done\n     \n     echo \"Processing host: ${hostnames[$index]} (${host})\"\n-    if [[ -z \"$mode\" ]]; then\n+    if [[ -z \"$vedge\" ]]; then\n         echo \"Error: Hostname '$hostname' not found in the list.\"\n         exit 1\n     fi\n     scp_vedge_image \"$host\"\n"
+                },
+                {
+                    "date": 1773222285394,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -79,10 +79,9 @@\n     done\n     \n     echo \"Processing host: ${hostnames[$index]} (${host})\"\n     if [[ -z \"$vedge\" ]]; then\n-        echo \"Error: Hostname '$hostname' not found in the list.\"\n-        exit 1\n+        echo \"No vedge image will be copied to $host.\"\n     fi\n     scp_vedge_image \"$host\"\n     scp_controller_image \"$host\"\n else\n"
+                },
+                {
+                    "date": 1773222307415,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -80,11 +80,14 @@\n     \n     echo \"Processing host: ${hostnames[$index]} (${host})\"\n     if [[ -z \"$vedge\" ]]; then\n         echo \"No vedge image will be copied to $host.\"\n+        scp_controller_image \"$host\"\n+    else\n+        echo \"A vedge image will also be copied to $host.\"\n     fi\n     scp_vedge_image \"$host\"\n-    scp_controller_image \"$host\"\n+    \n else\n     echo \"Usage:\"\n     echo \"  $0 [sdwan-reg-1|sdwan-reg-2|sdwan-reg-3|sdwan-reg-4|sdwan-reg-5] [images_folder_name] [version] [build_number]\"\n     exit 1\n"
+                },
+                {
+                    "date": 1773222321494,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -82,12 +82,13 @@\n     if [[ -z \"$vedge\" ]]; then\n         echo \"No vedge image will be copied to $host.\"\n         scp_controller_image \"$host\"\n     else\n+        scp_vedge_image \"$host\"\n         echo \"A vedge image will also be copied to $host.\"\n     fi\n-    scp_vedge_image \"$host\"\n     \n+    \n else\n     echo \"Usage:\"\n     echo \"  $0 [sdwan-reg-1|sdwan-reg-2|sdwan-reg-3|sdwan-reg-4|sdwan-reg-5] [images_folder_name] [version] [build_number]\"\n     exit 1\n"
+                },
+                {
+                    "date": 1773222331538,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -80,15 +80,15 @@\n     \n     echo \"Processing host: ${hostnames[$index]} (${host})\"\n     if [[ -z \"$vedge\" ]]; then\n         echo \"No vedge image will be copied to $host.\"\n-        scp_controller_image \"$host\"\n+        \n     else\n         scp_vedge_image \"$host\"\n         echo \"A vedge image will also be copied to $host.\"\n     fi\n+    scp_controller_image \"$host\"\n     \n-    \n else\n     echo \"Usage:\"\n     echo \"  $0 [sdwan-reg-1|sdwan-reg-2|sdwan-reg-3|sdwan-reg-4|sdwan-reg-5] [images_folder_name] [version] [build_number]\"\n     exit 1\n"
+                },
+                {
+                    "date": 1773222344416,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -80,9 +80,8 @@\n     \n     echo \"Processing host: ${hostnames[$index]} (${host})\"\n     if [[ -z \"$vedge\" ]]; then\n         echo \"No vedge image will be copied to $host.\"\n-        \n     else\n         scp_vedge_image \"$host\"\n         echo \"A vedge image will also be copied to $host.\"\n     fi\n"
+                },
+                {
+                    "date": 1773222420521,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -78,9 +78,10 @@\n         fi\n     done\n     \n     echo \"Processing host: ${hostnames[$index]} (${host})\"\n-    if [[ -z \"$vedge\" ]]; then\n+    if [[ -n \"$vedge\" ]]; then\n+\n         echo \"No vedge image will be copied to $host.\"\n     else\n         scp_vedge_image \"$host\"\n         echo \"A vedge image will also be copied to $host.\"\n"
+                },
+                {
+                    "date": 1773222431586,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -79,13 +79,13 @@\n     done\n     \n     echo \"Processing host: ${hostnames[$index]} (${host})\"\n     if [[ -n \"$vedge\" ]]; then\n-\n+        scp_vedge_image \"$host\"\n+        echo \"A vedge image will also be copied to $host.\"\n         echo \"No vedge image will be copied to $host.\"\n     else\n-        scp_vedge_image \"$host\"\n-        echo \"A vedge image will also be copied to $host.\"\n+\n     fi\n     scp_controller_image \"$host\"\n     \n else\n"
+                },
+                {
+                    "date": 1773222445281,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -81,11 +81,10 @@\n     echo \"Processing host: ${hostnames[$index]} (${host})\"\n     if [[ -n \"$vedge\" ]]; then\n         scp_vedge_image \"$host\"\n         echo \"A vedge image will also be copied to $host.\"\n+    else\n         echo \"No vedge image will be copied to $host.\"\n-    else\n-\n     fi\n     scp_controller_image \"$host\"\n     \n else\n"
+                },
+                {
+                    "date": 1773222459827,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -79,10 +79,10 @@\n     done\n     \n     echo \"Processing host: ${hostnames[$index]} (${host})\"\n     if [[ -n \"$vedge\" ]]; then\n+        echo \"A vedge image will also be copied to $host.\"\n         scp_vedge_image \"$host\"\n-        echo \"A vedge image will also be copied to $host.\"\n     else\n         echo \"No vedge image will be copied to $host.\"\n     fi\n     scp_controller_image \"$host\"\n"
+                },
+                {
+                    "date": 1773222484394,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -88,9 +88,9 @@\n     scp_controller_image \"$host\"\n     \n else\n     echo \"Usage:\"\n-    echo \"  $0 [sdwan-reg-1|sdwan-reg-2|sdwan-reg-3|sdwan-reg-4|sdwan-reg-5] [images_folder_name] [version] [build_number]\"\n+    echo \"  $0 [sdwan-reg-1|sdwan-reg-2|sdwan-reg-3|sdwan-reg-4|sdwan-reg-5] [images_folder_name] [version] [build_number] [vedge_image]\"\n     exit 1\n fi\n \n echo \"All done.\"\n"
+                },
+                {
+                    "date": 1773223063384,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -79,12 +79,12 @@\n     done\n     \n     echo \"Processing host: ${hostnames[$index]} (${host})\"\n     if [[ -n \"$vedge\" ]]; then\n-        echo \"A vedge image will also be copied to $host.\"\n+        echo \"==========A vedge image will also be copied to $host.==========\"\n         scp_vedge_image \"$host\"\n     else\n-        echo \"No vedge image will be copied to $host.\"\n+        echo \"==========No vedge image will be copied to $host.==========\"\n     fi\n     scp_controller_image \"$host\"\n     \n else\n"
+                },
+                {
+                    "date": 1773223072815,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -79,9 +79,9 @@\n     done\n     \n     echo \"Processing host: ${hostnames[$index]} (${host})\"\n     if [[ -n \"$vedge\" ]]; then\n-        echo \"==========A vedge image will also be copied to $host.==========\"\n+        echo \"==========vedge image will also be copied to $host.==========\"\n         scp_vedge_image \"$host\"\n     else\n         echo \"==========No vedge image will be copied to $host.==========\"\n     fi\n"
+                },
+                {
+                    "date": 1773223078199,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -79,9 +79,9 @@\n     done\n     \n     echo \"Processing host: ${hostnames[$index]} (${host})\"\n     if [[ -n \"$vedge\" ]]; then\n-        echo \"==========vedge image will also be copied to $host.==========\"\n+        echo \"==========vedge image will be copied to $host.==========\"\n         scp_vedge_image \"$host\"\n     else\n         echo \"==========No vedge image will be copied to $host.==========\"\n     fi\n"
                 }
             ],
             "date": 1772077578289,
