@@ -15,7 +15,7 @@ function scp_files(){
     scp 2203_update_yaml.py tester@"$host":/home/tester/yaml/
     scp 2601_notification_manager.py tester@"$host":/home/tester/kaidyan/scripts/
     scp poll_run_status.sh tester@"$host":/home/tester/kaidyan/scripts/
-    scp remove_old_images.sh tester@"$host":/home/tester/kaidyan/scripts/
+    scp remove_old_images.sh tester@"$host":/home/tester/images/
 
     # -- config files --
     # scp ntp.conf tester@"$host":/home/tester/kaidyan/scripts/

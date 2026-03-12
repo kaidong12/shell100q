@@ -209,19 +209,19 @@ pipeline {
             }
         }
 
-        stage('Reset-7: reset_environment') {
-            steps {
-                script {
-                    build job: 'reset_environment',
-                          propagate: params.EXIT_ON_FAIL,
-                          parameters: [
-                              string(name: 'WEBEX_ROOM_ID', value: env.WEBEX_ROOM_ID),
-                              string(name: 'NODE_LABEL', value: params.NODE_LABEL),
-                              string(name: 'YAML_PATH', value: params.YAML_PATH)
-                          ]
-                }
-            }
-        }
+        // stage('Reset-7: reset_environment') {
+        //     steps {
+        //         script {
+        //             build job: 'reset_environment',
+        //                   propagate: params.EXIT_ON_FAIL,
+        //                   parameters: [
+        //                       string(name: 'WEBEX_ROOM_ID', value: env.WEBEX_ROOM_ID),
+        //                       string(name: 'NODE_LABEL', value: params.NODE_LABEL),
+        //                       string(name: 'YAML_PATH', value: params.YAML_PATH)
+        //                   ]
+        //         }
+        //     }
+        // }
 
     }
 

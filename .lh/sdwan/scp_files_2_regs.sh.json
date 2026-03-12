@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 8,
+            "activePatchIndex": 10,
             "patches": [
                 {
                     "date": 1772724187939,
@@ -40,6 +40,14 @@
                 {
                     "date": 1773225123024,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,18 +5,18 @@\n function scp_files(){\n     local host=$1\n     echo \"Copying files to $host...\"\n \n-    # scp .bash_aliases tester@\"$host\":/home/tester/\n+    scp .bash_aliases tester@\"$host\":/home/tester/\n \n-    # scp bvirsh tester@\"$host\":/home/tester/bin/\n-    # scp ifrename tester@\"$host\":/home/tester/bin/\n-    # scp notify_bot tester@\"$host\":/home/tester/bin/\n+    scp bvirsh tester@\"$host\":/home/tester/bin/\n+    scp ifrename tester@\"$host\":/home/tester/bin/\n+    scp notify_bot tester@\"$host\":/home/tester/bin/\n \n     scp 2203_update_yaml.py tester@\"$host\":/home/tester/yaml/\n-    # scp 2601_notification_manager.py tester@\"$host\":/home/tester/kaidyan/scripts/\n-    # scp poll_run_status.sh tester@\"$host\":/home/tester/kaidyan/scripts/\n-    # scp remove_old_images.sh tester@\"$host\":/home/tester/kaidyan/scripts/\n+    scp 2601_notification_manager.py tester@\"$host\":/home/tester/kaidyan/scripts/\n+    scp poll_run_status.sh tester@\"$host\":/home/tester/kaidyan/scripts/\n+    scp remove_old_images.sh tester@\"$host\":/home/tester/kaidyan/scripts/\n \n     # -- config files --\n     # scp ntp.conf tester@\"$host\":/home/tester/kaidyan/scripts/\n }\n"
+                },
+                {
+                    "date": 1773284674875,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,16 +7,16 @@\n     echo \"Copying files to $host...\"\n \n     scp .bash_aliases tester@\"$host\":/home/tester/\n \n-    scp bvirsh tester@\"$host\":/home/tester/bin/\n-    scp ifrename tester@\"$host\":/home/tester/bin/\n-    scp notify_bot tester@\"$host\":/home/tester/bin/\n+    # scp bvirsh tester@\"$host\":/home/tester/bin/\n+    # scp ifrename tester@\"$host\":/home/tester/bin/\n+    # scp notify_bot tester@\"$host\":/home/tester/bin/\n \n-    scp 2203_update_yaml.py tester@\"$host\":/home/tester/yaml/\n-    scp 2601_notification_manager.py tester@\"$host\":/home/tester/kaidyan/scripts/\n-    scp poll_run_status.sh tester@\"$host\":/home/tester/kaidyan/scripts/\n-    scp remove_old_images.sh tester@\"$host\":/home/tester/kaidyan/scripts/\n+    # scp 2203_update_yaml.py tester@\"$host\":/home/tester/yaml/\n+    # scp 2601_notification_manager.py tester@\"$host\":/home/tester/kaidyan/scripts/\n+    # scp poll_run_status.sh tester@\"$host\":/home/tester/kaidyan/scripts/\n+    # scp remove_old_images.sh tester@\"$host\":/home/tester/images/\n \n     # -- config files --\n     # scp ntp.conf tester@\"$host\":/home/tester/kaidyan/scripts/\n }\n"
+                },
+                {
+                    "date": 1773284737380,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,16 +7,16 @@\n     echo \"Copying files to $host...\"\n \n     scp .bash_aliases tester@\"$host\":/home/tester/\n \n-    # scp bvirsh tester@\"$host\":/home/tester/bin/\n-    # scp ifrename tester@\"$host\":/home/tester/bin/\n-    # scp notify_bot tester@\"$host\":/home/tester/bin/\n+    scp bvirsh tester@\"$host\":/home/tester/bin/\n+    scp ifrename tester@\"$host\":/home/tester/bin/\n+    scp notify_bot tester@\"$host\":/home/tester/bin/\n \n-    # scp 2203_update_yaml.py tester@\"$host\":/home/tester/yaml/\n-    # scp 2601_notification_manager.py tester@\"$host\":/home/tester/kaidyan/scripts/\n-    # scp poll_run_status.sh tester@\"$host\":/home/tester/kaidyan/scripts/\n-    # scp remove_old_images.sh tester@\"$host\":/home/tester/images/\n+    scp 2203_update_yaml.py tester@\"$host\":/home/tester/yaml/\n+    scp 2601_notification_manager.py tester@\"$host\":/home/tester/kaidyan/scripts/\n+    scp poll_run_status.sh tester@\"$host\":/home/tester/kaidyan/scripts/\n+    scp remove_old_images.sh tester@\"$host\":/home/tester/images/\n \n     # -- config files --\n     # scp ntp.conf tester@\"$host\":/home/tester/kaidyan/scripts/\n }\n"
                 }
             ],
             "date": 1772724187939,
