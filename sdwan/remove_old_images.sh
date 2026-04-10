@@ -9,3 +9,4 @@ rm -rf viptela-bond-genericx86-64.qcow2 viptela-smart-genericx86-64.qcow2 viptel
 popd || exit 1
 
 cd /home/tester/images
+date

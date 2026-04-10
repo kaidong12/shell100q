@@ -94,3 +94,4 @@ else
 fi
 
 echo "All done."
+date

@@ -50,8 +50,8 @@ pipeline {
                     echo "============================environment============================"
                     
                     echo "----------------------------------------------------------------------------------------------------"
-                    # /home/tester/vtest/bin/runner sdwan_ssr_express_hw -ntr -ns -ntg --ncclient_debug --http_debug -tt -iub -rub -m test:ABS_SSR_Full_cexpress_ibc -q;
-                    /home/tester/vtest/bin/runner sdwan_ssr_express_hw -y /home/tester/yaml/${params.YAML_PATH}/NTP_CEDGE.yaml -n tb -b stable/next -o -ntr -ns -ntg --ncclient_debug --http_debug -tt -iub -rub -m test:ABS_SSR_Full_cexpress_ibc -q;
+                    # /home/tester/vtest/bin/runner sdwan_ssr_express_hw -ntr -ns -ntg --ncclient_debug --http_debug -tt -iub -rub -m ABS_SSR_Full_cexpress_ibc -q;
+                    /home/tester/vtest/bin/runner sdwan_ssr_express_hw -y /home/tester/yaml/${params.YAML_PATH}/NTP_CEDGE.yaml -n tb -b stable/next -o -ntr -ns -ntg --ncclient_debug --http_debug -tt -iub -rub -m ABS_SSR_Full_cexpress_ibc -q;
                     echo "----------------------------------------------------------------------------------------------------"
                     date
                     
