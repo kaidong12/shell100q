@@ -4897,8 +4897,7 @@ class Testbed(object):
             if res != 0:
                 raise TestbedBringupError('Issues with machines coming up after setting personality')
 
-        self.logger.info("bringup.start_monitor()".center(60, "="))
-        self.start_monitor(60.0)
+        self.start_monitor(120.0)
         # pdb.set_trace()
 
         try:
@@ -17091,6 +17090,7 @@ class Testbed(object):
     def get_machine_session(
         self, machine, timeout=60, logfile=None, hostname=False, wait=False, root=False, set_clock=False, ncs=False
     ):
+        self.logger.info(f"bringup.start_monitor().monitor_machines_process().monitor_machines_thread().get_machine_session({machine})".center(120, "="))
         if not self.mgmt_ipaddr(machine):
             self.logger.warning("Machine {} doesn't have 'MGMT' interface configured".format(machine))
             return None
@@ -17199,7 +17199,7 @@ class Testbed(object):
                     self.logger.error(f'get_machine_session: {machine=} {passwords=}')
             if not less_than_max:
                 wait_val = int(time.time() - start_time)
-                self.logger.error('Could not log in to %s, please check to make sure it is not in a bad state - waited for %s sec' %(machine,wait_val) )
+                self.logger.error('Could not log in to %s, please check to make sure it is not in a bad state - waited for %s sec' %(machine,wait_val))
                 self.logger.error(cmd)
                 return -99
             if self.is_ucs(machine) or self.is_nfvis(machine):
@@ -18525,6 +18525,7 @@ class Testbed(object):
 #############################################################################
 
     def start_monitor(self, threshold):
+        self.logger.info(f"bringup.start_monitor({threshold})".center(120, "="))
         if not pref.get('monitor', True):
             self.logger.info('Machines monitoring functions are disabled')
             return
@@ -18587,6 +18588,7 @@ class Testbed(object):
         return results
 
     def monitor_machines_process(self, machines_to_monitor, q, event, threshold):
+        self.logger.info(f"bringup.start_monitor().monitor_machines_process({threshold})".center(120, "="))
         sessions = {}
         threads = []
         e = Event()
@@ -18596,7 +18598,7 @@ class Testbed(object):
                 t_name = f'vTestMachine-{machine}-Monitor'
                 treshold_t = threshold
                 if self.personality(machine) == 'vmanage':
-                    treshold_t = 180.0
+                    treshold_t = 120.0
                 thread = Thread(target=self.monitor_machines_thread, name=t_name, args=(q, e, machine, treshold_t))
                 thread.start()
                 threads.append(thread)
@@ -18618,6 +18620,7 @@ class Testbed(object):
             return 0
 
     def monitor_machines_thread(self, q, event, machine, threshold):
+        self.logger.info(f"bringup.start_monitor().monitor_machines_process().monitor_machines_thread({machine})".center(120, "="))
         session = self.get_machine_session(machine, 60, None, False, True, True)
         session.logfile = None
         while event.is_set() == False:
@@ -21000,7 +21003,7 @@ class Testbed(object):
             for key in list(self.config['machines'][machine]['interfaces'][iface].keys()):
                 if key =='intf':
                     if self.config['machines'][machine]['interfaces'][iface][key][1] == interface_name:
-                        if ('type' in self.config['machines'][machine]['interfaces'][iface])== True:
+                        if self.config['machines'][machine]['interfaces'][iface].get('type', '') == 'l2_vlan':
                             return [True, 'interface %s is switching port'%interface_name]
                         else:
                             return [False, 'did not find the l2_nim']

@@ -7,11 +7,12 @@ function scp_files(){
     echo "Copying files to $host..."
 
     # scp runner.py tester@"$host":/home/tester/vtest/tests/
-    # scp testbed.py tester@"$host":/home/tester/vtest/testbed/
+    scp testbed.py tester@"$host":/home/tester/vtest/testbed/
+    scp confd.py tester@"$host":/home/tester/vtest/tests/lib/
 
     # scp tools.py tester@"$host":/home/tester/vtest/
 
-    scp .bash_aliases tester@"$host":/home/tester/
+    # scp .bash_aliases tester@"$host":/home/tester/
 
     # scp bvirsh tester@"$host":/home/tester/bin/
     # scp ifrename tester@"$host":/home/tester/bin/
